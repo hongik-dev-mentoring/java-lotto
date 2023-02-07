@@ -9,9 +9,8 @@ public class LottoGenerator {
     public static final Integer CANDIDATE_MAX_NUMBER = 45;
     public static final Integer NUMBER_OF_LOTTO_NUMS = 6;
 
-    private List<Integer> lottoCandidateNumbers = new ArrayList<>();
-
-    public List<Integer> generate() {
+    public static List<Integer> generate() {
+        List<Integer> lottoCandidateNumbers = new ArrayList<>();
 
         for (int i = CANDIDATE_MIN_NUMBER; i <= CANDIDATE_MAX_NUMBER; i++) {
             lottoCandidateNumbers.add(i);
@@ -22,7 +21,6 @@ public class LottoGenerator {
         List<Integer> lottoNumbers = new ArrayList<>();
 
         for (int i = 0; i < NUMBER_OF_LOTTO_NUMS; i++) {
-            System.out.println(lottoCandidateNumbers.get(i));
             lottoNumbers.add(lottoCandidateNumbers.get(i));
         }
         return lottoNumbers;
