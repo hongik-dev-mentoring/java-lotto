@@ -10,7 +10,7 @@ public class LottoDto {
         this.lottoNumbers = new ArrayList<>(lottoNumbers);
     }
 
-    public List<Integer> getLottoDto() {
+    public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
 }
