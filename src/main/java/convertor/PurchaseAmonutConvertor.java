@@ -2,7 +2,7 @@ package convertor;
 
 public class PurchaseAmonutConvertor {
 
-	public static Integer getPurchaseAmount(String purchaseAmountMoney) {
+	public static Integer convertPurchaseAmount(String purchaseAmountMoney) {
 		try {
 			return Integer.parseInt(purchaseAmountMoney);
 		} catch (NumberFormatException e) {
