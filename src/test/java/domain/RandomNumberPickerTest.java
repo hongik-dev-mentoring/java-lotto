@@ -37,4 +37,17 @@ class RandomNumberPickerTest {
 
 		assertThat(pickedNumbers.size()).isEqualTo(PICK_NUMBERS);
 	}
+
+	@Test
+	void 뽑은_숫자들은_중복된_숫자가_없다() {
+		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+
+		Numbers numbers = randomNumberPicker.pickNumber();
+		List<Integer> pickedNumbers = numbers.getNumbers();
+		List<Integer> afterDistinctNumbers = pickedNumbers.stream()
+				.distinct()
+				.collect(Collectors.toList());
+
+		assertThat(afterDistinctNumbers).isEqualTo(pickedNumbers);
+	}
 }
