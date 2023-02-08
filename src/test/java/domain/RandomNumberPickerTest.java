@@ -27,4 +27,14 @@ class RandomNumberPickerTest {
 
 		assertThat(afterFilteringNumbers).isEqualTo(expectedNumbers);
 	}
+
+	@Test
+	void 임의_갯수의_숫자를_뽑을_수_있다() {
+		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+
+		Numbers numbers = randomNumberPicker.pickNumber();
+		List<Integer> pickedNumbers = numbers.getNumbers();
+
+		assertThat(pickedNumbers.size()).isEqualTo(PICK_NUMBERS);
+	}
 }
