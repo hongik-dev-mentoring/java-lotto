@@ -15,6 +15,7 @@ import domain.Numbers;
 public class LottoNumberConvertorTest {
 
 	private static final String winningNumbers = "1, 2, 3, 4, 5, 6";
+	private static final String bonusNumber = "7";
 
 	@Test
 	void 당첨_번호를_입력받아_정상_변환한다() {
@@ -39,6 +40,15 @@ public class LottoNumberConvertorTest {
 		assertThatThrownBy(() -> LottoNumberConvertor.convertWinningNumber(input))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 당첨 번호는 여섯개여야 합니다.");
+	}
+
+	@Test
+	void 보너스_번호를_입력받아_정상_변환한다() {
+		Integer bonusNumber = LottoNumberConvertor.convertBonusNumber(bonusNumber);
+
+		Integer expectedNumber = 7;
+
+		assertThat(bonusNumber).isEqualTo(expectedNumber);
 	}
 
 }
