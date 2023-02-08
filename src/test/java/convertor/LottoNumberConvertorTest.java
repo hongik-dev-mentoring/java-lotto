@@ -50,10 +50,11 @@ public class LottoNumberConvertorTest {
 		assertThat(bonusNumber).isEqualTo(expectedNumber);
 	}
 
-	@Test
-	void 보너스_번호는_숫자여야_한다() {
-		assertThatThrownBy(() -> LottoNumberConvertor.convertBonusNumber("a"))
+	@ParameterizedTest
+	@ValueSource(strings = {"a", "1, 2"})
+	void 보너스_번호는_하나의_숫자여야_한다(String input) {
+		assertThatThrownBy(() -> LottoNumberConvertor.convertBonusNumber(input))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 보너스 번호는 숫자여야 합니다. 다시 입력해주세요");
+			.hasMessage("[ERROR] 보너스 번호는 한 개의 숫자여야 합니다. 다시 입력해주세요");
 	}
 }
