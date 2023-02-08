@@ -32,6 +32,10 @@ public class LottoNumberConvertor {
 	}
 
 	public static Integer convertBonusNumber(String bonusNumber) {
-		return Integer.parseInt(bonusNumber);
+		try {
+			return Integer.parseInt(bonusNumber);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자여야 합니다. 다시 입력해주세요");
+		}
 	}
 }
