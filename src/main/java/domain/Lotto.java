@@ -16,8 +16,8 @@ public class Lotto {
 		this.lottoNumbers = generateLottoNumbers(numberOfLotto);
 	}
 
-	public static Lotto generateLottoWithLottoNumbers(int numOfLotto) {
-		return new Lotto(numOfLotto);
+	public static Lotto generateLottoWithLottoNumbers(int numberOfLotto) {
+		return new Lotto(numberOfLotto);
 	}
 
 	private LottoNumbers generateLottoNumbers(int numberOfLotto) {
