@@ -17,15 +17,15 @@ class LottoTest {
 
 	@Test
 	void 임의_갯수의_로또_번호를_가진_로또_객체를_만들_수_있다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
-		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberPicker, LOTTO_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberGenerator, LOTTO_NUMBERS);
 		assertThat(lotto.getLottoNumbers().getNumbers().size()).isEqualTo(10);
 	}
 
 	@Test
 	void 임의로_번호를_입력하면_당첨_결과를_받을_수_있다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
-		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberPicker, LOTTO_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberGenerator, LOTTO_NUMBERS);
 		Numbers pickNumbers = new Numbers(Arrays.asList(1, 2, 3, 4, 5, 6));
 		Integer bonusBall = BONUS_NUMBER;
 
@@ -37,8 +37,8 @@ class LottoTest {
 
 	@Test
 	void 다섯개의_번호와_보너스볼이_일치하면_2등에_당첨된다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
-		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberPicker, LOTTO_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
+		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberGenerator, LOTTO_NUMBERS);
 		Numbers pickNumbers = new Numbers(Arrays.asList(1, 2, 3, 4, 5, 6));
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickNumbers, BONUS_NUMBER);
@@ -49,8 +49,8 @@ class LottoTest {
 
 	@Test
 	void 다섯개의_번호가_일치하고_보너스볼이_불일치하면_3등에_당첨된다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
-		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberPicker, LOTTO_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
+		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberGenerator, LOTTO_NUMBERS);
 		Numbers pickNumbers = new Numbers(Arrays.asList(1, 2, 3, 4, 5, 6));
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickNumbers, 10);

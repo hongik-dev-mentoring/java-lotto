@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class RandomNumberPicker {
+public class RandomNumberGenerator {
 	private final int from;
 	private final int to;
 	private final int number;
 
-	public RandomNumberPicker(int from, int to, int number) {
+	public RandomNumberGenerator(int from, int to, int number) {
 		this.from = from;
 		this.to = to;
 		this.number = number;

@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-class RandomNumberPickerTest {
+class RandomNumberGeneratorTest {
 	private static final int START_NUMBER = 1;
 	private static final int END_NUMBER = 46;
 	private static final int PICK_NUMBERS = 6;
 
 	@Test
 	void 범위내의_숫자를_뽑을수_있다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberPicker.pickNumber();
+		Numbers numbers = randomNumberGenerator.pickNumber();
 		List<Integer> actualNumbers = numbers.getNumbers();
 
 		List<Integer> expectedNumbers = List.copyOf(actualNumbers);
@@ -30,9 +30,9 @@ class RandomNumberPickerTest {
 
 	@Test
 	void 임의_갯수의_숫자를_뽑을_수_있다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberPicker.pickNumber();
+		Numbers numbers = randomNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = numbers.getNumbers();
 
 		assertThat(pickedNumbers.size()).isEqualTo(PICK_NUMBERS);
@@ -40,9 +40,9 @@ class RandomNumberPickerTest {
 
 	@Test
 	void 뽑은_숫자들은_중복된_숫자가_없다() {
-		RandomNumberPicker randomNumberPicker = new RandomNumberPicker(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberPicker.pickNumber();
+		Numbers numbers = randomNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = numbers.getNumbers();
 		List<Integer> afterDistinctNumbers = pickedNumbers.stream()
 				.distinct()
