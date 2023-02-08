@@ -30,4 +30,8 @@ public class LottoNumberConvertor {
 			throw new IllegalArgumentException("[ERROR] 당첨 번호는 여섯개여야 합니다.");
 		}
 	}
+
+	public static Integer convertBonusNumber(String bonusNumber) {
+		return Integer.parseInt(bonusNumber);
+	}
 }
