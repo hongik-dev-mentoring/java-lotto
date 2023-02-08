@@ -10,10 +10,9 @@ class LottoControllerTest {
     
     LottoController lottoController;
 
-
     @BeforeEach
     public void inputSetUp() {
-        String input = "13999";
+        String input = "14000\n1, 2, 3, 4, 5, 6\n7\n";
         systemIn(input);
     }
 
