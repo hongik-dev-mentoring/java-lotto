@@ -15,7 +15,6 @@ import domain.Numbers;
 public class LottoNumberConvertorTest {
 
 	private static final String winningNumbers = "1, 2, 3, 4, 5, 6";
-	private static final String bonusNumber = "7";
 
 	@Test
 	void 당첨_번호를_입력받아_정상_변환한다() {
@@ -44,7 +43,7 @@ public class LottoNumberConvertorTest {
 
 	@Test
 	void 보너스_번호를_입력받아_정상_변환한다() {
-		Integer bonusNumber = LottoNumberConvertor.convertBonusNumber(bonusNumber);
+		Integer bonusNumber = LottoNumberConvertor.convertBonusNumber("7");
 
 		Integer expectedNumber = 7;
 
