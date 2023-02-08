@@ -35,7 +35,7 @@ public class LottoNumberConvertor {
 		try {
 			return Integer.parseInt(bonusNumber);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자여야 합니다. 다시 입력해주세요");
+			throw new IllegalArgumentException("[ERROR] 보너스 번호는 한 개의 숫자여야 합니다. 다시 입력해주세요");
 		}
 	}
 }
