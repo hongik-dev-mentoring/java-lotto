@@ -2,13 +2,19 @@ package domain;
 
 public enum Ranking {
 
-	FIRST(2000000000), SECOND(30000000), THIRD(1500000),
-	FOURTH(50000), FIFTH(5000), UNRANKED(0);
+	FIRST(6, 2000000000), SECOND(5, 30000000), THIRD(5, 1500000),
+	FOURTH(4, 50000), FIFTH(3, 5000), UNRANKED(0, 0);
 
+	private int correctNumber;
 	private int winningAmount;
 
-	Ranking(int winningAmount) {
+	Ranking(int correctNumber, int winningAmount) {
+		this.correctNumber = correctNumber;
 		this.winningAmount = winningAmount;
+	}
+
+	public int getCorrectNumber() {
+		return correctNumber;
 	}
 
 	public int getWinningAmount() {
