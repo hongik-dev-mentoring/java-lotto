@@ -21,21 +21,23 @@ public class RandomNumberGenerator {
 			.boxed()
 			.collect(Collectors.toList());
 
-		List<Integer> shuffledNumbers = shuffleNumbers(pickNumbers);
-		List<Integer> limitedNumbers = limitNumbers(shuffledNumbers);
-
-		Collections.sort(limitedNumbers);
-		return new Numbers(limitedNumbers);
+		shuffleNumbers(pickNumbers);
+		List<Integer> limitNumbers = getLimitedNumbers(pickNumbers);
+		sortNumbers(limitNumbers);
+		return new Numbers(limitNumbers);
 	}
 
-	private List<Integer> shuffleNumbers(List<Integer> numbers) {
+	private void shuffleNumbers(List<Integer> numbers) {
 		Collections.shuffle(numbers);
-		return numbers;
 	}
 
-	private List<Integer> limitNumbers(List<Integer> numbers) {
+	private List<Integer> getLimitedNumbers(List<Integer> numbers) {
 		return numbers.stream()
 			.limit(number)
 			.collect(Collectors.toList());
+	}
+
+	private void sortNumbers(List<Integer> numbers) {
+		Collections.sort(numbers);
 	}
 }
