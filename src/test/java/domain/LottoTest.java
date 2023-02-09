@@ -19,7 +19,7 @@ class LottoTest {
 	void 임의_갯수의_로또_번호를_가진_로또_객체를_만들_수_있다() {
 		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(randomNumberGenerator, LOTTO_NUMBERS);
-		assertThat(lotto.getLottoNumbers().getNumbers().size()).isEqualTo(10);
+		assertThat(lotto.getLottoNumbers().getLottoTicket().size()).isEqualTo(10);
 	}
 
 	@Test
