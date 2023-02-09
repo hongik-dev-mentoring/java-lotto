@@ -4,13 +4,13 @@ import java.util.List;
 
 public class LottoTicket {
 
-	private final List<Numbers> lottoTicket;
+	private final List<LottoNumbers> lottoTicket;
 
-	public LottoTicket(List<Numbers> lottoTicket) {
+	public LottoTicket(List<LottoNumbers> lottoTicket) {
 		this.lottoTicket = lottoTicket;
 	}
 
-	public List<Numbers> getLottoTicket() {
+	public List<LottoNumbers> getLottoTicket() {
 		return List.copyOf(lottoTicket);
 	}
 }

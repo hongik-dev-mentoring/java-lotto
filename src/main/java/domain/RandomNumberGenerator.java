@@ -16,7 +16,7 @@ public class RandomNumberGenerator {
 		this.number = number;
 	}
 
-	public Numbers pickNumber() {
+	public LottoNumbers pickNumber() {
 		List<Integer> pickNumbers = IntStream.range(from, to)
 			.boxed()
 			.collect(Collectors.toList());
@@ -24,7 +24,7 @@ public class RandomNumberGenerator {
 		shuffleNumbers(pickNumbers);
 		List<Integer> limitNumbers = getLimitedNumbers(pickNumbers);
 		sortNumbers(limitNumbers);
-		return new Numbers(limitNumbers);
+		return new LottoNumbers(limitNumbers);
 	}
 
 	private void shuffleNumbers(List<Integer> numbers) {

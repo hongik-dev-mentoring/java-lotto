@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.Numbers;
+import domain.LottoNumbers;
 
 public class LottoNumberConvertor {
 	private static final String DELIMITER = ",";
 	private static final int LOTTO_NUMBER = 6;
 
-	public static Numbers convertWinningNumber(String winningNumber) {
+	public static LottoNumbers convertWinningNumber(String winningNumber) {
 		try {
 			String[] split = winningNumber.split(DELIMITER);
 			List<Integer> winnerNumbers = Arrays.stream(split)
@@ -19,7 +19,7 @@ public class LottoNumberConvertor {
 				.collect(Collectors.toList());
 
 			validateWinningNumber(winnerNumbers);
-			return new Numbers(winnerNumbers);
+			return new LottoNumbers(winnerNumbers);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자여야 합니다. 다시 입력해주세요");
 		}

@@ -2,10 +2,10 @@ package domain;
 
 import java.util.List;
 
-public class Numbers {
+public class LottoNumbers {
 	private final List<Integer> numbers;
 
-	public Numbers(List<Integer> numbers) {
+	public LottoNumbers(List<Integer> numbers) {
 		this.numbers = numbers;
 	}
 

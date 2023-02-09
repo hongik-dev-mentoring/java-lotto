@@ -16,8 +16,8 @@ class RandomNumberGeneratorTest {
 	void 범위내의_숫자를_뽑을수_있다() {
 		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberGenerator.pickNumber();
-		List<Integer> actualNumbers = numbers.getNumbers();
+		LottoNumbers lottoNumbers = randomNumberGenerator.pickNumber();
+		List<Integer> actualNumbers = lottoNumbers.getNumbers();
 
 		List<Integer> expectedNumbers = List.copyOf(actualNumbers);
 		List<Integer> afterFilteringNumbers = actualNumbers.stream()
@@ -32,8 +32,8 @@ class RandomNumberGeneratorTest {
 	void 임의_갯수의_숫자를_뽑을_수_있다() {
 		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberGenerator.pickNumber();
-		List<Integer> pickedNumbers = numbers.getNumbers();
+		LottoNumbers lottoNumbers = randomNumberGenerator.pickNumber();
+		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
 
 		assertThat(pickedNumbers.size()).isEqualTo(PICK_NUMBERS);
 	}
@@ -42,8 +42,8 @@ class RandomNumberGeneratorTest {
 	void 뽑은_숫자들은_중복된_숫자가_없다() {
 		RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 
-		Numbers numbers = randomNumberGenerator.pickNumber();
-		List<Integer> pickedNumbers = numbers.getNumbers();
+		LottoNumbers lottoNumbers = randomNumberGenerator.pickNumber();
+		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
 		List<Integer> afterDistinctNumbers = pickedNumbers.stream()
 				.distinct()
 				.collect(Collectors.toList());

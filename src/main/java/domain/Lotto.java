@@ -20,31 +20,31 @@ public class Lotto {
 	}
 
 	private LottoTicket generateLottoNumbers(int numberOfLotto) {
-		List<Numbers> numbersList = new ArrayList<>();
+		List<LottoNumbers> lottoNumbersList = new ArrayList<>();
 		for (int i = 0; i < numberOfLotto; i++) {
-			numbersList.add(randomNumberGenerator.pickNumber());
+			lottoNumbersList.add(randomNumberGenerator.pickNumber());
 		}
-		return new LottoTicket(numbersList);
+		return new LottoTicket(lottoNumbersList);
 	}
 
 	public LottoTicket getLottoNumbers() {
 		return lottoTicket;
 	}
 
-	public EnumMap<Ranking, Integer> checkLottoResult(Numbers pickNumbers, Integer bonusBall) {
+	public EnumMap<Ranking, Integer> checkLottoResult(LottoNumbers pickLottoNumbers, Integer bonusBall) {
 		EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
-		List<Numbers> RandomNumberList = lottoTicket.getLottoTicket();
+		List<LottoNumbers> RandomNumberList = lottoTicket.getLottoTicket();
 
-		for (Numbers lottoNumbersRow : RandomNumberList) {
-			Ranking ranking = checkRank(lottoNumbersRow, pickNumbers, bonusBall);
+		for (LottoNumbers lottoLottoNumbersRow : RandomNumberList) {
+			Ranking ranking = checkRank(lottoLottoNumbersRow, pickLottoNumbers, bonusBall);
 			Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
 			result.put(ranking, numberOfRank.orElse(0) + 1);
 		}
 		return result;
 	}
 
-	private Ranking checkRank(Numbers lottoNumbers, Numbers pickNumbers, Integer bonusBall) {
-		List<Integer> pickNumber = pickNumbers.getNumbers();
+	private Ranking checkRank(LottoNumbers lottoNumbers, LottoNumbers pickLottoNumbers, Integer bonusBall) {
+		List<Integer> pickNumber = pickLottoNumbers.getNumbers();
 
 		long containsNumberCount = pickNumber.stream()
 			.filter(lottoNumbers::contains)

@@ -5,12 +5,11 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.Arrays;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import domain.Numbers;
+import domain.LottoNumbers;
 
 public class LottoNumberConvertorTest {
 
@@ -18,9 +17,9 @@ public class LottoNumberConvertorTest {
 
 	@Test
 	void 당첨_번호를_입력받아_정상_변환한다() {
-		Numbers numbers = LottoNumberConvertor.convertWinningNumber(winningNumbers);
+		LottoNumbers lottoNumbers = LottoNumberConvertor.convertWinningNumber(winningNumbers);
 
-		List<Integer> winningNumbers = numbers.getNumbers();
+		List<Integer> winningNumbers = lottoNumbers.getNumbers();
 		List<Integer> expectedNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
 
 		assertThat(winningNumbers).isEqualTo(expectedNumbers);
