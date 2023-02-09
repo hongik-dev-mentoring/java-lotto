@@ -38,11 +38,11 @@ public class LottoNumbersTest {
 	}
 
 	@Test
-	void 로또_번호는_중복일수_없다(int input) {
+	void 로또_번호는_중복일수_없다() {
 		List<Integer> duplicatedLottoNumbers = List.of(1,2,3,4,5,5);
 
 		assertThatThrownBy(() -> new LottoNumbers(duplicatedLottoNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 로또 번호는 중복일 수 없습니다.");
+			.hasMessage("[ERROR] 로또 번호는 중복이 불가능합니다.");
 	}
 }
