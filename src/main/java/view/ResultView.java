@@ -35,4 +35,8 @@ public class ResultView {
         }
         System.out.printf("%.2f", (double) rewardSum / inputPrice);
     }
+
+    public static void printPurchaseInfo(int purchaseNum) {
+        System.out.println(purchaseNum + "개를 구매했습니다.");
+    }
 }
