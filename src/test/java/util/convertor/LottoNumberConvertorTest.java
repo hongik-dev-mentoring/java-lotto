@@ -38,7 +38,7 @@ public class LottoNumberConvertorTest {
 	void 당첨_번호는_여섯개여야_한다(String input) {
 		assertThatThrownBy(() -> LottoNumberConvertor.convertWinningNumber(input))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 당첨 번호는 여섯개여야 합니다.");
+			.hasMessage("[ERROR] 로또 번호는 여섯 개의 숫자여야 합니다.");
 	}
 
 	@Test
