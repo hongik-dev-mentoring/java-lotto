@@ -16,4 +16,16 @@ public class LottoGenerator {
         List<Integer> lottoNumbers = generateLottoNumbers(lottoCandidateNumbers);
         return new LottoDto(lottoNumbers);
     }
+
+    private static List<Integer> generateCandidateNumbers() {
+        return IntStream.rangeClosed(CANDIDATE_MIN_NUMBER, CANDIDATE_MAX_NUMBER)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private static List<Integer> generateLottoNumbers(List<Integer> lottoCandidateNumbers) {
+        return lottoCandidateNumbers.stream()
+                .limit(NUMBER_OF_LOTTO_NUMS)
+                .collect(Collectors.toList());
+    }
 }
