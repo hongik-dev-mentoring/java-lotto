@@ -20,11 +20,11 @@ public class Lotto {
 	}
 
 	private LottoTicket generateLottoNumbers(int numberOfLotto) {
-		List<LottoNumbers> lottoNumbersList = new ArrayList<>();
+		List<LottoNumbers> lottoNumbers = new ArrayList<>();
 		for (int i = 0; i < numberOfLotto; i++) {
-			lottoNumbersList.add(randomNumberGenerator.pickNumber());
+			lottoNumbers.add(randomNumberGenerator.pickNumber());
 		}
-		return new LottoTicket(lottoNumbersList);
+		return new LottoTicket(lottoNumbers);
 	}
 
 	public LottoTicket getLottoNumbers() {
@@ -33,9 +33,9 @@ public class Lotto {
 
 	public EnumMap<Ranking, Integer> checkLottoResult(LottoNumbers pickLottoNumbers, Integer bonusBall) {
 		EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
-		List<LottoNumbers> RandomNumberList = lottoTicket.getLottoTicket();
+		List<LottoNumbers> lottoNumbers = lottoTicket.getLottoTicket();
 
-		for (LottoNumbers lottoLottoNumbersRow : RandomNumberList) {
+		for (LottoNumbers lottoLottoNumbersRow : lottoNumbers) {
 			Ranking ranking = checkRank(lottoLottoNumbersRow, pickLottoNumbers, bonusBall);
 			Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
 			result.put(ranking, numberOfRank.orElse(0) + 1);
