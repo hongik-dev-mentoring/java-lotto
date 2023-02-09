@@ -20,7 +20,7 @@ class InputTest {
     }
 
     @Test
-    @DisplayName("입력된 당첨번호의 길이가 6인지 테스트")
+    @DisplayName("당첨번호의 입력 테스트")
     public void lengthTest() {
         String input = "1, 2, 3, 4, 5, 6\n";
         systemIn(input);
@@ -30,7 +30,7 @@ class InputTest {
     }
 
     @Test
-    @DisplayName("보너스 당첨번호가 입력되는지 테스트")
+    @DisplayName("보너스 당첨번호 입력 테스트")
     public void bonusNumberInputTest() {
         String input = "7\n";
         systemIn(input);
