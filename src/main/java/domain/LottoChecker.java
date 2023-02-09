@@ -3,10 +3,11 @@ package domain;
 import java.util.*;
 
 public class LottoChecker {
+    private static final int INITIAL_COUNT = 0;
+    private static final int INCREASE_COUNT = 1;
 
     private final List<LottoDto> lottoDtoList;
-    private final List<Integer> lastLottoNumbers;
-    private final Integer bonusNumber;
+    private final LottoWinningNumbers lottoWinningNumbers;
 
     public LottoChecker(List<LottoDto> lottoDtoList, List<Integer> lastLottoNumbers, Integer bonusNumber) {
         this.lottoDtoList = new ArrayList<>(lottoDtoList);
@@ -15,47 +16,36 @@ public class LottoChecker {
     }
 
     public Map<String, Integer> calculateLottoStatistics() {
-
-        Map<String, Integer> calculateResult = new TreeMap<>(Comparator.reverseOrder());
-
-        calculateResult.put("PRIZE_1ST", 0);
-        calculateResult.put("PRIZE_2ND", 0);
-        calculateResult.put("PRIZE_3RD", 0);
-        calculateResult.put("PRIZE_4TH", 0);
-        calculateResult.put("PRIZE_5TH", 0);
-
+        Map<String, Integer> calculateResult = initiateResultMap();
         for (LottoDto dto : lottoDtoList) {
-            int count = 0;
-            boolean hasBonusNumber = false;
-            for (int number : dto.getLottoNumbers()) {
-                if (lastLottoNumbers.contains(number)) {
-                    count++;
-                }
-                if (number == bonusNumber) {
-                    count++;
-                    hasBonusNumber = true;
-                }
-            }
-
-            if (count == 3) {
-                calculateResult.put("PRIZE_5TH", calculateResult.get("PRIZE_5TH") + 1);
-            }
-            if (count == 4) {
-                calculateResult.put("PRIZE_4TH", calculateResult.get("PRIZE_4TH") + 1);
-            }
-            if (count == 5 && hasBonusNumber) {
-                calculateResult.put("PRIZE_2ND", calculateResult.get("PRIZE_2ND") + 1);
-                continue;
-            }
-            if (count == 5) {
-                calculateResult.put("PRIZE_3RD", calculateResult.get("PRIZE_3RD") + 1);
-            }
-            if (count == 6) {
-                calculateResult.put("PRIZE_1ST", calculateResult.get("PRIZE_1ST") + 1);
-            }
-
+            checkLottoWin(calculateResult, dto);
         }
         return calculateResult;
+    }
+
+    private Map<String, Integer> initiateResultMap() {
+        Map<String, Integer> calculateResult = new TreeMap<>(Comparator.reverseOrder());
+        calculateResult.put(LottoConstant.FIRST_PRIZE_KEY, INITIAL_COUNT);
+        calculateResult.put(LottoConstant.SECOND_PRIZE_KEY, INITIAL_COUNT);
+        calculateResult.put(LottoConstant.THIRD_PRIZE_KEY, INITIAL_COUNT);
+        calculateResult.put(LottoConstant.FOURTH_PRIZE_KEY, INITIAL_COUNT);
+        calculateResult.put(LottoConstant.FIFTH_PRIZE_KEY, INITIAL_COUNT);
+        return calculateResult;
+    }
+
+    private void checkLottoWin(Map<String, Integer> calculateResult, LottoDto dto) {
+        LottoNumberCounter lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
+        for (int number : dto.getLottoNumbers()) {
+            lottoNumberCounter.countLottoNumbers(number);
+            lottoNumberCounter.countBonusNumber(number);
+        }
+        String mapKey = lottoNumberCounter.decideLottoPrize();
+        updateResult(calculateResult, mapKey);
+    }
+
+    public void updateResult(Map<String, Integer> calculateResult, String mapKey) {
+        if (mapKey.equals(LottoConstant.NO_PRIZE_KEY)) return;
+        calculateResult.put(mapKey, calculateResult.get(mapKey) + INCREASE_COUNT);
     }
 
 }

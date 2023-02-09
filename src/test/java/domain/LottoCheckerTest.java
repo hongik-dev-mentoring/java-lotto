@@ -20,8 +20,8 @@ class LottoCheckerTest {
         lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
         List<Integer> lastLottoNumbers = List.of(1, 2, 3, 4, 5, 6);
         Integer bonusNumber = 7;
-
-        LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lastLottoNumbers, bonusNumber);
+        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
+        LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lottoWinningNumbers);
         Map<String, Integer> resultMap = lottoChecker.calculateLottoStatistics();
 
         Assertions.assertThat(resultMap.get("PRIZE_1ST")).isEqualTo(1);
