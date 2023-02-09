@@ -50,16 +50,16 @@ public class Lotto {
 			.filter(lottoNumbers::contains)
 			.count();
 
+		return getRanking(containsNumberCount, lottoNumbers, bonusBall);
+	}
+
+	private Ranking getRanking(long containsNumberCount, LottoNumbers lottoNumbers, Integer bonusBall) {
 		Ranking ranking = Ranking.getRanking(Long.valueOf(containsNumberCount).intValue());
 
-		if (ranking != Ranking.THIRD) {
-			return ranking;
-		}
-
-		if (lottoNumbers.contains(bonusBall)) {
+		if (ranking == Ranking.THIRD && lottoNumbers.contains(bonusBall)) {
 			return Ranking.SECOND;
 		}
 
-		return Ranking.THIRD;
+		return ranking;
 	}
 }
