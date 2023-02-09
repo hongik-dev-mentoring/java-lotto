@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LottoGeneratorTest {
-
     @Test
     @DisplayName("로또생성기 생성")
     void createLotto() {
