@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoController {
+    private static final int LOTTO_PRICE = 1000;
 
     public void startLotto() {
         Input input = new Input();
-        Integer inputPrice = input.readPrice();
-        Integer purchaseNum = inputPrice/1000;
-        System.out.println(purchaseNum + "개를 구매했습니다.");
+        int inputPrice = input.readPrice();
+        int purchaseNum = inputPrice / LOTTO_PRICE;
+        ResultView.printPurchaseInfo(purchaseNum);
 
         List<LottoDto> lottoDtoList = generateLottoDtoList(purchaseNum);
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
@@ -47,5 +48,4 @@ public class LottoController {
         ResultView.printStatistics(statisticsMap);
         ResultView.printBenefit(inputPrice, statisticsMap);
     }
-
 }
