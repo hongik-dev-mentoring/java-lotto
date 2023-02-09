@@ -1,4 +1,4 @@
-package convertor;
+package util.convertor;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import domain.LottoNumbers;
+import util.convertor.LottoNumberConvertor;
 
 public class LottoNumberConvertorTest {
 
