@@ -50,4 +50,16 @@ public class Input {
         }
         return bonusNumber;
     }
+
+    private void validateLastLottoNumbers(List<Integer> lastLottoNumbers, String[] input) {
+        for (String component : input) {
+            int lottoNumber = InputException.handleInputFormat(component.trim());
+            InputException.handleLottoNumberRange(lottoNumber);
+            InputException.handleDuplicate(lastLottoNumbers, lottoNumber);
+            lastLottoNumbers.add(lottoNumber);
+        }
+        InputException.handleLottoNumbersSize(lastLottoNumbers);
+    }
+
+
 }
