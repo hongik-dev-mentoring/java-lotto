@@ -8,21 +8,21 @@ import java.util.Optional;
 public class Lotto {
 
 	private final LottoTicket lottoTicket;
-	private final RandomNumberGenerator randomNumberGenerator;
+	private final LottoNumberGenerator lottoNumberGenerator;
 
-	private Lotto(RandomNumberGenerator randomNumberGenerator, int numberOfLotto) {
-		this.randomNumberGenerator = randomNumberGenerator;
+	private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
+		this.lottoNumberGenerator = lottoNumberGenerator;
 		this.lottoTicket = generateLottoNumbers(numberOfLotto);
 	}
 
-	public static Lotto generateLottoWithLottoNumbers(RandomNumberGenerator randomNumberGenerator, int numberOfLotto) {
-		return new Lotto(randomNumberGenerator, numberOfLotto);
+	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
+		return new Lotto(lottoNumberGenerator, numberOfLotto);
 	}
 
 	private LottoTicket generateLottoNumbers(int numberOfLotto) {
 		List<LottoNumbers> lottoNumbers = new ArrayList<>();
 		for (int i = 0; i < numberOfLotto; i++) {
-			lottoNumbers.add(randomNumberGenerator.pickNumber());
+			lottoNumbers.add(lottoNumberGenerator.pickNumber());
 		}
 		return new LottoTicket(lottoNumbers);
 	}
