@@ -9,10 +9,9 @@ public class LottoChecker {
     private final List<LottoDto> lottoDtoList;
     private final LottoWinningNumbers lottoWinningNumbers;
 
-    public LottoChecker(List<LottoDto> lottoDtoList, List<Integer> lastLottoNumbers, Integer bonusNumber) {
+    public LottoChecker(List<LottoDto> lottoDtoList, LottoWinningNumbers lottoWinningNumbers) {
         this.lottoDtoList = new ArrayList<>(lottoDtoList);
-        this.lastLottoNumbers = new ArrayList<>(lastLottoNumbers);
-        this.bonusNumber = bonusNumber;
+        this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
     public Map<String, Integer> calculateLottoStatistics() {
