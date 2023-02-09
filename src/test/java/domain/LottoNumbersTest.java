@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import convertor.LottoNumberConvertor;
-
 public class LottoNumbersTest {
 
 	@Test
@@ -37,5 +35,14 @@ public class LottoNumbersTest {
 		assertThatThrownBy(() -> new LottoNumbers(wrongLottoNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 로또 번호는 여섯 개의 숫자여야 합니다.");
+	}
+
+	@Test
+	void 로또_번호는_중복일수_없다(int input) {
+		List<Integer> duplicatedLottoNumbers = List.of(1,2,3,4,5,5);
+
+		assertThatThrownBy(() -> new LottoNumbers(duplicatedLottoNumbers))
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessage("[ERROR] 로또 번호는 중복일 수 없습니다.");
 	}
 }
