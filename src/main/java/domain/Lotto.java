@@ -31,7 +31,7 @@ public class Lotto {
 		return lottoTicket;
 	}
 
-	public EnumMap<Ranking, Integer> checkLottoResult(LottoNumbers winningNumbers, BonusBall bonusBall) {
+	public EnumMap<Ranking, Integer> checkLottoResult(WinningNumbers winningNumbers, BonusBall bonusBall) {
 		EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
 		List<LottoNumbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
 
@@ -43,7 +43,7 @@ public class Lotto {
 		return result;
 	}
 
-	private Ranking checkRank(LottoNumbers lottoNumbers, LottoNumbers winningNumbers, BonusBall bonusBall) {
+	private Ranking checkRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers, BonusBall bonusBall) {
 		List<Integer> pickNumber = winningNumbers.getNumbers();
 
 		long containsNumberCount = pickNumber.stream()

@@ -26,10 +26,10 @@ class LottoTest {
 	void 임의로_번호를_입력하면_당첨_결과를_받을_수_있다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
-		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
 		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 7);
 
-		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
+		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.FIRST);
 
 		assertThat(actualWinnerNumber).isEqualTo(LOTTO_NUMBERS);
@@ -39,10 +39,10 @@ class LottoTest {
 	void 다섯개의_번호와_보너스볼이_일치하면_2등에_당첨된다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
-		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 7);
+		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER);
 
-		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
+		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.SECOND);
 
 		assertThat(actualWinnerNumber).isEqualTo(LOTTO_NUMBERS);
@@ -52,10 +52,10 @@ class LottoTest {
 	void 다섯개의_번호가_일치하고_보너스볼이_불일치하면_3등에_당첨된다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
-		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 10);
+		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER + 1);
 
-		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
+		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.THIRD);
 
 		assertThat(actualWinnerNumber).isEqualTo(LOTTO_NUMBERS);
