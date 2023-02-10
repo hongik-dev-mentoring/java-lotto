@@ -13,7 +13,7 @@ public class BonusNumber {
         try {
             return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해주세요.");
+            throw new IllegalArgumentException("보너스 번호는 숫자여야 합니다.");
         }
     }
 
