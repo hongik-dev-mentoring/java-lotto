@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class LottoNumberGeneratorTest {
+
 	private static final int START_NUMBER = 1;
 	private static final int END_NUMBER = 46;
 	private static final int PICK_NUMBERS = 6;

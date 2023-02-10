@@ -1,6 +1,7 @@
 package domain;
 
 public class BonusBall {
+
 	private final int bonusBallNumber;
 
 	private BonusBall(int bonusBallNumber) {

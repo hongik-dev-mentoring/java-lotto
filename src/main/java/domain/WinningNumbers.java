@@ -3,6 +3,7 @@ package domain;
 import java.util.List;
 
 public class WinningNumbers implements Numbers {
+
 	private final List<Integer> winningNumbers;
 	private static final int LOTTO_NUMBER = 6;
 
@@ -25,7 +26,7 @@ public class WinningNumbers implements Numbers {
 		}
 	}
 
-	private static long getDistinctLottoNumber(List<Integer> numbers) {
+	private long getDistinctLottoNumber(List<Integer> numbers) {
 		return numbers.stream()
 			.distinct()
 			.count();
