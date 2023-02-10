@@ -31,8 +31,14 @@ public class LottoController {
 
 
 	public void purchaseLotto() {
-		purchaseAmount = PurchaseAmountConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
+		try {
+			purchaseAmount = PurchaseAmountConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			purchaseLotto();
+		}
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
+
 		OutputView.printLottoPurchaseCount(calculateCount);
 
 		lotto = Lotto.generateLottoWithLottoNumbers(
@@ -46,6 +52,7 @@ public class LottoController {
 		winningNumbers = LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
 		bonusBall = BonusBall.createBonusBallInRange(
 			FROM, TO, LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()));
+
 		OutputView.printBlankLine();
 	}
 
