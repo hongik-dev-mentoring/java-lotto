@@ -41,10 +41,10 @@ public class LottoChecker {
             lottoNumberCounter.countBonusNumber(number);
         }
         String mapKey = lottoNumberCounter.decideLottoPrize();
-        updateResult(resultMap, mapKey);
+        updateResultMap(resultMap, mapKey);
     }
 
-    private void updateResult(Map<String, Integer> resultMap, String mapKey) {
+    private void updateResultMap(Map<String, Integer> resultMap, String mapKey) {
         if (mapKey.equals(NO_PRIZE.getPrizeKey())) return;
         resultMap.put(mapKey, resultMap.get(mapKey) + COUNT_UP_UNIT);
     }
