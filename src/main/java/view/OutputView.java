@@ -4,9 +4,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import domain.Ranking;
+import dto.LottoResultDto;
+import dto.LottoTicketDto;
 
 public class OutputView {
 
@@ -15,13 +18,13 @@ public class OutputView {
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto) {
 		lottoTicketDto.getLottoNumbersDto()
-			.getNumbers()
 			.stream()
 			.forEach(System.out::println);
 	}
 
-	public static void printLottoPurchaseCount(Integer purchaseCount) {
-		StringBuilder purchaseCountString = new StringBuilder(purchaseCount)
+	public static void printLottoPurchaseCount(int purchaseCount) {
+		StringBuilder purchaseCountString = new StringBuilder()
+			.append(purchaseCount)
 			.append(PURCHASE_MESSAGE);
 		System.out.println(purchaseCountString);
 	}
@@ -36,12 +39,13 @@ public class OutputView {
 		EnumMap<Ranking, Integer> rankingResults = lottoResultDto.getLottoResult();
 		rankings.forEach(ranking ->
 			buildLottoResultMessage(ranking.getCorrectNumber(),
-				ranking.getWinningAmount(), rankingResults.get(ranking))
+				ranking.getWinningAmount(), Optional.ofNullable(rankingResults.get(ranking)).orElse(0))
 		);
 	}
 
 	private static void buildLottoResultMessage(int correctNumber, int winningAmount, int resultCount) {
-		StringBuilder lottoResultMessage = new StringBuilder(correctNumber)
+		StringBuilder lottoResultMessage = new StringBuilder()
+			.append(correctNumber)
 			.append("개 일치 ");
 
 		if (winningAmount == 30000000) {
@@ -61,5 +65,9 @@ public class OutputView {
 		System.out.print("총 수익률 ");
 		System.out.printf("%.2f", profitRate);
 		System.out.println("입니다.");
+	}
+
+	public static void printBlankLine() {
+		System.out.println();
 	}
 }
