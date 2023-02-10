@@ -26,7 +26,7 @@ public class LottoController {
 	private final int LOTTO_NUMBER_LIMIT = 6;
 	private Integer purchaseAmount;
 	private Lotto lotto;
-	private static WinningNumbers winningNumbers;
+	private WinningNumbers winningNumbers;
 	private BonusBall bonusBall;
 
 
@@ -68,7 +68,7 @@ public class LottoController {
 		}
 	}
 
-	private static void getWinningNumbers() {
+	private void getWinningNumbers() {
 		try {
 			winningNumbers =  WinningNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
 		} catch (IllegalArgumentException e) {
