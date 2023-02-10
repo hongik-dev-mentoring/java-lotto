@@ -17,4 +17,8 @@ public class BonusBall {
 			throw new IllegalArgumentException("[ERROR] 보너스 볼은 1부터 45까지의 숫자여야 합니다.");
 		}
 	}
+
+	public int getBonusBallNumber() {
+		return bonusBallNumber;
+	}
 }
