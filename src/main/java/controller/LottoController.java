@@ -29,7 +29,6 @@ public class LottoController {
 	private WinningNumbers winningNumbers;
 	private BonusBall bonusBall;
 
-
 	public void purchaseLotto() {
 		getPurchaseAmount();
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
@@ -58,6 +57,15 @@ public class LottoController {
 		OutputView.printBlankLine();
 	}
 
+	private void getWinningNumbers() {
+		try {
+			winningNumbers =  WinningNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			getWinningNumbers();
+		}
+	}
+
 	private void getBonusBall() {
 		try {
 			bonusBall = BonusBall.createBonusBallInRange(
@@ -65,15 +73,6 @@ public class LottoController {
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();
-		}
-	}
-
-	private void getWinningNumbers() {
-		try {
-			winningNumbers =  WinningNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
-		} catch (IllegalArgumentException e) {
-			OutputView.printErrorMessage(e.getMessage());
-			getWinningNumbers();
 		}
 	}
 
