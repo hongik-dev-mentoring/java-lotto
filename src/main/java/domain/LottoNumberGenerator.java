@@ -6,18 +6,19 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoNumberGenerator {
-	private final int from;
-	private final int to;
-	private final int number;
 
-	public LottoNumberGenerator(int from, int to, int number) {
-		this.from = from;
-		this.to = to;
-		this.number = number;
+	private final int startNumber;
+	private final int endNumber;
+	private final int limitNumber;
+
+	public LottoNumberGenerator(int startNumber, int endNumber, int limitNumber) {
+		this.startNumber = startNumber;
+		this.endNumber = endNumber;
+		this.limitNumber = limitNumber;
 	}
 
 	public LottoNumbers pickNumber() {
-		List<Integer> pickNumbers = IntStream.range(from, to)
+		List<Integer> pickNumbers = IntStream.range(startNumber, endNumber)
 			.boxed()
 			.collect(Collectors.toList());
 
@@ -33,7 +34,7 @@ public class LottoNumberGenerator {
 
 	private List<Integer> getLimitedNumbers(List<Integer> numbers) {
 		return numbers.stream()
-			.limit(number)
+			.limit(limitNumber)
 			.collect(Collectors.toList());
 	}
 
