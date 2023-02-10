@@ -2,9 +2,11 @@ package domain;
 
 import java.util.*;
 
+import static domain.LottoPrize.*;
+
 public class LottoChecker {
     private static final int INITIAL_COUNT = 0;
-    private static final int INCREASE_COUNT = 1;
+    private static final int COUNT_UP_UNIT = 1;
 
     private final List<LottoDto> lottoDtoList;
     private final LottoWinningNumbers lottoWinningNumbers;
@@ -24,11 +26,11 @@ public class LottoChecker {
 
     private Map<String, Integer> initiateResultMap() {
         Map<String, Integer> resultMap = new TreeMap<>(Comparator.reverseOrder());
-        resultMap.put(LottoConstant.FIRST_PRIZE_KEY, INITIAL_COUNT);
-        resultMap.put(LottoConstant.SECOND_PRIZE_KEY, INITIAL_COUNT);
-        resultMap.put(LottoConstant.THIRD_PRIZE_KEY, INITIAL_COUNT);
-        resultMap.put(LottoConstant.FOURTH_PRIZE_KEY, INITIAL_COUNT);
-        resultMap.put(LottoConstant.FIFTH_PRIZE_KEY, INITIAL_COUNT);
+        resultMap.put(FIRST_PRIZE.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(SECOND_PRIZE.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(THIRD_PRIZE.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(FOURTH_PRIZE.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(FIFTH_PRIZE.getPrizeKey(), INITIAL_COUNT);
         return resultMap;
     }
 
@@ -43,8 +45,8 @@ public class LottoChecker {
     }
 
     private void updateResult(Map<String, Integer> resultMap, String mapKey) {
-        if (mapKey.equals(LottoConstant.NO_PRIZE_KEY)) return;
-        resultMap.put(mapKey, resultMap.get(mapKey) + INCREASE_COUNT);
+        if (mapKey.equals(NO_PRIZE.getPrizeKey())) return;
+        resultMap.put(mapKey, resultMap.get(mapKey) + COUNT_UP_UNIT);
     }
 
 }

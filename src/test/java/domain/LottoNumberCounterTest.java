@@ -42,9 +42,9 @@ class LottoNumberCounterTest {
     void decideLottoPrize() {
         //given
         lottoNumberCounter.countLottoNumbers(1);
-        lottoNumberCounter.countLottoNumbers(3);
         lottoNumberCounter.countLottoNumbers(2);
+        lottoNumberCounter.countLottoNumbers(3);
         //when
-        Assertions.assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo(LottoConstant.FIFTH_PRIZE_KEY);
+        Assertions.assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_5TH");
     }
 }

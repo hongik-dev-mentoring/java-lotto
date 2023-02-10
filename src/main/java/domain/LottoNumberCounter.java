@@ -1,5 +1,7 @@
 package domain;
 
+import static domain.LottoPrize.*;
+
 public class LottoNumberCounter {
     private static final int INITIAL_COUNT = 0;
 
@@ -28,21 +30,21 @@ public class LottoNumberCounter {
 
     public String decideLottoPrize() {
         if (count == 3) {
-            return LottoConstant.FIFTH_PRIZE_KEY;
+            return FIFTH_PRIZE.getPrizeKey();
         }
         if (count == 4) {
-            return LottoConstant.FOURTH_PRIZE_KEY;
+            return FOURTH_PRIZE.getPrizeKey();
         }
         if (count == 5 && hasBonusNumber) {
-            return LottoConstant.SECOND_PRIZE_KEY;
+            return SECOND_PRIZE.getPrizeKey();
         }
         if (count == 5) {
-            return LottoConstant.THIRD_PRIZE_KEY;
+            return THIRD_PRIZE.getPrizeKey();
         }
         if (count == 6) {
-            return LottoConstant.FIRST_PRIZE_KEY;
+            return FIRST_PRIZE.getPrizeKey();
         }
-        return LottoConstant.NO_PRIZE_KEY;
+        return NO_PRIZE.getPrizeKey();
     }
 
     public int getCount() {
