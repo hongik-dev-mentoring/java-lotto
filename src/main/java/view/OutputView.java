@@ -70,4 +70,8 @@ public class OutputView {
 	public static void printBlankLine() {
 		System.out.println();
 	}
+
+	public static void printErrorMessage(String message) {
+		System.out.println(message);
+	}
 }
