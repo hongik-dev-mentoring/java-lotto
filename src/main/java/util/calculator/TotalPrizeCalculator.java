@@ -14,7 +14,6 @@ public class TotalPrizeCalculator {
 			.reduce(0L, Long::sum);
 	}
 
-
 	private static long calculateRankingPrize(Map.Entry<Ranking, Integer> entry) {
 		return (long) entry.getKey().getWinningAmount() * entry.getValue();
 	}
