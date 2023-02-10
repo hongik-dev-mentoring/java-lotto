@@ -5,8 +5,8 @@ public enum Ranking {
 	FIRST(6, 2000000000), SECOND(5, 30000000), THIRD(5, 1500000),
 	FOURTH(4, 50000), FIFTH(3, 5000), UNRANKED(0, 0);
 
-	private int correctNumber;
-	private int winningAmount;
+	private final int correctNumber;
+	private final int winningAmount;
 
 	Ranking(int correctNumber, int winningAmount) {
 		this.correctNumber = correctNumber;
