@@ -28,5 +28,4 @@ class BonusBallTest {
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다.");
 	}
-
 }

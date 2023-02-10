@@ -19,5 +19,4 @@ class TotalPrizeCalculatorTest {
 
 		assertThat(actualPrize).isEqualTo(25000);
 	}
-
 }
