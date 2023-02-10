@@ -24,10 +24,10 @@ public class LottoController {
 	private final int FROM = 1;
 	private final int TO = 46;
 	private final int LOTTO_NUMBER_LIMIT = 6;
-	Integer purchaseAmount;
-	Lotto lotto;
-	LottoNumbers winningNumbers;
-	BonusBall bonusBall;
+	private Integer purchaseAmount;
+	private Lotto lotto;
+	private static LottoNumbers winningNumbers;
+	private BonusBall bonusBall;
 
 
 	public void purchaseLotto() {
@@ -49,11 +49,28 @@ public class LottoController {
 	}
 
 	public void drawLotto() {
-		winningNumbers = LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
-		bonusBall = BonusBall.createBonusBallInRange(
-			FROM, TO, LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()));
-
+		getWinningNumbers();
+		getBonusBall();
 		OutputView.printBlankLine();
+	}
+
+	private void getBonusBall() {
+		try {
+			bonusBall = BonusBall.createBonusBallInRange(
+				FROM, TO, LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()));
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			getBonusBall();
+		}
+	}
+
+	private static void getWinningNumbers() {
+		try {
+			winningNumbers =  LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			getWinningNumbers();
+		}
 	}
 
 	public void announceLottoResult() {
