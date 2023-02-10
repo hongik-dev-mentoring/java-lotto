@@ -27,7 +27,7 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		Integer bonusBall = BONUS_NUMBER;
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 10);
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.FIRST);
@@ -40,8 +40,9 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 10);
 
-		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, BONUS_NUMBER);
+		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.SECOND);
 
 		assertThat(actualWinnerNumber).isEqualTo(LOTTO_NUMBERS);
@@ -52,8 +53,9 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		LottoNumbers pickLottoNumbers = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 10);
 
-		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, 10);
+		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(pickLottoNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.THIRD);
 
 		assertThat(actualWinnerNumber).isEqualTo(LOTTO_NUMBERS);
