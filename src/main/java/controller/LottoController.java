@@ -1,9 +1,6 @@
 package controller;
 
-import domain.LottoChecker;
-import domain.LottoDto;
-import domain.LottoGenerator;
-import domain.LottoWinningNumbers;
+import domain.*;
 import view.Input;
 import view.ResultView;
 
@@ -15,14 +12,22 @@ public class LottoController {
     private static final int LOTTO_PRICE = 1000;
 
     public void startLotto() {
-        Input input = new Input();
-        int inputPrice = input.readPrice();
-        int purchaseNum = inputPrice / LOTTO_PRICE;
-        ResultView.printPurchaseInfo(purchaseNum);
-
+        InputPrice inputPrice = inputPrice();
+        int purchaseNum = calculatePurchaseNum(inputPrice);
         List<LottoDto> lottoDtoList = generateLottoDtoList(purchaseNum);
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
         createLottoStatistics(inputPrice, lottoDtoList, lottoWinningNumbers);
+    }
+
+    private InputPrice inputPrice() {
+        Input input = new Input();
+        return input.readPrice();
+    }
+
+    private int calculatePurchaseNum(InputPrice inputPrice) {
+        int purchaseNum = inputPrice.getPrice() / LOTTO_PRICE;
+        ResultView.printPurchaseInfo(purchaseNum);
+        return purchaseNum;
     }
 
     private List<LottoDto> generateLottoDtoList(int purchaseNum) {
@@ -37,12 +42,12 @@ public class LottoController {
 
     private LottoWinningNumbers readWinningNumbers() {
         Input input = new Input();
-        List<Integer> lastLottoNumbers = input.readLastLottoNumbers();
-        int bonusNumber = input.readBonusNumber();
+        LastLottoNumbers lastLottoNumbers = input.readLastLottoNumbers();
+        BonusNumber bonusNumber = input.readBonusNumber();
         return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
     }
 
-    private void createLottoStatistics(Integer inputPrice, List<LottoDto> lottoDtoList, LottoWinningNumbers lottoWinningNumbers) {
+    private void createLottoStatistics(InputPrice inputPrice, List<LottoDto> lottoDtoList, LottoWinningNumbers lottoWinningNumbers) {
         LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lottoWinningNumbers);
         Map<String, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
         ResultView.printStatistics(statisticsMap);

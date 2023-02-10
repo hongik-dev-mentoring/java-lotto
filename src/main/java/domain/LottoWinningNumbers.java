@@ -1,22 +1,19 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LottoWinningNumbers {
-    private final List<Integer> lastLottoNumbers;
-    private final Integer bonusNumber;
+    private final LastLottoNumbers lastLottoNumbers;
+    private final BonusNumber bonusNumber;
 
-    public LottoWinningNumbers(List<Integer> lastLottoNumbers, Integer bonusNumber) {
-        this.lastLottoNumbers = new ArrayList<>(lastLottoNumbers);
+    public LottoWinningNumbers(LastLottoNumbers lastLottoNumbers, BonusNumber bonusNumber) {
+        this.lastLottoNumbers = lastLottoNumbers;
         this.bonusNumber = bonusNumber;
     }
 
     public boolean isWinningNumber(int number) {
-        return lastLottoNumbers.contains(number);
+        return lastLottoNumbers.getLastLottoNumbers().contains(number);
     }
 
     public boolean isBonusNumber(int number) {
-        return bonusNumber == number;
+        return bonusNumber.getBonusNumber() == number;
     }
 }

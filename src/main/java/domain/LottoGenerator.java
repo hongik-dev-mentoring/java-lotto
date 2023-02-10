@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoGenerator {
-    public static final Integer CANDIDATE_MIN_NUMBER = 1;
-    public static final Integer CANDIDATE_MAX_NUMBER = 45;
-    public static final Integer NUMBER_OF_LOTTO_NUMS = 6;
+    public static final int CANDIDATE_MIN_NUMBER = 1;
+    public static final int CANDIDATE_MAX_NUMBER = 45;
+    public static final int NUMBER_OF_LOTTO_NUMS = 6;
 
     public static LottoDto generate() {
         List<Integer> lottoCandidateNumbers = generateCandidateNumbers();

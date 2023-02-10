@@ -5,16 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 class LottoNumberCounterTest {
 
     private LottoNumberCounter lottoNumberCounter;
 
     @BeforeEach
-    void setUp() {
-        List<Integer> lastLottoNumbers = List.of(1, 2, 3, 4, 5, 6);
-        int bonusNumber = 7;
+    void setUpTest() {
+        LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1,2,3,4,5,6");
+        BonusNumber bonusNumber = new BonusNumber("7");
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
     }

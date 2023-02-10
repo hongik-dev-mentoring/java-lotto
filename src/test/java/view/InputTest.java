@@ -1,11 +1,13 @@
 package view;
 
+import domain.BonusNumber;
+import domain.InputPrice;
+import domain.LastLottoNumbers;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.util.List;
 
 class InputTest {
 
@@ -15,8 +17,8 @@ class InputTest {
         String input = "14000\n";
         systemIn(input);
         Input inputProcess = new Input();
-        Integer price = inputProcess.readPrice();
-        Assertions.assertThat(price).isEqualTo(14000);
+        InputPrice inputPrice = inputProcess.readPrice();
+        Assertions.assertThat(inputPrice.getPrice()).isEqualTo(14000);
     }
 
     @Test
@@ -25,8 +27,8 @@ class InputTest {
         String input = "1, 2, 3, 4, 5, 6\n";
         systemIn(input);
         Input inputProcess = new Input();
-        List<Integer> lastLottoNumbers = inputProcess.readLastLottoNumbers();
-        Assertions.assertThat(lastLottoNumbers.size()).isEqualTo(6);
+        LastLottoNumbers lastLottoNumbers = inputProcess.readLastLottoNumbers();
+        Assertions.assertThat(lastLottoNumbers.getLastLottoNumbers().size()).isEqualTo(6);
     }
 
     @Test
@@ -35,8 +37,8 @@ class InputTest {
         String input = "7\n";
         systemIn(input);
         Input inputProcess = new Input();
-        Integer bonusNumber = inputProcess.readBonusNumber();
-        Assertions.assertThat(bonusNumber).isEqualTo(7);
+        BonusNumber bonusNumber = inputProcess.readBonusNumber();
+        Assertions.assertThat(bonusNumber.getBonusNumber()).isEqualTo(7);
     }
 
     public void systemIn(String input) {

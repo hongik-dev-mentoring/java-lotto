@@ -1,5 +1,6 @@
 package view;
 
+import domain.InputPrice;
 import domain.LottoDto;
 import domain.LottoEnum;
 
@@ -27,13 +28,13 @@ public class ResultView {
         }
     }
 
-    public static void printBenefit(Integer inputPrice, Map<String, Integer> statisticsMap) {
+    public static void printBenefit(InputPrice inputPrice, Map<String, Integer> statisticsMap) {
         int rewardSum = 0;
         for (Map.Entry<String, Integer> lottoEntry : statisticsMap.entrySet()) {
             LottoEnum lottoEnum = LottoEnum.valueOf(lottoEntry.getKey());
             rewardSum += lottoEnum.getReward() * lottoEntry.getValue();
         }
-        System.out.printf("%.2f", (double) rewardSum / inputPrice);
+        System.out.printf("%.2f", (double) rewardSum / inputPrice.getPrice());
     }
 
     public static void printPurchaseInfo(int purchaseNum) {

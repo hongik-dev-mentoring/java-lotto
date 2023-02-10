@@ -15,36 +15,36 @@ public class LottoChecker {
     }
 
     public Map<String, Integer> calculateLottoStatistics() {
-        Map<String, Integer> calculateResult = initiateResultMap();
+        Map<String, Integer> resultMap = initiateResultMap();
         for (LottoDto dto : lottoDtoList) {
-            checkLottoWin(calculateResult, dto);
+            checkLottoWin(resultMap, dto);
         }
-        return calculateResult;
+        return resultMap;
     }
 
     private Map<String, Integer> initiateResultMap() {
-        Map<String, Integer> calculateResult = new TreeMap<>(Comparator.reverseOrder());
-        calculateResult.put(LottoConstant.FIRST_PRIZE_KEY, INITIAL_COUNT);
-        calculateResult.put(LottoConstant.SECOND_PRIZE_KEY, INITIAL_COUNT);
-        calculateResult.put(LottoConstant.THIRD_PRIZE_KEY, INITIAL_COUNT);
-        calculateResult.put(LottoConstant.FOURTH_PRIZE_KEY, INITIAL_COUNT);
-        calculateResult.put(LottoConstant.FIFTH_PRIZE_KEY, INITIAL_COUNT);
-        return calculateResult;
+        Map<String, Integer> resultMap = new TreeMap<>(Comparator.reverseOrder());
+        resultMap.put(LottoConstant.FIRST_PRIZE_KEY, INITIAL_COUNT);
+        resultMap.put(LottoConstant.SECOND_PRIZE_KEY, INITIAL_COUNT);
+        resultMap.put(LottoConstant.THIRD_PRIZE_KEY, INITIAL_COUNT);
+        resultMap.put(LottoConstant.FOURTH_PRIZE_KEY, INITIAL_COUNT);
+        resultMap.put(LottoConstant.FIFTH_PRIZE_KEY, INITIAL_COUNT);
+        return resultMap;
     }
 
-    private void checkLottoWin(Map<String, Integer> calculateResult, LottoDto dto) {
+    private void checkLottoWin(Map<String, Integer> resultMap, LottoDto dto) {
         LottoNumberCounter lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
         for (int number : dto.getLottoNumbers()) {
             lottoNumberCounter.countLottoNumbers(number);
             lottoNumberCounter.countBonusNumber(number);
         }
         String mapKey = lottoNumberCounter.decideLottoPrize();
-        updateResult(calculateResult, mapKey);
+        updateResult(resultMap, mapKey);
     }
 
-    public void updateResult(Map<String, Integer> calculateResult, String mapKey) {
+    private void updateResult(Map<String, Integer> resultMap, String mapKey) {
         if (mapKey.equals(LottoConstant.NO_PRIZE_KEY)) return;
-        calculateResult.put(mapKey, calculateResult.get(mapKey) + INCREASE_COUNT);
+        resultMap.put(mapKey, resultMap.get(mapKey) + INCREASE_COUNT);
     }
 
 }

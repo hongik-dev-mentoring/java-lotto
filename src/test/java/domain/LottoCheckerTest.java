@@ -13,13 +13,14 @@ class LottoCheckerTest {
     @Test
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
-
         List<LottoDto> lottoDtoList = new ArrayList<>();
         lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
         lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 7, 8)));
         lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
-        List<Integer> lastLottoNumbers = List.of(1, 2, 3, 4, 5, 6);
-        Integer bonusNumber = 7;
+
+        LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1,2,3,4,5,6");
+        BonusNumber bonusNumber = new BonusNumber("7");
+
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lottoWinningNumbers);
         Map<String, Integer> resultMap = lottoChecker.calculateLottoStatistics();
