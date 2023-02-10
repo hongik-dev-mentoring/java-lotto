@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public class LottoNumbers {
+public class LottoNumbers implements Numbers {
 	private final List<Integer> numbers;
 	private static final int LOTTO_NUMBER = 6;
 
@@ -31,10 +31,12 @@ public class LottoNumbers {
 			.count();
 	}
 
+	@Override
 	public List<Integer> getNumbers() {
 		return List.copyOf(numbers);
 	}
 
+	@Override
 	public boolean contains(Integer value) {
 		return numbers.contains(value);
 	}
