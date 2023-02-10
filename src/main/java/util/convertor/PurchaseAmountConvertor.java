@@ -1,6 +1,6 @@
 package util.convertor;
 
-public class PurchaseAmonutConvertor {
+public class PurchaseAmountConvertor {
 
 	public static Integer convertPurchaseAmount(String purchaseAmountMoney) {
 		try {

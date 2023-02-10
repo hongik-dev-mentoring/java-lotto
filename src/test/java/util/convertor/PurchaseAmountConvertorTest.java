@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import util.convertor.PurchaseAmonutConvertor;
-
-class PurchaseAmonutConvertorTest {
+class PurchaseAmountConvertorTest {
 
 	@Test
 	void 구입_금액을_숫자로_변횐할수_있다() {
-		Integer purchaseAmount = PurchaseAmonutConvertor.convertPurchaseAmount("14000");
+		Integer purchaseAmount = PurchaseAmountConvertor.convertPurchaseAmount("14000");
 
 		assertThat(purchaseAmount).isEqualTo(14000);
 	}
@@ -21,7 +19,7 @@ class PurchaseAmonutConvertorTest {
 	@ValueSource(strings = {"a", "ABC"})
 	void 로또_구입_금액은_숫자여야_한다(String input) {
 
-		assertThatThrownBy(() -> PurchaseAmonutConvertor.convertPurchaseAmount(input))
+		assertThatThrownBy(() -> PurchaseAmountConvertor.convertPurchaseAmount(input))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 로또 금액은 숫자여야 합니다. 다시 입력해주세요");
 	}

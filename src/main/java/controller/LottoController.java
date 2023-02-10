@@ -14,7 +14,7 @@ import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
 import util.calculator.TotalPrizeCalculator;
 import util.convertor.LottoNumberConvertor;
-import util.convertor.PurchaseAmonutConvertor;
+import util.convertor.PurchaseAmountConvertor;
 import view.InputView;
 import view.OutputView;
 
@@ -31,7 +31,7 @@ public class LottoController {
 
 
 	public void purchaseLotto() {
-		purchaseAmount = PurchaseAmonutConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
+		purchaseAmount = PurchaseAmountConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
 		OutputView.printLottoPurchaseCount(calculateCount);
 
