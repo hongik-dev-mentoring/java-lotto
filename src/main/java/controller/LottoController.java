@@ -61,7 +61,7 @@ public class LottoController {
 	private void getBonusBall() {
 		try {
 			bonusBall = BonusBall.createBonusBallInRange(
-				FROM, TO, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()));
+				FROM, TO, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();

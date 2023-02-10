@@ -21,7 +21,7 @@ public class BonusBall {
 
 	private static void validateDuplicateWithWinningNumber(int bonusBallNumber, WinningNumbers winningNumbers) {
 		if (isContains(bonusBallNumber, winningNumbers)) {
-			throw new IllegalArgumentException("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다. ");
+			throw new IllegalArgumentException("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다.");
 		}
 	}
 

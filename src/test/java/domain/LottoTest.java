@@ -27,7 +27,7 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 7);
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, 7, winningNumbers);
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.FIRST);
@@ -40,7 +40,7 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER);
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER, winningNumbers);
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.SECOND);
@@ -53,7 +53,7 @@ class LottoTest {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER + 1, END_NUMBER + 1, PICK_NUMBERS);
 		Lotto lotto = Lotto.generateLottoWithLottoNumbers(lottoNumberGenerator, LOTTO_NUMBERS);
 		WinningNumbers winningNumbers = new WinningNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER + 1);
+		BonusBall bonusBall = BonusBall.createBonusBallInRange(START_NUMBER, 45, BONUS_NUMBER + 1, winningNumbers);
 
 		EnumMap<Ranking, Integer> lottoRanking = lotto.checkLottoResult(winningNumbers, bonusBall);
 		Integer actualWinnerNumber = lottoRanking.get(Ranking.THIRD);
