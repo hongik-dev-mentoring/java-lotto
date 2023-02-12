@@ -1,15 +1,16 @@
 package view;
 
-import domain.LottoDto;
+import domain.LottoNumbers;
 import domain.LottoEnum;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printLottoNumbers(LottoDto lottoDto) {
+    public static void printLottoNumbers(LottoNumbers lottoNumbers) {
         System.out.print("[");
-        String result = lottoDto.getLottoNumbers()
+        String result = lottoNumbers.getLottoNumbers()
                 .stream()
                 .sorted()
                 .map(String::valueOf)
@@ -27,16 +28,15 @@ public class ResultView {
         }
     }
 
-    public static void printBenefit(Integer inputPrice, Map<String, Integer> statisticsMap) {
-        int rewardSum = 0;
-        for (Map.Entry<String, Integer> lottoEntry : statisticsMap.entrySet()) {
-            LottoEnum lottoEnum = LottoEnum.valueOf(lottoEntry.getKey());
-            rewardSum += lottoEnum.getReward() * lottoEntry.getValue();
-        }
-        System.out.printf("%.2f", (double) rewardSum / inputPrice);
+    public static void printBenefit(double benefit) {
+        System.out.printf("%.2f", benefit);
     }
 
     public static void printPurchaseInfo(int purchaseNum) {
         System.out.println(purchaseNum + "개를 구매했습니다.");
+    }
+
+    public static void printInputGuide() {
+        System.out.println("지난 주 당첨번호를 입력하세요.");
     }
 }
