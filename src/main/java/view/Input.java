@@ -7,12 +7,10 @@ import java.util.Scanner;
 public class Input {
     private static final String COMMA_DELIMITER = ",";
 
-    public final Scanner sc = new Scanner(System.in);
-    private int price;
-    private List<Integer> lastLottoNumbers;
-    private int bonusNumber;
+    private static final Scanner sc = new Scanner(System.in);
 
-    public Integer readPrice() {
+    public static Integer readPrice() {
+        int price;
         try {
             System.out.println("구입금액을 입력해 주세요.");
             String input = sc.nextLine();
@@ -25,9 +23,9 @@ public class Input {
         return price;
     }
 
-    public List<Integer> readLastLottoNumbers() {
+    public static List<Integer> readLastLottoNumbers() {
+        List<Integer> lastLottoNumbers;
         try {
-            System.out.println("지난 주 당첨번호를 입력하세요.");
             String input = sc.nextLine();
             lastLottoNumbers = new ArrayList<>();
             validateLastLottoNumbers(lastLottoNumbers, input.split(COMMA_DELIMITER));
@@ -38,7 +36,8 @@ public class Input {
         return lastLottoNumbers;
     }
 
-    public int readBonusNumber() {
+    public static int readBonusNumber() {
+        int bonusNumber;
         try {
             System.out.println("보너스 볼을 입력해주세요.");
             String input = sc.nextLine();
@@ -51,7 +50,7 @@ public class Input {
         return bonusNumber;
     }
 
-    private void validateLastLottoNumbers(List<Integer> lastLottoNumbers, String[] input) {
+    private static void validateLastLottoNumbers(List<Integer> lastLottoNumbers, String[] input) {
         for (String component : input) {
             int lottoNumber = InputException.handleInputFormat(component.trim());
             InputException.handleLottoNumberRange(lottoNumber);
