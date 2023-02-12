@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,11 +11,12 @@ public class LottoGenerator {
     public static final Integer CANDIDATE_MAX_NUMBER = 45;
     public static final Integer NUMBER_OF_LOTTO_NUMS = 6;
 
-    public static LottoDto generate() {
+    public static LottoNumbers generate() {
         List<Integer> lottoCandidateNumbers = generateCandidateNumbers();
         Collections.shuffle(lottoCandidateNumbers);
         List<Integer> lottoNumbers = generateLottoNumbers(lottoCandidateNumbers);
-        return new LottoDto(lottoNumbers);
+
+        return new LottoNumbers(lottoNumbers);
     }
 
     private static List<Integer> generateCandidateNumbers() {
