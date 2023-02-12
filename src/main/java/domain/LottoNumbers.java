@@ -3,10 +3,10 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoDto {
+public class LottoNumbers {
     private List<Integer> lottoNumbers;
 
-    public LottoDto(List<Integer> lottoNumbers) {
+    public LottoNumbers(List<Integer> lottoNumbers) {
         this.lottoNumbers = new ArrayList<>(lottoNumbers);
     }
 
