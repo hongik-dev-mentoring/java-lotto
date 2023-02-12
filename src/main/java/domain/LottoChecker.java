@@ -42,7 +42,7 @@ public class LottoChecker {
         updateResult(calculateResult, mapKey);
     }
 
-    public void updateResult(Map<String, Integer> calculateResult, String mapKey) {
+    private void updateResult(Map<String, Integer> calculateResult, String mapKey) {
         if (mapKey.equals(LottoConstant.NO_PRIZE_KEY)) return;
         calculateResult.put(mapKey, calculateResult.get(mapKey) + INCREASE_COUNT);
     }
