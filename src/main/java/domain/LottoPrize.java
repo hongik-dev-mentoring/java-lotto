@@ -1,11 +1,11 @@
 package domain;
 
 public enum LottoPrize {
-    FIFTH_PRIZE("PRIZE_5TH", "3개 일치 (5000원)", 5000),
-    FOURTH_PRIZE("PRIZE_4TH", "4개 일치 (50000원)", 50000),
-    THIRD_PRIZE("PRIZE_3RD", "5개 일치 (1500000원)", 1500000),
-    SECOND_PRIZE("PRIZE_2ND", "5개 일치, 보너스 볼 일치(30000000원)", 30000000),
-    FIRST_PRIZE("PRIZE_1ST", "6개 일치 (2000000000원)", 2000000000),
+    FIFTH_PRIZE("FIFTH_PRIZE", "3개 일치 (5000원)", 5000),
+    FOURTH_PRIZE("FOURTH_PRIZE", "4개 일치 (50000원)", 50000),
+    THIRD_PRIZE("THIRD_PRIZE", "5개 일치 (1500000원)", 1500000),
+    SECOND_PRIZE("SECOND_PRIZE", "5개 일치, 보너스 볼 일치(30000000원)", 30000000),
+    FIRST_PRIZE("FIRST_PRIZE", "6개 일치 (2000000000원)", 2000000000),
     NO_PRIZE("NO_PRIZE", "꽝", 0);
 
     private final String prizeKey;

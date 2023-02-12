@@ -48,5 +48,4 @@ public class LottoChecker {
         if (mapKey.equals(NO_PRIZE.getPrizeKey())) return;
         resultMap.put(mapKey, resultMap.get(mapKey) + COUNT_UP_UNIT);
     }
-
 }

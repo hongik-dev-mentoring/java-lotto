@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 
 class InputTest {
-
     @Test
     @DisplayName("구입금액이 입력되는지 테스트")
     public void purchaseTest() {
