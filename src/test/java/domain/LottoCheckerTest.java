@@ -29,8 +29,5 @@ class LottoCheckerTest {
         Assertions.assertThat(resultMap.get("PRIZE_3RD")).isEqualTo(1);
         Assertions.assertThat(resultMap.get("PRIZE_4TH")).isEqualTo(0);
         Assertions.assertThat(resultMap.get("PRIZE_5TH")).isEqualTo(0);
-
     }
-
-
 }

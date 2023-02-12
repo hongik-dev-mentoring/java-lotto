@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Input {
-    private static final String COMMA_DELIMITER =",";
+    private static final String COMMA_DELIMITER = ",";
 
     public final Scanner sc = new Scanner(System.in);
     private int price;
@@ -60,6 +60,4 @@ public class Input {
         }
         InputException.handleLottoNumbersSize(lastLottoNumbers);
     }
-
-
 }

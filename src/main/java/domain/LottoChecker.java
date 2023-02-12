@@ -46,5 +46,4 @@ public class LottoChecker {
         if (mapKey.equals(LottoConstant.NO_PRIZE_KEY)) return;
         calculateResult.put(mapKey, calculateResult.get(mapKey) + INCREASE_COUNT);
     }
-
 }
