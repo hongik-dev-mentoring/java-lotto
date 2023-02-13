@@ -4,8 +4,9 @@ import java.util.List;
 
 public class WinningNumbers implements Numbers {
 
-	private final List<Integer> winningNumbers;
 	private static final int LOTTO_NUMBER = 6;
+
+	private final List<Integer> winningNumbers;
 
 	public WinningNumbers(List<Integer> winningNumbers) {
 		this.winningNumbers = winningNumbers;
