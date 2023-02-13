@@ -17,7 +17,7 @@ public class LottoNumberGenerator {
 		this.limitNumber = limitNumber;
 	}
 
-	public LottoNumbers pickNumber() {
+	public LottoNumbers generateLottoNumbers() {
 		List<Integer> pickNumbers = IntStream.range(startNumber, endNumber)
 			.boxed()
 			.collect(Collectors.toList());
