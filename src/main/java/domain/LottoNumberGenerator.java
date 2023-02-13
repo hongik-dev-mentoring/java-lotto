@@ -22,23 +22,16 @@ public class LottoNumberGenerator {
 			.boxed()
 			.collect(Collectors.toList());
 
-		shuffleNumbers(pickNumbers);
+		Collections.shuffle(pickNumbers);
 		List<Integer> limitNumbers = getLimitedNumbers(pickNumbers);
-		sortNumbers(limitNumbers);
-		return new LottoNumbers(limitNumbers);
-	}
+		Collections.sort(pickNumbers);
 
-	private void shuffleNumbers(List<Integer> numbers) {
-		Collections.shuffle(numbers);
+		return new LottoNumbers(limitNumbers);
 	}
 
 	private List<Integer> getLimitedNumbers(List<Integer> numbers) {
 		return numbers.stream()
 			.limit(limitNumber)
 			.collect(Collectors.toList());
-	}
-
-	private void sortNumbers(List<Integer> numbers) {
-		Collections.sort(numbers);
 	}
 }
