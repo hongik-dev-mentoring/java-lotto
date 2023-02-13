@@ -5,5 +5,5 @@ import java.util.List;
 public interface Numbers {
 
 	List<Integer> getNumbers();
-	boolean contains(Integer value);
+	boolean contains(int value);
 }

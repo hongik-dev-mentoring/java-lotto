@@ -39,7 +39,7 @@ public class LottoNumbers implements Numbers {
 	}
 
 	@Override
-	public boolean contains(Integer value) {
+	public boolean contains(int value) {
 		return numbers.contains(value);
 	}
 }

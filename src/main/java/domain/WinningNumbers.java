@@ -39,7 +39,7 @@ public class WinningNumbers implements Numbers {
 	}
 
 	@Override
-	public boolean contains(Integer value) {
+	public boolean contains(int value) {
 		return winningNumbers.contains(value);
 	}
 }
