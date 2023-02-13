@@ -36,14 +36,14 @@ public class Lotto {
 		List<LottoNumbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
 
 		for (LottoNumbers lottoNumbers : lottoTicketNumbers) {
-			Ranking ranking = checkRank(lottoNumbers, winningNumbers, bonusBall);
+			Ranking ranking = calculateRank(lottoNumbers, winningNumbers, bonusBall);
 			Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
 			result.put(ranking, numberOfRank.orElse(0) + 1);
 		}
 		return result;
 	}
 
-	private Ranking checkRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers, BonusBall bonusBall) {
+	private Ranking calculateRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers, BonusBall bonusBall) {
 		List<Integer> pickNumber = winningNumbers.getNumbers();
 
 		long containsNumberCount = pickNumber.stream()
