@@ -31,8 +31,7 @@ public class OutputView {
 
 	public static void printLottoResult(LottoResultDto lottoResultDto) {
 		System.out.println(LOTTO_RESULT_MESSAGE);
-		Ranking[] rankingValues = Ranking.values();
-		List<Ranking> rankings = Arrays.stream(rankingValues)
+		List<Ranking> rankings = Arrays.stream(Ranking.values())
 			.filter(ranking -> ranking != Ranking.UNRANKED)
 			.sorted(Collections.reverseOrder())
 			.collect(Collectors.toList());
