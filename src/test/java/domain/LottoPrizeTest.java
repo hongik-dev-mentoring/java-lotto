@@ -1,9 +1,13 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoPrizeTest {
     @ParameterizedTest
@@ -15,6 +19,13 @@ public class LottoPrizeTest {
             "6:false:PRIZE_1ST"}, delimiter = ':')
     public void findLottoPrizeTest(int count, boolean hasBonus, LottoPrize expectedPrize) {
         LottoPrize actualPrize = LottoPrize.selectLottoPrize(count, hasBonus);
-        Assertions.assertThat(actualPrize).isEqualTo(expectedPrize);
+        assertThat(actualPrize).isEqualTo(expectedPrize);
+    }
+
+    @Test
+    @DisplayName("getSortedLottoPrizes 테스트")
+    public void getSortedLottoPrizesTest() {
+        List<LottoPrize> lottoPrizes = LottoPrize.getSortedLottoPrizes();
+        assertThat(lottoPrizes.contains(LottoPrize.NO_PRIZE)).isFalse();
     }
 }
