@@ -1,8 +1,9 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoGeneratorTest {
     @Test
@@ -11,6 +12,6 @@ class LottoGeneratorTest {
         // when
         LottoDto lottoDto = LottoGenerator.generate();
         // then
-        Assertions.assertThat(lottoDto.getLottoNumbers().size()).isEqualTo(6);
+        assertThat(lottoDto.getLottoNumbers().size()).isEqualTo(6);
     }
 }

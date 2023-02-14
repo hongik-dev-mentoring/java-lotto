@@ -1,9 +1,10 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoNumberCounterTest {
     private LottoNumberCounter lottoNumberCounter;
@@ -23,7 +24,7 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 1);
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 2);
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 3);
-        Assertions.assertThat(lottoNumberCounter.getCount()).isEqualTo(3);
+        assertThat(lottoNumberCounter.getCount()).isEqualTo(3);
     }
 
     @Test
@@ -33,8 +34,8 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 2);
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 3);
         lottoNumberCounter.countBonusNumber(lottoWinningNumbers, 7);
-        Assertions.assertThat(lottoNumberCounter.getCount()).isEqualTo(4);
-        Assertions.assertThat(lottoNumberCounter.hasBonusNumber()).isEqualTo(true);
+        assertThat(lottoNumberCounter.getCount()).isEqualTo(4);
+        assertThat(lottoNumberCounter.hasBonusNumber()).isEqualTo(true);
     }
 
     @Test
@@ -45,6 +46,6 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 2);
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 3);
         //when
-        Assertions.assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_5TH");
+        assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_5TH");
     }
 }

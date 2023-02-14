@@ -1,12 +1,13 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoCheckerTest {
     @Test
@@ -25,10 +26,10 @@ class LottoCheckerTest {
         LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
         Map<String, Integer> resultMap = lottoChecker.calculateLottoStatistics();
         // then
-        Assertions.assertThat(resultMap.get("PRIZE_1ST")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("PRIZE_2ND")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("PRIZE_3RD")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("PRIZE_4TH")).isEqualTo(0);
-        Assertions.assertThat(resultMap.get("PRIZE_5TH")).isEqualTo(0);
+        assertThat(resultMap.get("PRIZE_1ST")).isEqualTo(1);
+        assertThat(resultMap.get("PRIZE_2ND")).isEqualTo(1);
+        assertThat(resultMap.get("PRIZE_3RD")).isEqualTo(1);
+        assertThat(resultMap.get("PRIZE_4TH")).isEqualTo(0);
+        assertThat(resultMap.get("PRIZE_5TH")).isEqualTo(0);
     }
 }

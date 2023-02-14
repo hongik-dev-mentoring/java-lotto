@@ -1,14 +1,15 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class InputPriceTest {
     @Test
     @DisplayName("구매금액을 숫자형만 입력할 수 있는지 테스트")
     public void handleInputPriceFormatTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     InputPrice inputPrice = new InputPrice("abc");
                 })
                 .isInstanceOf(IllegalArgumentException.class)
@@ -18,7 +19,7 @@ public class InputPriceTest {
     @Test
     @DisplayName("최소금액 예외 테스트")
     public void handleMinimumTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     InputPrice inputPrice = new InputPrice("900");
                 })
                 .isInstanceOf(IllegalArgumentException.class)

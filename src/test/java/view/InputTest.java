@@ -3,11 +3,12 @@ package view;
 import domain.BonusNumber;
 import domain.InputPrice;
 import domain.LastLottoNumbers;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class InputTest {
     @Test
@@ -17,7 +18,7 @@ class InputTest {
         systemIn(input);
         Input inputProcess = new Input();
         InputPrice inputPrice = inputProcess.readPrice();
-        Assertions.assertThat(inputPrice.getPrice()).isEqualTo(14000);
+        assertThat(inputPrice.getPrice()).isEqualTo(14000);
     }
 
     @Test
@@ -27,7 +28,7 @@ class InputTest {
         systemIn(input);
         Input inputProcess = new Input();
         LastLottoNumbers lastLottoNumbers = inputProcess.readLastLottoNumbers();
-        Assertions.assertThat(lastLottoNumbers.getLastLottoNumbers().size()).isEqualTo(6);
+        assertThat(lastLottoNumbers.getLastLottoNumbers().size()).isEqualTo(6);
     }
 
     @Test
@@ -37,7 +38,7 @@ class InputTest {
         systemIn(input);
         Input inputProcess = new Input();
         BonusNumber bonusNumber = inputProcess.readBonusNumber();
-        Assertions.assertThat(bonusNumber.getBonusNumber()).isEqualTo(7);
+        assertThat(bonusNumber.getBonusNumber()).isEqualTo(7);
     }
 
     public void systemIn(String input) {

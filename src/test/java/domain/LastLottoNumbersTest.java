@@ -1,14 +1,15 @@
 package domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class LastLottoNumbersTest {
     @Test
     @DisplayName("당첨번호에 숫자형만 입력할 수 있는지 테스트")
     public void handleLastLottoNumbersFormatTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1, 2, 3, 4, 5, abc");
                 })
                 .isInstanceOf(IllegalArgumentException.class)
@@ -18,7 +19,7 @@ public class LastLottoNumbersTest {
     @Test
     @DisplayName("로또 번호 범위 예외 테스트")
     public void handleLottoNumberRangeTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1, 2, 3, 4, 5, 46");
                 })
                 .isInstanceOf(IllegalArgumentException.class)
@@ -28,7 +29,7 @@ public class LastLottoNumbersTest {
     @Test
     @DisplayName("로또 번호 중복 예외 테스트")
     public void handleDuplicateTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1, 2, 3, 4, 5, 5");
                 })
                 .isInstanceOf(IllegalArgumentException.class)
@@ -38,7 +39,7 @@ public class LastLottoNumbersTest {
     @Test
     @DisplayName("당첨번호가 6개만 입력되도록 하는지 테스트")
     public void handleLottoNumbersSizeTest() {
-        Assertions.assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
                     LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1, 2, 3, 4, 5, 6, 7");
                 })
                 .isInstanceOf(IllegalArgumentException.class)
