@@ -7,6 +7,7 @@ import java.util.EnumMap;
 import org.junit.jupiter.api.Test;
 
 import domain.Ranking;
+import domain.TotalPrizeCalculator;
 
 class TotalPrizeCalculatorTest {
 
