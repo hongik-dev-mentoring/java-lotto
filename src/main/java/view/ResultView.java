@@ -1,6 +1,5 @@
 package view;
 
-import domain.InputPrice;
 import domain.LottoDto;
 import domain.LottoPrize;
 
@@ -28,14 +27,13 @@ public class ResultView {
         }
     }
 
-    public static void printBenefit(InputPrice inputPrice, Map<String, Integer> statisticsMap) {
+    public static void printBenefit(int inputPrice, Map<String, Integer> statisticsMap) {
         int rewardSum = 0;
         for (Map.Entry<String, Integer> lottoEntry : statisticsMap.entrySet()) {
             LottoPrize lottoPrize = LottoPrize.valueOf(lottoEntry.getKey());
             rewardSum += lottoPrize.getReward() * lottoEntry.getValue();
         }
-        // TODO: 반올림하지 않고 내림으로 변경
-        System.out.printf("%.2f", (double) rewardSum / inputPrice.getPrice());
+        System.out.printf("%.2f", (double) rewardSum / inputPrice);
     }
 
     public static void printPurchaseInfo(int purchaseNum) {

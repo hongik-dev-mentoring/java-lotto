@@ -12,19 +12,15 @@ public class LottoController {
     private static final int LOTTO_PRICE = 1000;
 
     public void startLotto() {
-        InputPrice inputPrice = inputPrice();
+        int inputPrice = InputView.readPrice();
         int purchaseNum = calculatePurchaseNum(inputPrice);
         List<LottoDto> lottoDtoGroup = generateLottoDtoList(purchaseNum);
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
         createLottoStatistics(inputPrice, lottoDtoGroup, lottoWinningNumbers);
     }
 
-    private InputPrice inputPrice() {
-        return InputView.readPrice();
-    }
-
-    private int calculatePurchaseNum(InputPrice inputPrice) {
-        int purchaseNum = inputPrice.getPrice() / LOTTO_PRICE;
+    private int calculatePurchaseNum(int inputPrice) {
+        int purchaseNum = inputPrice / LOTTO_PRICE;
         ResultView.printPurchaseInfo(purchaseNum);
         return purchaseNum;
     }
@@ -40,12 +36,12 @@ public class LottoController {
     }
 
     private LottoWinningNumbers readWinningNumbers() {
-        LastLottoNumbers lastLottoNumbers = InputView.readLastLottoNumbers();
-        BonusNumber bonusNumber = InputView.readBonusNumber();
+        List<Integer> lastLottoNumbers = InputView.readLastLottoNumbers();
+        int bonusNumber = InputView.readBonusNumber();
         return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
     }
 
-    private void createLottoStatistics(InputPrice inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
+    private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
         LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
         Map<String, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
         ResultView.printStatistics(statisticsMap);

@@ -1,9 +1,11 @@
-package domain;
+package parser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -17,9 +19,7 @@ public class LastLottoNumbersTest {
             "1, 2, 3, 4, 5, ABC",
     })
     public void handleLastLottoNumbersFormatTest(String input) {
-        assertThatThrownBy(() -> {
-            LastLottoNumbers lastLottoNumbers = new LastLottoNumbers(input);
-        })
+        assertThatThrownBy(() -> LastLottoNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 숫자여야 합니다.");
     }
@@ -31,9 +31,7 @@ public class LastLottoNumbersTest {
             "0, 2, 3, 4, 5, 45"
     })
     public void handleLottoNumberRangeTest(String input) {
-        assertThatThrownBy(() -> {
-            LastLottoNumbers lastLottoNumbers = new LastLottoNumbers(input);
-        })
+        assertThatThrownBy(() -> LastLottoNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1부터 45사이의 숫자여야 합니다.");
     }
@@ -41,8 +39,8 @@ public class LastLottoNumbersTest {
     @Test
     @DisplayName("로또 번호 경계값 테스트")
     public void lottoNumberBoundaryValueTest() {
-        LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1, 2, 3, 4, 5, 45");
-        assertThat(lastLottoNumbers.containsLottoNumber(45)).isTrue();
+        List<Integer> lastLottoNumbers = LastLottoNumbersParser.parse("1, 2, 3, 4, 5, 45");
+        assertThat(lastLottoNumbers.contains(45)).isTrue();
     }
 
     @ParameterizedTest
@@ -53,9 +51,7 @@ public class LastLottoNumbersTest {
             "1, 2, 3, 4, 4, 5"
     })
     public void handleDuplicateTest(String input) {
-        assertThatThrownBy(() -> {
-            LastLottoNumbers lastLottoNumbers = new LastLottoNumbers(input);
-        })
+        assertThatThrownBy(() -> LastLottoNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("중복된 번호가 존재합니다.");
     }
@@ -67,9 +63,7 @@ public class LastLottoNumbersTest {
             "1, 2, 3, 4, 5",
     })
     public void handleLottoNumbersSizeTest(String input) {
-        assertThatThrownBy(() -> {
-            LastLottoNumbers lastLottoNumbers = new LastLottoNumbers(input);
-        })
+        assertThatThrownBy(() -> LastLottoNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("당첨번호 6개를 다시 입력해주세요.");
     }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,8 @@ class LottoCheckerTest {
         lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 7, 8)));
         lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
 
-        LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1,2,3,4,5,6");
-        BonusNumber bonusNumber = new BonusNumber("7");
+        List<Integer> lastLottoNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        int bonusNumber = 7;
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         // when
         LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);

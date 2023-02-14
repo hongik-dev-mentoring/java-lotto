@@ -26,11 +26,13 @@ public class LottoNumberCounter {
     }
 
     private boolean checkContainsBonusNumber(int number) {
-        hasBonusNumber = lottoWinningNumbers.containsBonusNumber(number);
-        return hasBonusNumber;
+        if (lottoWinningNumbers.containsBonusNumber(number)) {
+            hasBonusNumber = true;
+            return true;
+        }
+        return false;
     }
 
-    // TODO: 더 좋은 방식 고민해보기
     public String decideLottoPrize() {
         if (count == 3) {
             return PRIZE_5TH.getPrizeKey();
