@@ -28,19 +28,19 @@ public class LottoNumberCounter {
 
     public String decideLottoPrize() {
         if (count == 3) {
-            return FIFTH_PRIZE.getPrizeKey();
+            return PRIZE_5TH.getPrizeKey();
         }
         if (count == 4) {
-            return FOURTH_PRIZE.getPrizeKey();
+            return PRIZE_4TH.getPrizeKey();
         }
         if (count == 5 && hasBonusNumber) {
-            return SECOND_PRIZE.getPrizeKey();
+            return PRIZE_2ND.getPrizeKey();
         }
         if (count == 5) {
-            return THIRD_PRIZE.getPrizeKey();
+            return PRIZE_3RD.getPrizeKey();
         }
         if (count == 6) {
-            return FIRST_PRIZE.getPrizeKey();
+            return PRIZE_1ST.getPrizeKey();
         }
         return NO_PRIZE.getPrizeKey();
     }

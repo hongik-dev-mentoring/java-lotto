@@ -45,6 +45,6 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 2);
         lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, 3);
         //when
-        Assertions.assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("FIFTH_PRIZE");
+        Assertions.assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_5TH");
     }
 }

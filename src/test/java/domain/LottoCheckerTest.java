@@ -25,10 +25,10 @@ class LottoCheckerTest {
         LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
         Map<String, Integer> resultMap = lottoChecker.calculateLottoStatistics();
         // then
-        Assertions.assertThat(resultMap.get("FIRST_PRIZE")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("SECOND_PRIZE")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("THIRD_PRIZE")).isEqualTo(1);
-        Assertions.assertThat(resultMap.get("FOURTH_PRIZE")).isEqualTo(0);
-        Assertions.assertThat(resultMap.get("FIFTH_PRIZE")).isEqualTo(0);
+        Assertions.assertThat(resultMap.get("PRIZE_1ST")).isEqualTo(1);
+        Assertions.assertThat(resultMap.get("PRIZE_2ND")).isEqualTo(1);
+        Assertions.assertThat(resultMap.get("PRIZE_3RD")).isEqualTo(1);
+        Assertions.assertThat(resultMap.get("PRIZE_4TH")).isEqualTo(0);
+        Assertions.assertThat(resultMap.get("PRIZE_5TH")).isEqualTo(0);
     }
 }

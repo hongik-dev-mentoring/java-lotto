@@ -26,11 +26,11 @@ public class LottoChecker {
 
     private Map<String, Integer> initiateResultMap() {
         Map<String, Integer> resultMap = new TreeMap<>(Comparator.reverseOrder());
-        resultMap.put(FIRST_PRIZE.getPrizeKey(), INITIAL_COUNT);
-        resultMap.put(SECOND_PRIZE.getPrizeKey(), INITIAL_COUNT);
-        resultMap.put(THIRD_PRIZE.getPrizeKey(), INITIAL_COUNT);
-        resultMap.put(FOURTH_PRIZE.getPrizeKey(), INITIAL_COUNT);
-        resultMap.put(FIFTH_PRIZE.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(PRIZE_1ST.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(PRIZE_2ND.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(PRIZE_3RD.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(PRIZE_4TH.getPrizeKey(), INITIAL_COUNT);
+        resultMap.put(PRIZE_5TH.getPrizeKey(), INITIAL_COUNT);
         return resultMap;
     }
 
