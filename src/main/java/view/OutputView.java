@@ -14,6 +14,7 @@ public class OutputView {
 	private static final String PURCHASE_MESSAGE = "개를 구매했습니다.";
 	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
 	private static final String DIVIDING_LINE = "---------";
+	private static final double SECOND_DECIMAL_PLACE = 100.0;
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int purchaseCount) {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -79,7 +80,7 @@ public class OutputView {
 
 	private static void appendProfitRate(StringBuilder stringBuilder, double profitRate) {
 		stringBuilder.append("총 수익률은 ")
-			.append(profitRate)
+			.append(Math.floor(profitRate * SECOND_DECIMAL_PLACE) / SECOND_DECIMAL_PLACE)
 			.append("입니다.");
 	}
 
