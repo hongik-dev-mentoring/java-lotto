@@ -3,9 +3,8 @@ package domain;
 import java.util.*;
 
 public class LottoChecker {
-    private static final int INITIAL_COUNT = 0;
     private static final int INCREASE_COUNT = 1;
-    private static final int LOTTO_PRICE = 1000;
+    private static final int INITIAL_COUNT = 0;
 
     private final List<LottoNumbers> lottoNumbersGroup;
     private final LottoWinningNumbers lottoWinningNumbers;
@@ -15,53 +14,47 @@ public class LottoChecker {
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
-    public static int getLottoPrice() {
-        return LOTTO_PRICE;
-    }
-
-    public Map<String, Integer> calculateLottoStatistics() {
-        Map<String, Integer> calculateResult = initiateResultMap();
-        for (LottoNumbers dto : lottoNumbersGroup) {
-            checkLottoWin(calculateResult, dto);
+    public Map<LottoPrize, Integer> calculateLottoStatistics() {
+        Map<LottoPrize, Integer> calculateResult = initiateResultMap();
+        for (LottoNumbers lottoNumbers : lottoNumbersGroup) {
+            checkLottoWin(calculateResult, lottoNumbers);
         }
         return calculateResult;
     }
 
-    private Map<String, Integer> initiateResultMap() {
-        Map<String, Integer> calculateResult = new TreeMap<>(Comparator.reverseOrder());
-        calculateResult.put(LottoConstant.FIRST_PRIZE_KEY.getPrizeName(), INITIAL_COUNT);
-        calculateResult.put(LottoConstant.SECOND_PRIZE_KEY.getPrizeName(), INITIAL_COUNT);
-        calculateResult.put(LottoConstant.THIRD_PRIZE_KEY.getPrizeName(), INITIAL_COUNT);
-        calculateResult.put(LottoConstant.FOURTH_PRIZE_KEY.getPrizeName(), INITIAL_COUNT);
-        calculateResult.put(LottoConstant.FIFTH_PRIZE_KEY.getPrizeName(), INITIAL_COUNT);
+    private Map<LottoPrize, Integer> initiateResultMap() {
+        Map<LottoPrize, Integer> calculateResult = new EnumMap<>(LottoPrize.class);
+        calculateResult.put(LottoPrize.PRIZE_1ST,INITIAL_COUNT);
+        calculateResult.put(LottoPrize.PRIZE_2ND,INITIAL_COUNT);
+        calculateResult.put(LottoPrize.PRIZE_3RD,INITIAL_COUNT);
+        calculateResult.put(LottoPrize.PRIZE_4TH,INITIAL_COUNT);
+        calculateResult.put(LottoPrize.PRIZE_5TH,INITIAL_COUNT);
         return calculateResult;
     }
 
-    private void checkLottoWin(Map<String, Integer> calculateResult, LottoNumbers dto) {
+    private void checkLottoWin(Map<LottoPrize, Integer> calculateResult, LottoNumbers lottoNumbers) {
         LottoNumberCounter lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
-        for (int number : dto.getLottoNumbers()) {
+        for (int number : lottoNumbers.getLottoNumbers()) {
             lottoNumberCounter.countLottoNumbers(number);
             lottoNumberCounter.countBonusNumber(number);
         }
-        String mapKey = lottoNumberCounter.decideLottoPrize();
+        LottoPrize mapKey = lottoNumberCounter.decideLottoPrize();
         updateResult(calculateResult, mapKey);
     }
 
-    private void updateResult(Map<String, Integer> calculateResult, String mapKey) {
-        if (mapKey.equals(LottoConstant.NO_PRIZE_KEY.getPrizeName())) {
+    private void updateResult(Map<LottoPrize, Integer> calculateResult, LottoPrize mapKey) {
+        if (mapKey.equals(LottoPrize.NO_PRIZE)) {
             return;
         }
         calculateResult.put(mapKey, calculateResult.get(mapKey) + INCREASE_COUNT);
     }
 
-    public double getBenefit(Map<String, Integer> statisticsMap) {
+    public double getBenefit(Map<LottoPrize, Integer> statisticsMap, int inputPrice) {
         int rewardSum = 0;
-        for (Map.Entry<String, Integer> lottoEntry : statisticsMap.entrySet()) {
-            LottoEnum lottoEnum = LottoEnum.valueOf(lottoEntry.getKey());
-            rewardSum += lottoEnum.getReward() * lottoEntry.getValue();
+        for (Map.Entry<LottoPrize, Integer> lottoEntry : statisticsMap.entrySet()) {
+            LottoPrize lottoPrize = lottoEntry.getKey();
+            rewardSum += lottoPrize.getReward() * lottoEntry.getValue();
         }
-        return (double) rewardSum / LOTTO_PRICE;
+        return (double) rewardSum / inputPrice;
     }
-
-
 }
