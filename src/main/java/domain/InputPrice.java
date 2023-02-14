@@ -1,6 +1,8 @@
 package domain;
 
 public class InputPrice {
+
+    private static final int MIN_INPUT_PRICE =1000;
     private final int price;
 
     public InputPrice(String input) {
@@ -18,7 +20,7 @@ public class InputPrice {
     }
 
     private void checkMinimumPrice(int price) {
-        if (price < 1000) {
+        if (price < MIN_INPUT_PRICE) {
             throw new IllegalArgumentException("구입금액은 1000원 이상이어야 합니다.");
         }
     }
