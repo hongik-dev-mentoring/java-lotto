@@ -7,21 +7,19 @@ public class LottoNumberCounter {
 
     private int count;
     private boolean hasBonusNumber;
-    private final LottoWinningNumbers lottoWinningNumbers;
 
-    public LottoNumberCounter(LottoWinningNumbers lottoWinningNumbers) {
+    public LottoNumberCounter() {
         this.count = INITIAL_COUNT;
         this.hasBonusNumber = false;
-        this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
-    public void countLottoNumbers(int number) {
+    public void countLottoNumbers(LottoWinningNumbers lottoWinningNumbers, int number) {
         if (lottoWinningNumbers.isWinningNumber(number)) {
             count++;
         }
     }
 
-    public void countBonusNumber(int number) {
+    public void countBonusNumber(LottoWinningNumbers lottoWinningNumbers, int number) {
         if (lottoWinningNumbers.isBonusNumber(number)) {
             count++;
             hasBonusNumber = true;

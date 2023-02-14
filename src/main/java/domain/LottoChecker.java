@@ -35,17 +35,19 @@ public class LottoChecker {
     }
 
     private void checkLottoWin(Map<String, Integer> resultMap, LottoDto dto) {
-        LottoNumberCounter lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
+        LottoNumberCounter lottoNumberCounter = new LottoNumberCounter();
         for (int number : dto.getLottoNumbers()) {
-            lottoNumberCounter.countLottoNumbers(number);
-            lottoNumberCounter.countBonusNumber(number);
+            lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, number);
+            lottoNumberCounter.countBonusNumber(lottoWinningNumbers, number);
         }
         String mapKey = lottoNumberCounter.decideLottoPrize();
         updateResultMap(resultMap, mapKey);
     }
 
     private void updateResultMap(Map<String, Integer> resultMap, String mapKey) {
-        if (mapKey.equals(NO_PRIZE.getPrizeKey())) return;
+        if (mapKey.equals(NO_PRIZE.getPrizeKey())) {
+            return;
+        }
         resultMap.put(mapKey, resultMap.get(mapKey) + COUNT_UP_UNIT);
     }
 }
