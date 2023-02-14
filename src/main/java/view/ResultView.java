@@ -1,9 +1,8 @@
 package view;
 
 import domain.LottoNumbers;
-import domain.LottoEnum;
+import domain.LottoPrize;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,23 @@ public class ResultView {
         System.out.println("]");
     }
 
-    public static void printStatistics(Map<String, Integer> lottoStatistics) {
+    public static void printStatistics(Map<LottoPrize, Integer> lottoStatistics) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (Map.Entry<String, Integer> lottoEntry : lottoStatistics.entrySet()) {
-            LottoEnum lottoEnum = LottoEnum.valueOf(lottoEntry.getKey());
-            System.out.println(lottoEnum.getPrizeText() + "- " + lottoEntry.getValue() + "개");
+        for (Map.Entry<LottoPrize, Integer> lottoEntry : lottoStatistics.entrySet()) {
+            printResultLine(lottoEntry);
         }
+    }
+
+    private static void printResultLine(Map.Entry<LottoPrize, Integer> lottoEntry) {
+        LottoPrize lottoPrize = lottoEntry.getKey();
+        Integer value = lottoEntry.getValue();
+        String str = lottoPrize.getMatchingNum() + "개 일치";
+        if (lottoPrize.isHasBonusNum()) {
+            str += ", 보너스 볼 일치";
+        }
+        str+= " (" + lottoPrize.getReward() + ")- " + value + "개";
+        System.out.println(str);
     }
 
     public static void printBenefit(double benefit) {
