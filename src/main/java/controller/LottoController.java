@@ -20,8 +20,7 @@ public class LottoController {
     }
 
     private InputPrice inputPrice() {
-        Input input = new Input();
-        return input.readPrice();
+        return Input.readPrice();
     }
 
     private int calculatePurchaseNum(InputPrice inputPrice) {
@@ -41,9 +40,8 @@ public class LottoController {
     }
 
     private LottoWinningNumbers readWinningNumbers() {
-        Input input = new Input();
-        LastLottoNumbers lastLottoNumbers = input.readLastLottoNumbers();
-        BonusNumber bonusNumber = input.readBonusNumber();
+        LastLottoNumbers lastLottoNumbers = Input.readLastLottoNumbers();
+        BonusNumber bonusNumber = Input.readBonusNumber();
         return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
     }
 
