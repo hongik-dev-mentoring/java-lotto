@@ -18,19 +18,38 @@ public class ResultView {
         System.out.println("]");
     }
 
-    public static void printStatistics(Map<String, Integer> lottoStatistics) {
+    public static void printLottoResult(Map<LottoPrize, Integer> resultMap) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (Map.Entry<String, Integer> lottoEntry : lottoStatistics.entrySet()) {
-            LottoPrize lottoPrize = LottoPrize.valueOf(lottoEntry.getKey());
-            System.out.println(lottoPrize.getPrizeText() + "- " + lottoEntry.getValue() + "개");
+        for (LottoPrize lottoPrize : LottoPrize.getSortedLottoPrizes()) {
+            System.out.println(createStatisticsText(resultMap, lottoPrize));
         }
     }
 
-    public static void printBenefit(int inputPrice, Map<String, Integer> statisticsMap) {
+    private static String createStatisticsText(Map<LottoPrize, Integer> resultMap, LottoPrize lottoPrize) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(lottoPrize.getCount())
+                .append("개 일치")
+                .append(getBonusNumberText(lottoPrize))
+                .append("(")
+                .append(lottoPrize.getReward())
+                .append("원)- ")
+                .append(resultMap.get(lottoPrize))
+                .append("개");
+        return stringBuilder.toString();
+    }
+
+    private static String getBonusNumberText(LottoPrize lottoPrize) {
+        if (lottoPrize == LottoPrize.PRIZE_2ND) {
+            return ", 보너스 볼 일치";
+        }
+        return " ";
+    }
+
+    public static void printBenefit(int inputPrice, Map<LottoPrize, Integer> resultMap) {
         int rewardSum = 0;
-        for (Map.Entry<String, Integer> lottoEntry : statisticsMap.entrySet()) {
-            LottoPrize lottoPrize = LottoPrize.valueOf(lottoEntry.getKey());
+        for (Map.Entry<LottoPrize, Integer> lottoEntry : resultMap.entrySet()) {
+            LottoPrize lottoPrize = lottoEntry.getKey();
             rewardSum += lottoPrize.getReward() * lottoEntry.getValue();
         }
         System.out.printf("%.2f", (double) rewardSum / inputPrice);

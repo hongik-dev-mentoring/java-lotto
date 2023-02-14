@@ -1,54 +1,39 @@
 package domain;
 
-import static domain.LottoPrize.*;
+import java.util.stream.Collectors;
 
 public class LottoNumberCounter {
-    private static final int INITIAL_COUNT = 0;
-
     private final LottoWinningNumbers lottoWinningNumbers;
-    private int count;
-    private boolean hasBonusNumber;
 
     public LottoNumberCounter(LottoWinningNumbers lottoWinningNumbers) {
         this.lottoWinningNumbers = lottoWinningNumbers;
-        this.count = INITIAL_COUNT;
-        this.hasBonusNumber = false;
     }
 
-    public void countLottoNumbers(int number) {
-        if (checkContainsLottoNumber(number) || checkContainsBonusNumber(number)) {
-            count++;
-        }
+    public LottoPrize decideLottoPrize(LottoDto dto) {
+        int count = countLottoNumbers(dto);
+        boolean hasBonus = countBonusNumber(dto);
+        return LottoPrize.selectLottoPrize(count, hasBonus);
+    }
+
+    private int countLottoNumbers(LottoDto lottoDto) {
+        return (int) lottoDto.getLottoNumbers()
+                .stream()
+                .filter(this::checkContainsLottoNumber)
+                .count();
     }
 
     private boolean checkContainsLottoNumber(int number) {
         return lottoWinningNumbers.containsLottoNumber(number);
     }
 
-    private boolean checkContainsBonusNumber(int number) {
-        if (lottoWinningNumbers.containsBonusNumber(number)) {
-            hasBonusNumber = true;
-            return true;
-        }
-        return false;
+    private boolean countBonusNumber(LottoDto lottoDto) {
+        return lottoDto.getLottoNumbers()
+                .stream()
+                .filter(this::checkContainsBonusNumber)
+                .count() == 1;
     }
 
-    public String decideLottoPrize() {
-        if (count == 3) {
-            return PRIZE_5TH.getPrizeKey();
-        }
-        if (count == 4) {
-            return PRIZE_4TH.getPrizeKey();
-        }
-        if (count == 5 && hasBonusNumber) {
-            return PRIZE_2ND.getPrizeKey();
-        }
-        if (count == 5) {
-            return PRIZE_3RD.getPrizeKey();
-        }
-        if (count == 6) {
-            return PRIZE_1ST.getPrizeKey();
-        }
-        return NO_PRIZE.getPrizeKey();
+    private boolean checkContainsBonusNumber(int number) {
+        return lottoWinningNumbers.containsBonusNumber(number);
     }
 }

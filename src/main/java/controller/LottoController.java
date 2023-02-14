@@ -72,8 +72,8 @@ public class LottoController {
 
     private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
         LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
-        Map<String, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
-        ResultView.printStatistics(statisticsMap);
+        Map<LottoPrize, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
+        ResultView.printLottoResult(statisticsMap);
         ResultView.printBenefit(inputPrice, statisticsMap);
     }
 }
