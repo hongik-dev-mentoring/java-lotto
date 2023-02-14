@@ -14,8 +14,8 @@ import dto.LottoTicketDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
 import domain.TotalPrizeCalculator;
-import util.convertor.WinningNumberConvertor;
-import util.convertor.PurchaseAmountConvertor;
+import domain.WinningNumberConvertor;
+import domain.PurchaseAmountConvertor;
 import view.InputView;
 import view.OutputView;
 

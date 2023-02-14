@@ -1,4 +1,4 @@
-package util.convertor;
+package domain;
 
 public class PurchaseAmountConvertor {
 
