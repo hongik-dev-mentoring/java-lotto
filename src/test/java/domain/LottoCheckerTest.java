@@ -13,16 +13,16 @@ class LottoCheckerTest {
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
         // given
-        List<LottoDto> lottoDtoList = new ArrayList<>();
-        lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
-        lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 7, 8)));
-        lottoDtoList.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
+        List<LottoDto> lottoDtoGroup = new ArrayList<>();
+        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
+        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 7, 8)));
+        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
 
         LastLottoNumbers lastLottoNumbers = new LastLottoNumbers("1,2,3,4,5,6");
         BonusNumber bonusNumber = new BonusNumber("7");
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         // when
-        LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lottoWinningNumbers);
+        LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
         Map<String, Integer> resultMap = lottoChecker.calculateLottoStatistics();
         // then
         Assertions.assertThat(resultMap.get("FIRST_PRIZE")).isEqualTo(1);

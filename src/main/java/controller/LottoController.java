@@ -14,9 +14,9 @@ public class LottoController {
     public void startLotto() {
         InputPrice inputPrice = inputPrice();
         int purchaseNum = calculatePurchaseNum(inputPrice);
-        List<LottoDto> lottoDtoList = generateLottoDtoList(purchaseNum);
+        List<LottoDto> lottoDtoGroup = generateLottoDtoList(purchaseNum);
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
-        createLottoStatistics(inputPrice, lottoDtoList, lottoWinningNumbers);
+        createLottoStatistics(inputPrice, lottoDtoGroup, lottoWinningNumbers);
     }
 
     private InputPrice inputPrice() {
@@ -31,13 +31,13 @@ public class LottoController {
     }
 
     private List<LottoDto> generateLottoDtoList(int purchaseNum) {
-        List<LottoDto> lottoDtoList = new ArrayList<>();
+        List<LottoDto> lottoDtoGroup = new ArrayList<>();
         for (int i = 0; i < purchaseNum; i++) {
             LottoDto lottoDto = LottoGenerator.generate();
-            lottoDtoList.add(lottoDto);
+            lottoDtoGroup.add(lottoDto);
             ResultView.printLottoNumbers(lottoDto);
         }
-        return lottoDtoList;
+        return lottoDtoGroup;
     }
 
     private LottoWinningNumbers readWinningNumbers() {
@@ -47,8 +47,8 @@ public class LottoController {
         return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
     }
 
-    private void createLottoStatistics(InputPrice inputPrice, List<LottoDto> lottoDtoList, LottoWinningNumbers lottoWinningNumbers) {
-        LottoChecker lottoChecker = new LottoChecker(lottoDtoList, lottoWinningNumbers);
+    private void createLottoStatistics(InputPrice inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
+        LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
         Map<String, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
         ResultView.printStatistics(statisticsMap);
         ResultView.printBenefit(inputPrice, statisticsMap);
