@@ -23,7 +23,8 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(1);
         lottoNumberCounter.countLottoNumbers(2);
         lottoNumberCounter.countLottoNumbers(3);
-        assertThat(lottoNumberCounter.getCount()).isEqualTo(3);
+        lottoNumberCounter.countLottoNumbers(4);
+        assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_4TH");
     }
 
     @Test
@@ -32,13 +33,14 @@ class LottoNumberCounterTest {
         lottoNumberCounter.countLottoNumbers(1);
         lottoNumberCounter.countLottoNumbers(2);
         lottoNumberCounter.countLottoNumbers(3);
+        lottoNumberCounter.countLottoNumbers(4);
         lottoNumberCounter.countLottoNumbers(7);
-        assertThat(lottoNumberCounter.getCount()).isEqualTo(4);
+        assertThat(lottoNumberCounter.decideLottoPrize()).isEqualTo("PRIZE_2ND");
     }
 
     @Test
-    @DisplayName("로또 5등 당첨 시 LottoConstant.FIFTH_PRIZE_KEY 반환 테스트")
-    void decideLottoPrize() {
+    @DisplayName("로또 5등 당첨 테스트")
+    void decideLottoPrizeTest() {
         lottoNumberCounter.countLottoNumbers(1);
         lottoNumberCounter.countLottoNumbers(2);
         lottoNumberCounter.countLottoNumbers(3);

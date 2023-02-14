@@ -30,6 +30,7 @@ public class LottoNumberCounter {
         return hasBonusNumber;
     }
 
+    // TODO: 더 좋은 방식 고민해보기
     public String decideLottoPrize() {
         if (count == 3) {
             return PRIZE_5TH.getPrizeKey();
@@ -47,9 +48,5 @@ public class LottoNumberCounter {
             return PRIZE_1ST.getPrizeKey();
         }
         return NO_PRIZE.getPrizeKey();
-    }
-
-    public int getCount() {
-        return count;
     }
 }

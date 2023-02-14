@@ -34,6 +34,7 @@ public class ResultView {
             LottoPrize lottoPrize = LottoPrize.valueOf(lottoEntry.getKey());
             rewardSum += lottoPrize.getReward() * lottoEntry.getValue();
         }
+        // TODO: 반올림하지 않고 내림으로 변경
         System.out.printf("%.2f", (double) rewardSum / inputPrice.getPrice());
     }
 
