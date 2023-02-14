@@ -2,17 +2,17 @@ package dto;
 
 import java.util.EnumMap;
 
-import domain.Ranking;
+import domain.Rank;
 
 public class LottoResultDto {
 
-	private final EnumMap<Ranking, Integer> lottoResult;
+	private final EnumMap<Rank, Integer> lottoResult;
 
-	public LottoResultDto(EnumMap<Ranking, Integer> lottoResult) {
+	public LottoResultDto(EnumMap<Rank, Integer> lottoResult) {
 		this.lottoResult = lottoResult;
 	}
 
-	public EnumMap<Ranking, Integer> getLottoResult() {
+	public EnumMap<Rank, Integer> getLottoResult() {
 		return lottoResult;
 	}
 }

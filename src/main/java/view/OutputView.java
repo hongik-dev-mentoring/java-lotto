@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import domain.Ranking;
+import domain.Rank;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
 
@@ -31,12 +31,11 @@ public class OutputView {
 
 	public static void printLottoResult(LottoResultDto lottoResultDto) {
 		System.out.println(LOTTO_RESULT_MESSAGE);
-		List<Ranking> rankings = Arrays.stream(Ranking.values())
-			.filter(ranking -> ranking != Ranking.UNRANKED)
-			.sorted(Collections.reverseOrder())
+		List<Rank> ranks = Arrays.stream(Rank.values())
+			.filter(ranking -> ranking != Rank.UNRANKED)
 			.collect(Collectors.toList());
-		EnumMap<Ranking, Integer> rankingResults = lottoResultDto.getLottoResult();
-		rankings.forEach(ranking ->
+		EnumMap<Rank, Integer> rankingResults = lottoResultDto.getLottoResult();
+		ranks.forEach(ranking ->
 			buildLottoResultMessage(ranking.getCorrectNumber(),
 				ranking.getWinningAmount(), Optional.ofNullable(rankingResults.get(ranking)).orElse(0))
 		);

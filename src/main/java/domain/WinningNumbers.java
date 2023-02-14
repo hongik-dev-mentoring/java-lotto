@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.EnumMap;
 import java.util.List;
 
 public class WinningNumbers implements Numbers {

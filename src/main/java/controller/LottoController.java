@@ -6,7 +6,8 @@ import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoNumberGenerator;
 import domain.LottoTicket;
-import domain.Ranking;
+import domain.Rank;
+import domain.RankDiscriminator;
 import domain.WinningNumbers;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
@@ -38,7 +39,7 @@ public class LottoController {
 
 		lotto = Lotto.generateLottoWithLottoNumbers(
 			new LottoNumberGenerator(FROM, TO, LOTTO_NUMBER_LIMIT), calculateCount);
-		LottoTicket lottoTicket = lotto.getLottoNumbers();
+		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
 		OutputView.printBlankLine();
 	}
@@ -78,7 +79,8 @@ public class LottoController {
 	}
 
 	public void announceLottoResult() {
-		EnumMap<Ranking, Integer> lottoResult = lotto.checkLottoResult(winningNumbers, bonusBall);
+		RankDiscriminator rankDiscriminator = new RankDiscriminator(winningNumbers, bonusBall);
+		EnumMap<Rank, Integer> lottoResult = rankDiscriminator.checkLottoResult(lotto.getLottoTicketNumbers());
 		LottoResultDto lottoResultDto = new LottoResultDto(lottoResult);
 		OutputView.printLottoResult(lottoResultDto);
 

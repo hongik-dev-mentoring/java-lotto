@@ -24,7 +24,7 @@ public class LottoNumberGenerator {
 
 		Collections.shuffle(pickNumbers);
 		List<Integer> limitNumbers = getLimitedNumbers(pickNumbers);
-		Collections.sort(pickNumbers);
+		Collections.sort(limitNumbers);
 
 		return new LottoNumbers(limitNumbers);
 	}
