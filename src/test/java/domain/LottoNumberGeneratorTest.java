@@ -15,7 +15,7 @@ class LottoNumberGeneratorTest {
 
 	@Test
 	void 범위내의_숫자를_뽑을수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
 		LottoNumbers lottoNumbers = lottoNumberGenerator.generateLottoNumbers();
 		List<Integer> actualNumbers = lottoNumbers.getNumbers();
@@ -31,7 +31,7 @@ class LottoNumberGeneratorTest {
 
 	@Test
 	void 임의_갯수의_숫자를_뽑을_수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
 		LottoNumbers lottoNumbers = lottoNumberGenerator.generateLottoNumbers();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
@@ -41,7 +41,7 @@ class LottoNumberGeneratorTest {
 
 	@Test
 	void 뽑은_숫자들은_중복된_숫자가_없다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
 		LottoNumbers lottoNumbers = lottoNumberGenerator.generateLottoNumbers();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();

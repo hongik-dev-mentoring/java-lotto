@@ -26,9 +26,6 @@ import view.OutputView;
 public class LottoController {
 
 	private static final int LOTTO_TICKET_PER_PRICE = 1000;
-	private final int FROM = 1;
-	private final int TO = 46;
-	private final int LOTTO_NUMBER_LIMIT = 6;
 
 	private Integer purchaseAmount;
 	private Lotto lotto;
@@ -39,8 +36,7 @@ public class LottoController {
 		getPurchaseAmount();
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
 
-		lotto = Lotto.generateLottoWithLottoNumbers(
-			new LottoNumberGenerator(FROM, TO, LOTTO_NUMBER_LIMIT), calculateCount);
+		lotto = Lotto.generateLottoWithLottoNumbers(new LottoNumberGenerator(), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket), calculateCount);
 	}
@@ -70,8 +66,7 @@ public class LottoController {
 
 	private void getBonusBall() {
 		try {
-			bonusBall = BonusBall.createBonusBallInRange(
-				FROM, TO, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+			bonusBall = BonusBall.createBonusBallInRange(WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();

@@ -14,7 +14,7 @@ class BonusBallTest {
 	void 보너스_번호는_로또_번호의_범위_내에_있어야_한다() {
 		WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
 
-		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(1, 45, 50, winningNumbers))
+		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(50, winningNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 보너스 볼은 1부터 45까지의 숫자여야 합니다.");
 	}
@@ -24,7 +24,7 @@ class BonusBallTest {
 	void 보너스_번호는_당첨_번호와_중복될_수_없다(int input) {
 		WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
 
-		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(1, 45, input, winningNumbers))
+		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(input, winningNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다.");
 	}

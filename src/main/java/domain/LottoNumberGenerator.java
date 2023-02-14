@@ -7,18 +7,12 @@ import java.util.stream.IntStream;
 
 public class LottoNumberGenerator {
 
-	private final int startNumber;
-	private final int endNumber;
-	private final int limitNumber;
-
-	public LottoNumberGenerator(int startNumber, int endNumber, int limitNumber) {
-		this.startNumber = startNumber;
-		this.endNumber = endNumber;
-		this.limitNumber = limitNumber;
-	}
+	private static final int MIN_LOTTO_NUMBER = 1;
+	private static final int MAX_LOTTO_NUMBER = 45;
+	private static final int LOTTO_NUMBER_LENGTH = 6;
 
 	public LottoNumbers generateLottoNumbers() {
-		List<Integer> pickNumbers = IntStream.range(startNumber, endNumber)
+		List<Integer> pickNumbers = IntStream.rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
 			.boxed()
 			.collect(Collectors.toList());
 
@@ -31,7 +25,7 @@ public class LottoNumberGenerator {
 
 	private List<Integer> getLimitedNumbers(List<Integer> numbers) {
 		return numbers.stream()
-			.limit(limitNumber)
+			.limit(LOTTO_NUMBER_LENGTH)
 			.collect(Collectors.toList());
 	}
 }
