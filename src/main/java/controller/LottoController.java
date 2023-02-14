@@ -1,7 +1,7 @@
 package controller;
 
 import domain.*;
-import view.Input;
+import view.InputView;
 import view.ResultView;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class LottoController {
     }
 
     private InputPrice inputPrice() {
-        return Input.readPrice();
+        return InputView.readPrice();
     }
 
     private int calculatePurchaseNum(InputPrice inputPrice) {
@@ -40,8 +40,8 @@ public class LottoController {
     }
 
     private LottoWinningNumbers readWinningNumbers() {
-        LastLottoNumbers lastLottoNumbers = Input.readLastLottoNumbers();
-        BonusNumber bonusNumber = Input.readBonusNumber();
+        LastLottoNumbers lastLottoNumbers = InputView.readLastLottoNumbers();
+        BonusNumber bonusNumber = InputView.readBonusNumber();
         return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
     }
 

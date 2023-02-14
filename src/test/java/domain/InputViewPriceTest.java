@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class InputPriceTest {
+public class InputViewPriceTest {
     @Test
     @DisplayName("구매금액을 숫자형만 입력할 수 있는지 테스트")
     public void handleInputPriceFormatTest() {

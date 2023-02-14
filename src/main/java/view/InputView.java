@@ -6,7 +6,7 @@ import domain.LastLottoNumbers;
 
 import java.util.Scanner;
 
-public class Input {
+public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static InputPrice readPrice() {
