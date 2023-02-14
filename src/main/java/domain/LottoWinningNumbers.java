@@ -9,11 +9,11 @@ public class LottoWinningNumbers {
         this.bonusNumber = bonusNumber;
     }
 
-    public boolean isWinningNumber(int number) {
-        return lastLottoNumbers.getLastLottoNumbers().contains(number);
+    public boolean containsLottoNumber(int number) {
+        return lastLottoNumbers.containsLottoNumber(number);
     }
 
-    public boolean isBonusNumber(int number) {
-        return bonusNumber.getBonusNumber() == number;
+    public boolean containsBonusNumber(int number) {
+        return bonusNumber.isBonusNumber(number);
     }
 }

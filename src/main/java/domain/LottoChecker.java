@@ -35,10 +35,9 @@ public class LottoChecker {
     }
 
     private void checkLottoWin(Map<String, Integer> resultMap, LottoDto dto) {
-        LottoNumberCounter lottoNumberCounter = new LottoNumberCounter();
+        LottoNumberCounter lottoNumberCounter = new LottoNumberCounter(lottoWinningNumbers);
         for (int number : dto.getLottoNumbers()) {
-            lottoNumberCounter.countLottoNumbers(lottoWinningNumbers, number);
-            lottoNumberCounter.countBonusNumber(lottoWinningNumbers, number);
+            lottoNumberCounter.countLottoNumbers(number);
         }
         String mapKey = lottoNumberCounter.decideLottoPrize();
         updateResultMap(resultMap, mapKey);

@@ -5,25 +5,29 @@ import static domain.LottoPrize.*;
 public class LottoNumberCounter {
     private static final int INITIAL_COUNT = 0;
 
+    private final LottoWinningNumbers lottoWinningNumbers;
     private int count;
     private boolean hasBonusNumber;
 
-    public LottoNumberCounter() {
+    public LottoNumberCounter(LottoWinningNumbers lottoWinningNumbers) {
+        this.lottoWinningNumbers = lottoWinningNumbers;
         this.count = INITIAL_COUNT;
         this.hasBonusNumber = false;
     }
 
-    public void countLottoNumbers(LottoWinningNumbers lottoWinningNumbers, int number) {
-        if (lottoWinningNumbers.isWinningNumber(number)) {
+    public void countLottoNumbers(int number) {
+        if (checkContainsLottoNumber(number) || checkContainsBonusNumber(number)) {
             count++;
         }
     }
 
-    public void countBonusNumber(LottoWinningNumbers lottoWinningNumbers, int number) {
-        if (lottoWinningNumbers.isBonusNumber(number)) {
-            count++;
-            hasBonusNumber = true;
-        }
+    private boolean checkContainsLottoNumber(int number) {
+        return lottoWinningNumbers.containsLottoNumber(number);
+    }
+
+    private boolean checkContainsBonusNumber(int number) {
+        hasBonusNumber = lottoWinningNumbers.containsBonusNumber(number);
+        return hasBonusNumber;
     }
 
     public String decideLottoPrize() {
@@ -47,9 +51,5 @@ public class LottoNumberCounter {
 
     public int getCount() {
         return count;
-    }
-
-    public boolean hasBonusNumber() {
-        return hasBonusNumber;
     }
 }

@@ -53,7 +53,7 @@ public class LastLottoNumbers {
         }
     }
 
-    public List<Integer> getLastLottoNumbers() {
-        return lastLottoNumbers;
+    public boolean containsLottoNumber(int number) {
+        return lastLottoNumbers.contains(number);
     }
 }

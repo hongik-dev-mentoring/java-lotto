@@ -23,7 +23,7 @@ public class BonusNumber {
         }
     }
 
-    public int getBonusNumber() {
-        return bonusNumber;
+    public boolean isBonusNumber(int number) {
+        return number == bonusNumber;
     }
 }
