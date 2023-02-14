@@ -1,11 +1,10 @@
-package domain;
+package dto;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Rank {
-
+public enum RankDto {
 	UNRANKED(0, false, 0),
 	FIFTH(3, false, 5_000),
 	FOURTH(4, false, 50_000),
@@ -17,25 +16,16 @@ public enum Rank {
 	private final boolean bonus;
 	private final int winningAmount;
 
-	Rank(int correctNumber, boolean bonus, int winningAmount) {
+	RankDto(int correctNumber, boolean bonus, int winningAmount) {
 		this.correctNumber = correctNumber;
 		this.bonus = bonus;
 		this.winningAmount = winningAmount;
 	}
 
-	public static List<Rank> getRanks() {
-		return Arrays.stream(Rank.values())
-			.filter(rank -> rank != Rank.UNRANKED)
+	public static List<RankDto> getRankDtos() {
+		return Arrays.stream(RankDto.values())
+			.filter(rank -> rank != RankDto.UNRANKED)
 			.collect(Collectors.toUnmodifiableList());
-	}
-
-	public static Rank findRank(int correctNumber, boolean bonus) {
-		for (Rank rank : Rank.values()) {
-			if (rank.correctNumber == correctNumber && rank.bonus == bonus) {
-				return rank;
-			}
-		}
-		return UNRANKED;
 	}
 
 	public int getCorrectNumber() {
@@ -49,5 +39,4 @@ public enum Rank {
 	public int getWinningAmount() {
 		return winningAmount;
 	}
-
 }

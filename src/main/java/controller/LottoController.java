@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 import domain.BonusBall;
 import domain.Lotto;
@@ -11,6 +14,7 @@ import domain.RankDiscriminator;
 import domain.WinningNumbers;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
+import dto.RankDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
 import domain.TotalPrizeCalculator;
@@ -77,7 +81,11 @@ public class LottoController {
 	public void announceLottoResult() {
 		RankDiscriminator rankDiscriminator = new RankDiscriminator(winningNumbers, bonusBall);
 		EnumMap<Rank, Integer> lottoResult = rankDiscriminator.checkLottoResult(lotto.getLottoTicketNumbers());
-		LottoResultDto lottoResultDto = new LottoResultDto(lottoResult);
+
+		EnumMap<RankDto, Integer> lottoResultsDto = new EnumMap<>(RankDto.class);
+		lottoResult.forEach((key, value) -> lottoResultsDto.put(RankDto.valueOf(key.name()), value));
+
+		LottoResultDto lottoResultDto = new LottoResultDto(lottoResultsDto);
 		OutputView.printLottoResult(lottoResultDto, ProfitRateCalculator.calculateProfitRate(
 			TotalPrizeCalculator.calculateTotalPrize(lottoResult), purchaseAmount));
 	}

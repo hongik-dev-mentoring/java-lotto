@@ -4,10 +4,10 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 
-import domain.Rank;
 import dto.LottoNumbersDto;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
+import dto.RankDto;
 
 public class OutputView {
 
@@ -54,28 +54,29 @@ public class OutputView {
 	}
 
 	private static void appendLottoResultBody(StringBuilder stringBuilder, LottoResultDto lottoResultDto) {
-		EnumMap<Rank, Integer> lottoResult = lottoResultDto.getLottoResult();
-		for (Rank rank : Rank.getRanks()) {
-			stringBuilder.append(rank.getCorrectNumber())
+		EnumMap<RankDto, Integer> lottoResult = lottoResultDto.getLottoResult();
+
+		for (RankDto rankDto : RankDto.getRankDtos()) {
+			stringBuilder.append(rankDto.getCorrectNumber())
 				.append("개 일치")
-				.append(getBonus(rank));
+				.append(getBonus(rankDto));
 			stringBuilder.append("(")
-				.append(rank.getWinningAmount()).append("원) - ")
-				.append(getCount(lottoResult, rank))
+				.append(rankDto.getWinningAmount()).append("원) - ")
+				.append(getCount(lottoResult, rankDto))
 				.append("개")
 				.append(System.lineSeparator());
 		}
 	}
 
-	private static String getBonus(Rank rank) {
-		if (rank.isBonus()) {
+	private static String getBonus(RankDto rankDto) {
+		if (rankDto.isBonus()) {
 			return ", 보너스 볼 일치";
 		}
 		return " ";
 	}
 
-	private static int getCount(EnumMap<Rank, Integer> result, Rank rank) {
-		return Optional.ofNullable(result.get(rank)).orElse(0);
+	private static int getCount(EnumMap<RankDto, Integer> lottoResult, RankDto rankDto) {
+		return Optional.ofNullable(lottoResult.get(rankDto)).orElse(0);
 	}
 
 	private static void appendProfitRate(StringBuilder stringBuilder, double profitRate) {
