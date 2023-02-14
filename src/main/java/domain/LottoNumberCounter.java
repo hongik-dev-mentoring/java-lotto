@@ -26,23 +26,8 @@ public class LottoNumberCounter {
         }
     }
 
-    public String decideLottoPrize() {
-        if (count == 3) {
-            return LottoConstant.FIFTH_PRIZE_KEY.getPrizeName();
-        }
-        if (count == 4) {
-            return LottoConstant.FOURTH_PRIZE_KEY.getPrizeName();
-        }
-        if (count == 5 && hasBonusNumber) {
-            return LottoConstant.SECOND_PRIZE_KEY.getPrizeName();
-        }
-        if (count == 5) {
-            return LottoConstant.THIRD_PRIZE_KEY.getPrizeName();
-        }
-        if (count == 6) {
-            return LottoConstant.FIRST_PRIZE_KEY.getPrizeName();
-        }
-        return LottoConstant.NO_PRIZE_KEY.getPrizeName();
+    public LottoPrize decideLottoPrize() {
+        return LottoPrize.decideLottoPrize(count, hasBonusNumber);
     }
 
     public int getCount() {
