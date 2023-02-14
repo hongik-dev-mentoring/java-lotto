@@ -35,13 +35,10 @@ public class LottoController {
 		getPurchaseAmount();
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
 
-		OutputView.printLottoPurchaseCount(calculateCount);
-
 		lotto = Lotto.generateLottoWithLottoNumbers(
 			new LottoNumberGenerator(FROM, TO, LOTTO_NUMBER_LIMIT), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
-		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
-		OutputView.printBlankLine();
+		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket), calculateCount);
 	}
 
 	private void getPurchaseAmount() {
@@ -56,7 +53,6 @@ public class LottoController {
 	public void drawLotto() {
 		getWinningNumbers();
 		getBonusBall();
-		OutputView.printBlankLine();
 	}
 
 	private void getWinningNumbers() {
@@ -82,9 +78,7 @@ public class LottoController {
 		RankDiscriminator rankDiscriminator = new RankDiscriminator(winningNumbers, bonusBall);
 		EnumMap<Rank, Integer> lottoResult = rankDiscriminator.checkLottoResult(lotto.getLottoTicketNumbers());
 		LottoResultDto lottoResultDto = new LottoResultDto(lottoResult);
-		OutputView.printLottoResult(lottoResultDto);
-
-		OutputView.printProfitRate(ProfitRateCalculator.calculateProfitRate(
+		OutputView.printLottoResult(lottoResultDto, ProfitRateCalculator.calculateProfitRate(
 			TotalPrizeCalculator.calculateTotalPrize(lottoResult), purchaseAmount));
 	}
 }

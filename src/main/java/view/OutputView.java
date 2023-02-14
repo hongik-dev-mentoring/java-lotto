@@ -1,72 +1,86 @@
 package view;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import domain.Rank;
+import dto.LottoNumbersDto;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
 
 public class OutputView {
 
 	private static final String PURCHASE_MESSAGE = "개를 구매했습니다.";
-	private static final String LOTTO_RESULT_MESSAGE = "당첨 통계\n---------";
+	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
+	private static final String DIVIDING_LINE = "---------";
 
-	public static void printLottoTicket(LottoTicketDto lottoTicketDto) {
-		lottoTicketDto.getLottoNumbersDto()
-			.stream()
-			.forEach(System.out::println);
+	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int purchaseCount) {
+		StringBuilder stringBuilder = new StringBuilder();
+		appendLottoTicketHeader(stringBuilder, purchaseCount);
+		appendLottoTicketBody(stringBuilder, lottoTicketDto);
+		System.out.println(stringBuilder);
 	}
 
-	public static void printLottoPurchaseCount(int purchaseCount) {
-		StringBuilder purchaseCountString = new StringBuilder()
-			.append(purchaseCount)
-			.append(PURCHASE_MESSAGE);
-		System.out.println(purchaseCountString);
+	private static void appendLottoTicketHeader(StringBuilder stringBuilder, int purchaseCount) {
+		stringBuilder.append(purchaseCount)
+			.append(PURCHASE_MESSAGE)
+			.append(System.lineSeparator());
 	}
 
-	public static void printLottoResult(LottoResultDto lottoResultDto) {
-		System.out.println(LOTTO_RESULT_MESSAGE);
-		List<Rank> ranks = Arrays.stream(Rank.values())
-			.filter(ranking -> ranking != Rank.UNRANKED)
-			.collect(Collectors.toList());
-		EnumMap<Rank, Integer> rankingResults = lottoResultDto.getLottoResult();
-		ranks.forEach(ranking ->
-			buildLottoResultMessage(ranking.getCorrectNumber(),
-				ranking.getWinningAmount(), Optional.ofNullable(rankingResults.get(ranking)).orElse(0))
-		);
-	}
-
-	private static void buildLottoResultMessage(int correctNumber, int winningAmount, int resultCount) {
-		StringBuilder lottoResultMessage = new StringBuilder()
-			.append(correctNumber)
-			.append("개 일치 ");
-
-		if (winningAmount == 30000000) {
-			lottoResultMessage.setLength(lottoResultMessage.length() - 1);
-			lottoResultMessage.append(", 보너스 볼 일치");
+	private static void appendLottoTicketBody(StringBuilder stringBuilder, LottoTicketDto lottoTicketDto) {
+		List<LottoNumbersDto> lottoNumbersDto = lottoTicketDto.getLottoNumbersDto();
+		for (LottoNumbersDto numbersDto : lottoNumbersDto) {
+			stringBuilder.append(numbersDto)
+				.append(System.lineSeparator());
 		}
-
-		lottoResultMessage.append("(")
-			.append(winningAmount)
-			.append("원) - ")
-			.append(resultCount)
-			.append("개");
-		System.out.println(lottoResultMessage);
 	}
 
-	public static void printProfitRate(double profitRate) {
-		System.out.print("총 수익률 ");
-		System.out.printf("%.2f", profitRate);
-		System.out.println("입니다.");
+	public static void printLottoResult(LottoResultDto lottoResultDto, double profit) {
+		StringBuilder stringBuilder = new StringBuilder();
+		appendLottoResultHeader(stringBuilder);
+		appendLottoResultBody(stringBuilder, lottoResultDto);
+		appendProfitRate(stringBuilder, profit);
+		System.out.println(stringBuilder);
 	}
 
-	public static void printBlankLine() {
-		System.out.println();
+	private static void appendLottoResultHeader(StringBuilder stringBuilder) {
+		stringBuilder.append(System.lineSeparator())
+			.append(LOTTO_RESULT_HEADER_MESSAGE)
+			.append(System.lineSeparator())
+			.append(DIVIDING_LINE)
+			.append(System.lineSeparator());
+	}
+
+	private static void appendLottoResultBody(StringBuilder stringBuilder, LottoResultDto lottoResultDto) {
+		EnumMap<Rank, Integer> lottoResult = lottoResultDto.getLottoResult();
+		for (Rank rank : Rank.getRanks()) {
+			stringBuilder.append(rank.getCorrectNumber())
+				.append("개 일치")
+				.append(getBonus(rank));
+			stringBuilder.append("(")
+				.append(rank.getWinningAmount()).append("원) - ")
+				.append(getCount(lottoResult, rank))
+				.append("개")
+				.append(System.lineSeparator());
+		}
+	}
+
+	private static String getBonus(Rank rank) {
+		if (rank.isBonus()) {
+			return ", 보너스 볼 일치";
+		}
+		return " ";
+	}
+
+	private static int getCount(EnumMap<Rank, Integer> result, Rank rank) {
+		return Optional.ofNullable(result.get(rank)).orElse(0);
+	}
+
+	private static void appendProfitRate(StringBuilder stringBuilder, double profitRate) {
+		stringBuilder.append("총 수익률은 ")
+			.append(profitRate)
+			.append("입니다.");
 	}
 
 	public static void printErrorMessage(String message) {
