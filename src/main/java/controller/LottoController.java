@@ -1,6 +1,9 @@
 package controller;
 
 import domain.*;
+import parser.BonusNumberParser;
+import parser.InputPriceParser;
+import parser.LastLottoNumbersParser;
 import view.InputView;
 import view.ResultView;
 
@@ -12,11 +15,23 @@ public class LottoController {
     private static final int LOTTO_PRICE = 1000;
 
     public void startLotto() {
-        int inputPrice = InputView.readPrice();
+        int inputPrice = getInputPrice();
         int purchaseNum = calculatePurchaseNum(inputPrice);
         List<LottoDto> lottoDtoGroup = generateLottoDtoList(purchaseNum);
-        LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
+        List<Integer> lastLottoNumbers = getLastLottoNumbers();
+        int bonusNumber = getBonusNumber();
+        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         createLottoStatistics(inputPrice, lottoDtoGroup, lottoWinningNumbers);
+    }
+
+    private static int getInputPrice() {
+        try {
+            String input = InputView.readPrice();
+            return InputPriceParser.parse(input);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getInputPrice();
+        }
     }
 
     private int calculatePurchaseNum(int inputPrice) {
@@ -35,10 +50,24 @@ public class LottoController {
         return lottoDtoGroup;
     }
 
-    private LottoWinningNumbers readWinningNumbers() {
-        List<Integer> lastLottoNumbers = InputView.readLastLottoNumbers();
-        int bonusNumber = InputView.readBonusNumber();
-        return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
+    private List<Integer> getLastLottoNumbers() {
+        try {
+            String input = InputView.readLastLottoNumbers();
+            return LastLottoNumbersParser.parse(input);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getLastLottoNumbers();
+        }
+    }
+
+    private int getBonusNumber() {
+        try {
+            String input = InputView.readBonusNumber();
+            return BonusNumberParser.parse(input);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getBonusNumber();
+        }
     }
 
     private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
