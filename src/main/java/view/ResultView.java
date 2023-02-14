@@ -33,7 +33,7 @@ public class ResultView {
         if (lottoPrize.isHasBonusNum()) {
             str += ", 보너스 볼 일치";
         }
-        str+= " (" + lottoPrize.getReward() + ")- " + value + "개";
+        str += " (" + lottoPrize.getReward() + ")- " + value + "개";
         System.out.println(str);
     }
 
