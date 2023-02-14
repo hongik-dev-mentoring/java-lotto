@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class InputExceptionTest {
     @Test
     @DisplayName("최소금액입력시 예외 던지는지 테스트")
@@ -13,7 +15,7 @@ public class InputExceptionTest {
         // given
         int price = 900;
         // when & then
-        Assertions.assertThrows(IllegalArgumentException.class, () -> InputException.handleMinimum(price));
+        assertThrows(IllegalArgumentException.class, () -> InputException.handleMinimum(price));
     }
 
     @Test
@@ -22,7 +24,7 @@ public class InputExceptionTest {
         // given
         int lottoNumber = 46;
         // when & then
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> InputException.handleLottoNumberRange(lottoNumber));
     }
 
@@ -33,7 +35,7 @@ public class InputExceptionTest {
         List<Integer> lastLottoNumbers = List.of(1, 2, 3);
         int input = 1;
         // when & then
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> InputException.handleDuplicate(lastLottoNumbers, input));
     }
 
@@ -43,7 +45,7 @@ public class InputExceptionTest {
         // given
         List<Integer> lottoNumberList = List.of(1, 2, 3, 4, 5);
         // when & then
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> InputException.handleLottoNumbersSize(lottoNumberList));
     }
 
@@ -53,7 +55,7 @@ public class InputExceptionTest {
         // given
         String input = "abc";
         // when & then
-        Assertions.assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> InputException.handleInputFormat(input));
     }
 }
