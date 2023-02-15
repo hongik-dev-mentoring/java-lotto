@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoController {
-    private static final int LOTTO_PRICE = 1000;
 
     public void startLotto() {
         int inputPrice = getInputPrice();
-        int purchaseNum = calculatePurchaseNum(inputPrice);
+        int purchaseNum = PurchaseNumberCalculator.calculate(inputPrice);
+        ResultView.printPurchaseInfo(purchaseNum);
         List<LottoDto> lottoDtoGroup = generateLottoDtoList(purchaseNum);
         List<Integer> lastLottoNumbers = getLastLottoNumbers();
         int bonusNumber = getBonusNumber();
@@ -32,12 +32,6 @@ public class LottoController {
             System.out.println(e.getMessage());
             return getInputPrice();
         }
-    }
-
-    private int calculatePurchaseNum(int inputPrice) {
-        int purchaseNum = inputPrice / LOTTO_PRICE;
-        ResultView.printPurchaseInfo(purchaseNum);
-        return purchaseNum;
     }
 
     private List<LottoDto> generateLottoDtoList(int purchaseNum) {
