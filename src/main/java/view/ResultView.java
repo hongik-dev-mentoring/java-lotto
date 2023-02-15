@@ -3,13 +3,18 @@ package view;
 import domain.LottoDto;
 import domain.LottoPrize;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printLottoNumbers(LottoDto lottoDto) {
+    public static void printLottoNumbers(List<LottoDto> lottoGroup) {
+        lottoGroup.forEach((ResultView::createLottoViewText));
+    }
+
+    private static void createLottoViewText(LottoDto lotto) {
         System.out.print("[");
-        String result = lottoDto.getLottoNumbers()
+        String result = lotto.getLottoNumbers()
                 .stream()
                 .sorted()
                 .map(String::valueOf)
@@ -46,13 +51,12 @@ public class ResultView {
         return " ";
     }
 
-    public static void printBenefit(int inputPrice, Map<LottoPrize, Integer> resultMap) {
-        int rewardSum = 0;
-        for (Map.Entry<LottoPrize, Integer> lottoEntry : resultMap.entrySet()) {
-            LottoPrize lottoPrize = lottoEntry.getKey();
-            rewardSum += lottoPrize.getReward() * lottoEntry.getValue();
-        }
-        System.out.printf("%.2f", (double) rewardSum / inputPrice);
+    public static void printBenefit(double benefit) {
+        StringBuilder stringBuilder = new StringBuilder()
+                .append("총 수익률은 ")
+                .append(benefit)
+                .append("입니다.");
+        System.out.println(stringBuilder);
     }
 
     public static void printPurchaseInfo(int purchaseNum) {

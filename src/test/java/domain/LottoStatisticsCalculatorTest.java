@@ -11,7 +11,7 @@ import java.util.Map;
 import static domain.LottoPrize.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoCheckerTest {
+class LottoStatisticsCalculatorTest {
     @Test
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
@@ -25,8 +25,8 @@ class LottoCheckerTest {
         int bonusNumber = 7;
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         // when
-        LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
-        Map<LottoPrize, Integer> resultMap = lottoChecker.calculateLottoStatistics();
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtoGroup, lottoWinningNumbers);
+        Map<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
         // then
         assertThat(resultMap.get(PRIZE_1ST)).isEqualTo(1);
         assertThat(resultMap.get(PRIZE_2ND)).isEqualTo(1);

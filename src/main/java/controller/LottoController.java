@@ -7,7 +7,6 @@ import parser.LastLottoNumbersParser;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +16,12 @@ public class LottoController {
         int inputPrice = getInputPrice();
         int purchaseNum = PurchaseNumberCalculator.calculate(inputPrice);
         ResultView.printPurchaseInfo(purchaseNum);
-        List<LottoDto> lottoDtoGroup = generateLottoDtoList(purchaseNum);
-        List<Integer> lastLottoNumbers = getLastLottoNumbers();
-        int bonusNumber = getBonusNumber();
-        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
-        createLottoStatistics(inputPrice, lottoDtoGroup, lottoWinningNumbers);
+        List<LottoDto> lottoDtoGroup = LottoGenerator.generateLottos(purchaseNum);
+        ResultView.printLottoNumbers(lottoDtoGroup);
+        createLottoStatistics(inputPrice ,lottoDtoGroup);
     }
 
-    private static int getInputPrice() {
+    private int getInputPrice() {
         try {
             String input = InputView.readPrice();
             return InputPriceParser.parse(input);
@@ -34,14 +31,15 @@ public class LottoController {
         }
     }
 
-    private List<LottoDto> generateLottoDtoList(int purchaseNum) {
-        List<LottoDto> lottoDtoGroup = new ArrayList<>();
-        for (int i = 0; i < purchaseNum; i++) {
-            LottoDto lottoDto = LottoGenerator.generate();
-            lottoDtoGroup.add(lottoDto);
-            ResultView.printLottoNumbers(lottoDto);
-        }
-        return lottoDtoGroup;
+    private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup) {
+        List<Integer> lastLottoNumbers = getLastLottoNumbers();
+        int bonusNumber = getBonusNumber();
+        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtoGroup, lottoWinningNumbers);
+        Map<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
+        ResultView.printLottoResult(resultMap);
+        double benefit = LottoBenefitCalculator.calculate(inputPrice, resultMap);
+        ResultView.printBenefit(benefit);
     }
 
     private List<Integer> getLastLottoNumbers() {
@@ -62,12 +60,5 @@ public class LottoController {
             System.out.println(e.getMessage());
             return getBonusNumber();
         }
-    }
-
-    private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
-        LottoChecker lottoChecker = new LottoChecker(lottoDtoGroup, lottoWinningNumbers);
-        Map<LottoPrize, Integer> statisticsMap = lottoChecker.calculateLottoStatistics();
-        ResultView.printLottoResult(statisticsMap);
-        ResultView.printBenefit(inputPrice, statisticsMap);
     }
 }

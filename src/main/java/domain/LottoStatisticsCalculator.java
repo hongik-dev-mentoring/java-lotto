@@ -4,19 +4,19 @@ import java.util.*;
 
 import static domain.LottoPrize.*;
 
-public class LottoChecker {
+public class LottoStatisticsCalculator {
     private static final int INITIAL_COUNT = 0;
     private static final int COUNT_UP_UNIT = 1;
 
     private final List<LottoDto> lottoDtoGroup;
     private final LottoWinningNumbers lottoWinningNumbers;
 
-    public LottoChecker(List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
+    public LottoStatisticsCalculator(List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
         this.lottoDtoGroup = new ArrayList<>(lottoDtoGroup);
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
-    public Map<LottoPrize, Integer> calculateLottoStatistics() {
+    public Map<LottoPrize, Integer> calculate() {
         Map<LottoPrize, Integer> resultMap = initiateResultMap();
         for (LottoDto dto : lottoDtoGroup) {
             checkLottoWin(resultMap, dto);

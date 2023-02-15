@@ -14,7 +14,7 @@ class LottoNumberCounterTest {
     private LottoNumberCounter lottoNumberCounter;
 
     @BeforeEach
-    void initTest() {
+    public void init() {
         List<Integer> lastLottoNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int bonusNumber = 7;
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
@@ -23,7 +23,7 @@ class LottoNumberCounterTest {
 
     @Test
     @DisplayName("당첨번호 카운트 테스트")
-    void countLottoNumbersTest() {
+    public void countLottoNumbersTest() {
         List<Integer> lottoNumbers = Arrays.asList(1, 2, 3, 4, 10, 11);
         assertThat(lottoNumberCounter.decideLottoPrize(new LottoDto(lottoNumbers)))
                 .isEqualTo(PRIZE_4TH);
@@ -31,7 +31,7 @@ class LottoNumberCounterTest {
 
     @Test
     @DisplayName("보너스번호 카운트 테스트")
-    void countBonusNumberTest() {
+    public void countBonusNumberTest() {
         List<Integer> lottoNumbers = Arrays.asList(1, 2, 3, 4, 5, 7);
         assertThat(lottoNumberCounter.decideLottoPrize(new LottoDto(lottoNumbers)))
                 .isEqualTo(PRIZE_2ND);
