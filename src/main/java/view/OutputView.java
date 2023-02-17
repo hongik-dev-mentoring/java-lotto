@@ -48,7 +48,7 @@ public class OutputView {
 			.append(correctNumber)
 			.append("개 일치 ");
 
-		if (winningAmount == 30000000) {
+		if (winningAmount == Ranking.SECOND.getWinningAmount()) {
 			lottoResultMessage.setLength(lottoResultMessage.length() - 1);
 			lottoResultMessage.append(", 보너스 볼 일치");
 		}
