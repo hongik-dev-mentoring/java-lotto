@@ -56,10 +56,14 @@ public class Lotto {
 	private Ranking getRanking(long containsNumberCount, LottoNumbers lottoNumbers, BonusBall bonusBall) {
 		Ranking ranking = Ranking.getRanking(Long.valueOf(containsNumberCount).intValue());
 
-		if (ranking == Ranking.THIRD && lottoNumbers.contains(bonusBall.getBonusBallNumber())) {
+		if (ranking == Ranking.THIRD && haveBonusNumber(lottoNumbers, bonusBall)) {
 			return Ranking.SECOND;
 		}
 
 		return ranking;
+	}
+
+	private boolean haveBonusNumber(LottoNumbers lottoNumbers, BonusBall bonusBall) {
+		return lottoNumbers.contains(bonusBall.getBonusBallNumber());
 	}
 }
