@@ -1,5 +1,6 @@
 package parser;
 
+import domain.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,15 +24,15 @@ public class BonusNumberParserTest {
     public void handleBonusNumberRangeTest(String input) {
         assertThatThrownBy(() -> BonusNumberParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("보너스 번호는 1에서 45사이의 숫자여야 합니다.");
+                .hasMessage("로또 번호는 1에서 45사이의 숫자여야 합니다.");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "45"})
     @DisplayName("보너스 번호 경계값 테스트")
     public void bonusNumberBoundaryValueTest(String input) {
-        int bonusNumber = BonusNumberParser.parse(input);
-        int expectedNumber = Integer.parseInt(input);
-        assertThat(bonusNumber).isEqualTo(expectedNumber);
+        LottoNumber bonusNumber = BonusNumberParser.parse(input);
+        LottoNumber expectedNumber = new LottoNumber(Integer.parseInt(input));
+        assertThat(bonusNumber.equals(expectedNumber)).isTrue();
     }
 }

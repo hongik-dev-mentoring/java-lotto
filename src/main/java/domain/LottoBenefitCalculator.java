@@ -1,9 +1,9 @@
 package domain;
 
-import java.util.Map;
+import java.util.EnumMap;
 
 public class LottoBenefitCalculator {
-    public static double calculate(int inputPrice, Map<LottoPrize, Integer> resultMap) {
+    public static double calculate(int inputPrice, EnumMap<LottoPrize, Integer> resultMap) {
         int rewardSum = 0;
         for (LottoPrize lottoPrize : resultMap.keySet()) {
             rewardSum += lottoPrize.getReward() * resultMap.get(lottoPrize);

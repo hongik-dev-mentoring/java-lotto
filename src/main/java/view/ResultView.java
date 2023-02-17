@@ -1,20 +1,22 @@
 package view;
 
-import domain.LottoDto;
 import domain.LottoPrize;
+import dto.LottoNumbersDto;
+import dto.LottoNumbersGroupDto;
+import dto.LottoResultMapDto;
 
-import java.util.List;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printLottoNumbers(List<LottoDto> lottoDtos) {
-        lottoDtos.forEach(ResultView::createLottoViewText);
+    public static void printLottoNumbersGroup(LottoNumbersGroupDto dto) {
+        dto.getLottoNumbersGroup()
+                .forEach(ResultView::createLottoViewText);
     }
 
-    private static void createLottoViewText(LottoDto lotto) {
+    private static void createLottoViewText(LottoNumbersDto dto) {
         System.out.print("[");
-        String result = lotto.getLottoNumbers()
+        String result = dto.getLottoNumbers()
                 .stream()
                 .sorted()
                 .map(String::valueOf)
@@ -23,15 +25,15 @@ public class ResultView {
         System.out.println("]");
     }
 
-    public static void printLottoResult(Map<LottoPrize, Integer> resultMap) {
+    public static void printLottoResult(LottoResultMapDto dto) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (LottoPrize lottoPrize : LottoPrize.getSortedLottoPrizes()) {
-            System.out.println(createStatisticsText(resultMap, lottoPrize));
+            System.out.println(createStatisticsText(dto.getResultMap(), lottoPrize));
         }
     }
 
-    private static String createStatisticsText(Map<LottoPrize, Integer> resultMap, LottoPrize lottoPrize) {
+    private static String createStatisticsText(EnumMap<LottoPrize, Integer> resultMap, LottoPrize lottoPrize) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(lottoPrize.getCount())
                 .append("개 일치")

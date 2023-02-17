@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.stream.Collectors;
-
 public class LottoNumberCounter {
     private final LottoWinningNumbers lottoWinningNumbers;
 
@@ -9,31 +7,31 @@ public class LottoNumberCounter {
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
-    public LottoPrize decideLottoPrize(LottoDto dto) {
-        int count = countLottoNumbers(dto);
-        boolean hasBonus = countBonusNumber(dto);
+    public LottoPrize decideLottoPrize(LottoNumbers lottoNumbers) {
+        int count = countLottoNumbers(lottoNumbers);
+        boolean hasBonus = countBonusNumber(lottoNumbers);
         return LottoPrize.selectLottoPrize(count, hasBonus);
     }
 
-    private int countLottoNumbers(LottoDto lottoDto) {
-        return (int) lottoDto.getLottoNumbers()
+    private int countLottoNumbers(LottoNumbers lottoNumbers) {
+        return (int) lottoNumbers.getLottoNumbers()
                 .stream()
                 .filter(this::checkContainsLottoNumber)
                 .count();
     }
 
-    private boolean checkContainsLottoNumber(int number) {
-        return lottoWinningNumbers.containsLottoNumber(number);
+    private boolean checkContainsLottoNumber(LottoNumber lottoNumber) {
+        return lottoWinningNumbers.containsLottoNumber(lottoNumber);
     }
 
-    private boolean countBonusNumber(LottoDto lottoDto) {
-        return lottoDto.getLottoNumbers()
+    private boolean countBonusNumber(LottoNumbers lottoNumbers) {
+        return lottoNumbers.getLottoNumbers()
                 .stream()
                 .filter(this::checkContainsBonusNumber)
                 .count() == 1;
     }
 
-    private boolean checkContainsBonusNumber(int number) {
+    private boolean checkContainsBonusNumber(LottoNumber number) {
         return lottoWinningNumbers.containsBonusNumber(number);
     }
 }

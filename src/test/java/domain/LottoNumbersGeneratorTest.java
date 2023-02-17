@@ -8,16 +8,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class LottoGeneratorTest {
+class LottoNumbersGeneratorTest {
     @Test
     @DisplayName("로또 생성 테스트")
     public void createLotto() {
         // when
-        List<LottoDto> lottoDtos = LottoGenerator.generateLottos(10);
-        List<Integer> lottoNumbers = lottoDtos.get(0).getLottoNumbers();
+        List<LottoNumbers> lottoNumbersGroup = LottoNumbersGenerator.generateLottoNumbersGroup(10);
+        List<LottoNumber> lottoNumbers = lottoNumbersGroup.get(0).getLottoNumbers();
         // then
         assertAll(
-                () -> assertThat(lottoDtos.size()).isEqualTo(10),
+                () -> assertThat(lottoNumbersGroup.size()).isEqualTo(10),
                 () -> assertThat(lottoNumbers.size()).isEqualTo(6)
         );
     }

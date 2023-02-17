@@ -32,7 +32,7 @@ public enum LottoPrize {
 
     public static LottoPrize selectLottoPrize(int count, boolean hasBonus) {
         List<LottoPrize> lottoPrizes = Arrays.stream(LottoPrize.values())
-                .filter((prize -> prize.count == count && prize.hasBonus == hasBonus))
+                .filter(prize -> prize.count == count && prize.hasBonus == hasBonus)
                 .collect(Collectors.toList());
 
         if (lottoPrizes.isEmpty()) {

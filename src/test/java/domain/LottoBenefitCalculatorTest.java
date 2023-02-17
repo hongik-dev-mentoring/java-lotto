@@ -3,8 +3,7 @@ package domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +12,7 @@ public class LottoBenefitCalculatorTest {
     @DisplayName("수익률 계산 테스트")
     public void calculateBenefitTest() {
         // given
-        Map<LottoPrize, Integer> resultMap = new HashMap<>();
+        EnumMap<LottoPrize, Integer> resultMap = new EnumMap<>(LottoPrize.class);
         for (LottoPrize lottoPrize : LottoPrize.getSortedLottoPrizes()) {
             resultMap.put(lottoPrize, 1);
         }

@@ -1,11 +1,11 @@
 package parser;
 
+import domain.LottoNumber;
+import domain.LottoNumbers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -33,14 +33,14 @@ public class LastLottoNumbersParserTest {
     public void handleLottoNumberRangeTest(String input) {
         assertThatThrownBy(() -> LastLottoNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1부터 45사이의 숫자여야 합니다.");
+                .hasMessage("로또 번호는 1에서 45사이의 숫자여야 합니다.");
     }
 
     @Test
     @DisplayName("로또 번호 경계값 테스트")
     public void lottoNumberBoundaryValueTest() {
-        List<Integer> lastLottoNumbers = LastLottoNumbersParser.parse("1, 2, 3, 4, 5, 45");
-        assertThat(lastLottoNumbers.contains(45)).isTrue();
+        LottoNumbers lastLottoNumbers = LastLottoNumbersParser.parse("1, 2, 3, 4, 5, 45");
+        assertThat(lastLottoNumbers.contains(new LottoNumber(45))).isTrue();
     }
 
     @ParameterizedTest

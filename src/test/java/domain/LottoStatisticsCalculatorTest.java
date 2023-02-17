@@ -4,9 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static domain.LottoPrize.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,16 +17,29 @@ class LottoStatisticsCalculatorTest {
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
         // given
-        List<LottoDto> lottoDtos = new ArrayList<>();
-        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
-        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 7)));
-        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
+        List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
+        lottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())
+        ));
+        lottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 7)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())
+        ));
+        lottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 8)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())
+        ));
 
-        List<Integer> lastLottoNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        int bonusNumber = 7;
+        List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
+
+        LottoNumbers lastLottoNumbers = new LottoNumbers(lottoNumbers);
+        LottoNumber bonusNumber = new LottoNumber(7);
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         // when
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtos, lottoWinningNumbers);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoNumbersGroup, lottoWinningNumbers);
         Map<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
         // then
         assertThat(resultMap.get(PRIZE_1ST)).isEqualTo(1);
