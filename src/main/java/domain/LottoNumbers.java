@@ -4,8 +4,9 @@ import java.util.List;
 
 public class LottoNumbers implements Numbers {
 
-	private final List<Integer> numbers;
 	private static final int LOTTO_NUMBER = 6;
+
+	private final List<Integer> numbers;
 
 	public LottoNumbers(List<Integer> numbers) {
 		this.numbers = numbers;

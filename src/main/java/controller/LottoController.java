@@ -24,6 +24,7 @@ public class LottoController {
 	private static final int FROM = 1;
 	private static final int TO = 46;
 	private static final int LOTTO_NUMBER_LIMIT = 6;
+
 	private Integer purchaseAmount;
 	private Lotto lotto;
 	private WinningNumbers winningNumbers;
