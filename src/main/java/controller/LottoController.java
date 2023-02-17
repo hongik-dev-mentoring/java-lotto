@@ -1,9 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
 
 import domain.BonusBall;
 import domain.Lotto;
