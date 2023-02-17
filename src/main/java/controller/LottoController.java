@@ -21,9 +21,9 @@ import view.OutputView;
 public class LottoController {
 
 	private static final int LOTTO_TICKET_PER_PRICE = 1000;
-	private final int FROM = 1;
-	private final int TO = 46;
-	private final int LOTTO_NUMBER_LIMIT = 6;
+	private static final int FROM = 1;
+	private static final int TO = 46;
+	private static final int LOTTO_NUMBER_LIMIT = 6;
 	private Integer purchaseAmount;
 	private Lotto lotto;
 	private WinningNumbers winningNumbers;
