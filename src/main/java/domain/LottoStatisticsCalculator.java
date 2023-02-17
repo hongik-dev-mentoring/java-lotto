@@ -12,7 +12,7 @@ public class LottoStatisticsCalculator {
     private final LottoWinningNumbers lottoWinningNumbers;
 
     public LottoStatisticsCalculator(List<LottoNumbers> lottoNumbersGroup, LottoWinningNumbers lottoWinningNumbers) {
-        this.lottoNumbersGroup = new ArrayList<>(lottoNumbersGroup);
+        this.lottoNumbersGroup = lottoNumbersGroup;
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 

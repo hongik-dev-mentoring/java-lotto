@@ -14,6 +14,8 @@ public class LottoPrizeTest {
     @DisplayName("findLottoPrize 테스트")
     @CsvSource(value = {
             "3:false:PRIZE_5TH",
+            "3:true:PRIZE_5TH",
+            "4:true:PRIZE_4TH",
             "5:false:PRIZE_3RD",
             "5:true:PRIZE_2ND",
             "6:false:PRIZE_1ST"}, delimiter = ':')

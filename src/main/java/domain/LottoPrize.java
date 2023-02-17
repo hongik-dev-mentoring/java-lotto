@@ -6,20 +6,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum LottoPrize {
-    PRIZE_5TH(3, false, 5000),
-    PRIZE_4TH(4, false, 50000),
-    PRIZE_3RD(5, false, 1500000),
-    PRIZE_2ND(5, true, 30000000),
-    PRIZE_1ST(6, false, 2000000000),
-    NO_PRIZE(0, false, 0);
+    PRIZE_5TH(3, 5000),
+    PRIZE_4TH(4, 50000),
+    PRIZE_3RD(5, 1500000),
+    PRIZE_2ND(5, 30000000),
+    PRIZE_1ST(6, 2000000000),
+    NO_PRIZE(0, 0);
 
     private final int count;
-    private final boolean hasBonus;
     private final int reward;
 
-    LottoPrize(int count, boolean hasBonus, int reward) {
+    LottoPrize(int count, int reward) {
         this.count = count;
-        this.hasBonus = hasBonus;
         this.reward = reward;
     }
 
@@ -31,14 +29,27 @@ public enum LottoPrize {
     }
 
     public static LottoPrize selectLottoPrize(int count, boolean hasBonus) {
-        List<LottoPrize> lottoPrizes = Arrays.stream(LottoPrize.values())
-                .filter(prize -> prize.count == count && prize.hasBonus == hasBonus)
-                .collect(Collectors.toList());
-
-        if (lottoPrizes.isEmpty()) {
+        if (count == 5 && hasBonus) {
+            return PRIZE_2ND;
+        }
+        List<LottoPrize> selectedLottoPrize = findLottoPrizeUsingCount(count);
+        if (selectedLottoPrize.isEmpty()) {
             return NO_PRIZE;
         }
-        return lottoPrizes.get(0);
+        return selectedLottoPrize.get(0);
+    }
+
+    private static List<LottoPrize> findLottoPrizeUsingCount(int count) {
+        return LottoPrize.getNoBonusLottoPrizes()
+                .stream()
+                .filter(prize -> prize.count == count)
+                .collect(Collectors.toList());
+    }
+
+    private static List<LottoPrize> getNoBonusLottoPrizes() {
+        return Arrays.stream(LottoPrize.values())
+                .filter((prize) -> prize != PRIZE_2ND)
+                .collect(Collectors.toList());
     }
 
     public int getCount() {
