@@ -19,14 +19,14 @@ public class RankDiscriminator {
 		List<LottoNumbers> TicketNumbers = lottoTicketNumbers.getLottoTicket();
 
 		for (LottoNumbers lottoNumbers : TicketNumbers) {
-			Rank rank = calculateRank(lottoNumbers, bonusBall);
+			Rank rank = calculateRank(lottoNumbers);
 			Optional<Integer> numberOfRank = Optional.ofNullable(result.get(rank));
 			result.put(rank, numberOfRank.orElse(0) + 1);
 		}
 		return result;
 	}
 
-	private Rank calculateRank(LottoNumbers lottoNumbers, BonusBall bonusBall) {
+	private Rank calculateRank(LottoNumbers lottoNumbers) {
 		List<Integer> prizeNumbers = winningNumbers.getNumbers();
 
 		long containsWinningNumberCount = prizeNumbers.stream()
