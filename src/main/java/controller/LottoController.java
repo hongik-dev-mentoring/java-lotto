@@ -23,7 +23,7 @@ public class LottoController {
 	private static final int LOTTO_TICKET_PER_PRICE = 1000;
 	private static final int FROM = 1;
 	private static final int TO = 46;
-	private static final int LOTTO_NUMBER_LIMIT = 6;
+	private static final int LOTTO_SIZE = 6;
 
 	private Integer purchaseAmount;
 	private Lotto lotto;
@@ -37,7 +37,7 @@ public class LottoController {
 		OutputView.printLottoPurchaseCount(calculateCount);
 
 		lotto = Lotto.generateLottoWithLottoNumbers(
-			new LottoNumberGenerator(FROM, TO, LOTTO_NUMBER_LIMIT), calculateCount);
+			new LottoNumberGenerator(FROM, TO, LOTTO_SIZE), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
 		OutputView.printBlankLine();

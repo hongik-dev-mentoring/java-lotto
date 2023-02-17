@@ -4,7 +4,7 @@ import java.util.List;
 
 public class LottoNumbers implements Numbers {
 
-	private static final int LOTTO_NUMBER = 6;
+	private static final int LOTTO_SIZE = 6;
 
 	private final List<Integer> numbers;
 
@@ -15,7 +15,7 @@ public class LottoNumbers implements Numbers {
 	}
 
 	private void validateLottoNumbersLength(List<Integer> numbers) {
-		if (numbers.size() != LOTTO_NUMBER) {
+		if (numbers.size() != LOTTO_SIZE) {
 			throw new IllegalArgumentException("[ERROR] 로또 번호는 여섯 개의 숫자여야 합니다.");
 		}
 	}

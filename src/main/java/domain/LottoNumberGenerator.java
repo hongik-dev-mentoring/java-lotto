@@ -9,12 +9,12 @@ public class LottoNumberGenerator {
 
 	private final int startNumber;
 	private final int endNumber;
-	private final int limitNumber;
+	private final int lottoSize;
 
-	public LottoNumberGenerator(int startNumber, int endNumber, int limitNumber) {
+	public LottoNumberGenerator(int startNumber, int endNumber, int lottoSize) {
 		this.startNumber = startNumber;
 		this.endNumber = endNumber;
-		this.limitNumber = limitNumber;
+		this.lottoSize = lottoSize;
 	}
 
 	public LottoNumbers pickNumber() {
@@ -34,7 +34,7 @@ public class LottoNumberGenerator {
 
 	private List<Integer> getLimitedNumbers(List<Integer> numbers) {
 		return numbers.stream()
-			.limit(limitNumber)
+			.limit(lottoSize)
 			.collect(Collectors.toList());
 	}
 
