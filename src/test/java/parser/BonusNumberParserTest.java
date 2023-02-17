@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class BonusNumberTest {
+public class BonusNumberParserTest {
     @DisplayName("보너스 번호를 숫자형만 입력할 수 있는지 테스트")
     @ParameterizedTest
     @ValueSource(strings = {"###", "abc", "ABC"})

@@ -10,7 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class LastLottoNumbersTest {
+public class LastLottoNumbersParserTest {
     @ParameterizedTest
     @DisplayName("당첨번호에 숫자형만 입력할 수 있는지 테스트")
     @ValueSource(strings = {

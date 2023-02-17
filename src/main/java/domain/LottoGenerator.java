@@ -12,12 +12,12 @@ public class LottoGenerator {
     public static final int NUMBER_OF_LOTTO_NUMS = 6;
 
     public static List<LottoDto> generateLottos(int purchaseNum) {
-        List<LottoDto> lottoDtoGroup = new ArrayList<>();
+        List<LottoDto> lottoDtos = new ArrayList<>();
         for (int i = 0; i < purchaseNum; i++) {
             LottoDto lottoDto = LottoGenerator.generate();
-            lottoDtoGroup.add(lottoDto);
+            lottoDtos.add(lottoDto);
         }
-        return lottoDtoGroup;
+        return lottoDtos;
     }
 
     private static LottoDto generate() {

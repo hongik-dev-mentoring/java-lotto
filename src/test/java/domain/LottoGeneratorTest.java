@@ -13,11 +13,11 @@ class LottoGeneratorTest {
     @DisplayName("로또 생성 테스트")
     public void createLotto() {
         // when
-        List<LottoDto> lottoDtoGroup = LottoGenerator.generateLottos(10);
-        List<Integer> lottoNumbers = lottoDtoGroup.get(0).getLottoNumbers();
+        List<LottoDto> lottoDtos = LottoGenerator.generateLottos(10);
+        List<Integer> lottoNumbers = lottoDtos.get(0).getLottoNumbers();
         // then
         assertAll(
-                () -> assertThat(lottoDtoGroup.size()).isEqualTo(10),
+                () -> assertThat(lottoDtos.size()).isEqualTo(10),
                 () -> assertThat(lottoNumbers.size()).isEqualTo(6)
         );
     }

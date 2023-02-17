@@ -8,17 +8,17 @@ public class LottoStatisticsCalculator {
     private static final int INITIAL_COUNT = 0;
     private static final int COUNT_UP_UNIT = 1;
 
-    private final List<LottoDto> lottoDtoGroup;
+    private final List<LottoDto> lottoDtos;
     private final LottoWinningNumbers lottoWinningNumbers;
 
-    public LottoStatisticsCalculator(List<LottoDto> lottoDtoGroup, LottoWinningNumbers lottoWinningNumbers) {
-        this.lottoDtoGroup = new ArrayList<>(lottoDtoGroup);
+    public LottoStatisticsCalculator(List<LottoDto> lottoDtos, LottoWinningNumbers lottoWinningNumbers) {
+        this.lottoDtos = new ArrayList<>(lottoDtos);
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
     public Map<LottoPrize, Integer> calculate() {
         Map<LottoPrize, Integer> resultMap = initiateResultMap();
-        for (LottoDto dto : lottoDtoGroup) {
+        for (LottoDto dto : lottoDtos) {
             checkLottoWin(resultMap, dto);
         }
         return resultMap;

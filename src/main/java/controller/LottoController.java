@@ -16,9 +16,9 @@ public class LottoController {
         int inputPrice = getInputPrice();
         int purchaseNum = PurchaseNumberCalculator.calculate(inputPrice);
         ResultView.printPurchaseInfo(purchaseNum);
-        List<LottoDto> lottoDtoGroup = LottoGenerator.generateLottos(purchaseNum);
-        ResultView.printLottoNumbers(lottoDtoGroup);
-        createLottoStatistics(inputPrice ,lottoDtoGroup);
+        List<LottoDto> lottoDtos = LottoGenerator.generateLottos(purchaseNum);
+        ResultView.printLottoNumbers(lottoDtos);
+        createLottoStatistics(inputPrice, lottoDtos);
     }
 
     private int getInputPrice() {
@@ -26,16 +26,16 @@ public class LottoController {
             String input = InputView.readPrice();
             return InputPriceParser.parse(input);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            ResultView.printExceptionMessage(e);
             return getInputPrice();
         }
     }
 
-    private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtoGroup) {
+    private void createLottoStatistics(int inputPrice, List<LottoDto> lottoDtos) {
         List<Integer> lastLottoNumbers = getLastLottoNumbers();
         int bonusNumber = getBonusNumber();
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtoGroup, lottoWinningNumbers);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtos, lottoWinningNumbers);
         Map<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
         ResultView.printLottoResult(resultMap);
         double benefit = LottoBenefitCalculator.calculate(inputPrice, resultMap);
@@ -47,7 +47,7 @@ public class LottoController {
             String input = InputView.readLastLottoNumbers();
             return LastLottoNumbersParser.parse(input);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            ResultView.printExceptionMessage(e);
             return getLastLottoNumbers();
         }
     }
@@ -57,7 +57,7 @@ public class LottoController {
             String input = InputView.readBonusNumber();
             return BonusNumberParser.parse(input);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            ResultView.printExceptionMessage(e);
             return getBonusNumber();
         }
     }

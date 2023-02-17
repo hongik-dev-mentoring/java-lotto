@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printLottoNumbers(List<LottoDto> lottoGroup) {
-        lottoGroup.forEach((ResultView::createLottoViewText));
+    public static void printLottoNumbers(List<LottoDto> lottoDtos) {
+        lottoDtos.forEach(ResultView::createLottoViewText);
     }
 
     private static void createLottoViewText(LottoDto lotto) {
@@ -61,5 +61,9 @@ public class ResultView {
 
     public static void printPurchaseInfo(int purchaseNum) {
         System.out.println(purchaseNum + "개를 구매했습니다.");
+    }
+
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e.getMessage());
     }
 }

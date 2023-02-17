@@ -16,16 +16,16 @@ class LottoStatisticsCalculatorTest {
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
         // given
-        List<LottoDto> lottoDtoGroup = new ArrayList<>();
-        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
-        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 7)));
-        lottoDtoGroup.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
+        List<LottoDto> lottoDtos = new ArrayList<>();
+        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 6)));
+        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 7)));
+        lottoDtos.add(new LottoDto(List.of(1, 2, 3, 4, 5, 8)));
 
         List<Integer> lastLottoNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int bonusNumber = 7;
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
         // when
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtoGroup, lottoWinningNumbers);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoDtos, lottoWinningNumbers);
         Map<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
         // then
         assertThat(resultMap.get(PRIZE_1ST)).isEqualTo(1);
