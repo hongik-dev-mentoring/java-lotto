@@ -13,16 +13,16 @@ public class Lotto {
 		this.lottoTicket = generateLottoTicket(numberOfLotto);
 	}
 
+	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
+		return new Lotto(lottoNumberGenerator, numberOfLotto);
+	}
+
 	private LottoTicket generateLottoTicket(int numberOfLotto) {
 		List<LottoNumbers> lottoNumbers = new ArrayList<>();
 		for (int i = 0; i < numberOfLotto; i++) {
 			lottoNumbers.add(lottoNumberGenerator.generateLottoNumbers());
 		}
 		return new LottoTicket(lottoNumbers);
-	}
-
-	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		return new Lotto(lottoNumberGenerator, numberOfLotto);
 	}
 
 	public LottoTicket getLottoTicketNumbers() {
