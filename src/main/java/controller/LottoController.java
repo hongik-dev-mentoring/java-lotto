@@ -4,19 +4,19 @@ import java.util.EnumMap;
 
 import domain.BonusBall;
 import domain.Lotto;
-import domain.LottoNumberGenerator;
 import domain.LottoTicket;
+import domain.PurchaseAmountConvertor;
 import domain.Rank;
 import domain.RankDiscriminator;
+import domain.TotalPrizeCalculator;
+import domain.WinningNumberConvertor;
 import domain.WinningNumbers;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
 import dto.RankDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
-import domain.TotalPrizeCalculator;
-import domain.WinningNumberConvertor;
-import domain.PurchaseAmountConvertor;
+import util.generator.LottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
@@ -33,7 +33,7 @@ public class LottoController {
 		getPurchaseAmount();
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
 
-		lotto = Lotto.generateLottoWithLottoNumbers(new LottoNumberGenerator(), calculateCount);
+		lotto = Lotto.generateLottoWithLottoNumbers(new LottoNumbersGenerator(), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket), calculateCount);
 	}
@@ -63,7 +63,7 @@ public class LottoController {
 
 	private void getBonusBall() {
 		try {
-			bonusBall = BonusBall.createBonusBallInRange(WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+			bonusBall = new BonusBall(WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();

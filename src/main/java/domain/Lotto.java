@@ -3,24 +3,27 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.generator.LottoNumbersGenerator;
+
 public class Lotto {
 
 	private final LottoTicket lottoTicket;
-	private final LottoNumberGenerator lottoNumberGenerator;
+	private final LottoNumbersGenerator lottoNumbersGenerator;
+	private static final int LOTTO_NUMBERS_SIZE = 6;
 
-	private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		this.lottoNumberGenerator = lottoNumberGenerator;
+	private Lotto(LottoNumbersGenerator lottoNumbersGenerator, int numberOfLotto) {
+		this.lottoNumbersGenerator = lottoNumbersGenerator;
 		this.lottoTicket = generateLottoTicket(numberOfLotto);
 	}
 
-	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		return new Lotto(lottoNumberGenerator, numberOfLotto);
+	public static Lotto generateLottoWithLottoNumbers(LottoNumbersGenerator lottoNumbersGenerator, int numberOfLotto) {
+		return new Lotto(lottoNumbersGenerator, numberOfLotto);
 	}
 
 	private LottoTicket generateLottoTicket(int numberOfLotto) {
 		List<LottoNumbers> lottoNumbers = new ArrayList<>();
 		for (int i = 0; i < numberOfLotto; i++) {
-			lottoNumbers.add(lottoNumberGenerator.generateLottoNumbers());
+			lottoNumbers.add(lottoNumbersGenerator.generateLottoNumbers(LOTTO_NUMBERS_SIZE));
 		}
 		return new LottoTicket(lottoNumbers);
 	}

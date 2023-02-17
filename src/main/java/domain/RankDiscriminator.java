@@ -27,16 +27,16 @@ public class RankDiscriminator {
 	}
 
 	private Rank calculateRank(LottoNumbers lottoNumbers) {
-		List<Integer> prizeNumbers = winningNumbers.getNumbers();
+		List<LottoNumber> prizeNumbers = winningNumbers.getNumbers();
 
 		long containsWinningNumberCount = prizeNumbers.stream()
 			.filter(lottoNumbers::contains)
 			.count();
 
-		return Rank.findRank((int)containsWinningNumberCount, isBonusBallMatch(prizeNumbers));
+		return Rank.findRank((int)containsWinningNumberCount, isBonusBallMatch(lottoNumbers));
 	}
 
-	private boolean isBonusBallMatch(List<Integer> prizeNumbers) {
-		return prizeNumbers.contains(bonusBall.getBonusBallNumber());
+	private boolean isBonusBallMatch(LottoNumbers lottoNumbers) {
+		return lottoNumbers.contains(bonusBall.getLottoNumber());
 	}
 }

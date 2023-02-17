@@ -2,11 +2,12 @@ package dto;
 
 import java.util.List;
 
+import domain.LottoNumber;
 import domain.LottoNumbers;
 
 public class LottoNumbersDto {
 
-	private final List<Integer> Numbers;
+	private final List<LottoNumber> Numbers;
 
 	public LottoNumbersDto(LottoNumbers lottoNumbers) {
 		Numbers = lottoNumbers.getNumbers();

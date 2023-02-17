@@ -10,21 +10,23 @@ public class WinningNumberConvertor {
 
 	public static WinningNumbers convertWinningNumber(String winningNumber) {
 		try {
-			String[] split = winningNumber.split(DELIMITER);
-			List<Integer> winnerNumbers = Arrays.stream(split)
-				.map(String::trim)
-				.map(Integer::parseInt)
-				.collect(Collectors.toList());
-
-			return new WinningNumbers(winnerNumbers);
+			return new WinningNumbers(getWinningNumber(winningNumber));
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자여야 합니다. 다시 입력해주세요");
 		}
 	}
 
-	public static Integer convertBonusNumber(String bonusNumber) {
+	private static List<LottoNumber> getWinningNumber(String winningNumber) {
+		return Arrays.stream(winningNumber.split(DELIMITER))
+			.map(String::trim)
+			.map(Integer::parseInt)
+			.map(LottoNumber::new)
+			.collect(Collectors.toList());
+	}
+
+	public static LottoNumber convertBonusNumber(String bonusNumber) {
 		try {
-			return Integer.parseInt(bonusNumber);
+			return new LottoNumber(Integer.parseInt(bonusNumber));
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("[ERROR] 보너스 번호는 한 개의 숫자여야 합니다. 다시 입력해주세요");
 		}
