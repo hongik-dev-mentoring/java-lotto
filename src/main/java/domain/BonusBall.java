@@ -1,5 +1,7 @@
 package domain;
 
+import domain.numbers.WinningNumbers;
+
 public class BonusBall {
 
 	private final int bonusBallNumber;

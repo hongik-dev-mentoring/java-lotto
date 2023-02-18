@@ -7,7 +7,7 @@ import domain.Lotto;
 import domain.LottoNumberGenerator;
 import domain.LottoTicket;
 import domain.Ranking;
-import domain.WinningNumbers;
+import domain.numbers.WinningNumbers;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
 import util.calculator.ProfitRateCalculator;

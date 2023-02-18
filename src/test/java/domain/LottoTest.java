@@ -2,6 +2,7 @@ package domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import domain.numbers.WinningNumbers;
 import java.util.Arrays;
 import java.util.EnumMap;
 

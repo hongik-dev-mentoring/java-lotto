@@ -2,6 +2,7 @@ package domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import domain.numbers.LottoNumbers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

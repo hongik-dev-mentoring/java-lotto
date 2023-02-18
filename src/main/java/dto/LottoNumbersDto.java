@@ -2,7 +2,7 @@ package dto;
 
 import java.util.List;
 
-import domain.LottoNumbers;
+import domain.numbers.LottoNumbers;
 
 public class LottoNumbersDto {
 

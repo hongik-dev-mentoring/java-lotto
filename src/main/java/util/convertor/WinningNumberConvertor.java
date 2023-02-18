@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.WinningNumbers;
+import domain.numbers.WinningNumbers;
 
 public class WinningNumberConvertor {
 
