@@ -26,9 +26,7 @@ public class LottoNumbers {
     }
 
     public boolean contains(LottoNumber number) {
-        return lottoNumbers.stream()
-                .filter((lottoNumber) -> lottoNumber.equals(number))
-                .count() == 1;
+        return lottoNumbers.contains(number);
     }
 
     public List<LottoNumber> getLottoNumbers() {
