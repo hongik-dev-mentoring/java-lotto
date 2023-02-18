@@ -8,12 +8,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class LottoNumbersGeneratorTest {
+class LottoNumbersAutoGeneratorTest {
     @Test
     @DisplayName("로또 생성 테스트")
     public void createLotto() {
         // when
-        List<LottoNumbers> lottoNumbersGroup = LottoNumbersGenerator.generateLottoNumbersGroup(10);
+        List<LottoNumbers> lottoNumbersGroup = LottoNumbersAutoGenerator.generateLottoNumbersGroup(10);
         List<LottoNumber> lottoNumbers = lottoNumbersGroup.get(0).getLottoNumbers();
         // then
         assertAll(

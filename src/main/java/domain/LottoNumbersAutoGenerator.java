@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class LottoNumbersGenerator {
+public class LottoNumbersAutoGenerator {
     private static final int CANDIDATE_MIN_NUMBER = 1;
     private static final int CANDIDATE_MAX_NUMBER = 45;
     private static final int NUMBER_OF_LOTTO_NUMBERS = 6;
@@ -15,6 +15,7 @@ public class LottoNumbersGenerator {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         for (int i = 0; i < purchaseNumber; i++) {
             LottoNumbers lottoNumbers = generateLottoNumbers();
+            // 수동 로또와 중복체크
             lottoNumbersGroup.add(lottoNumbers);
         }
         return lottoNumbersGroup;
