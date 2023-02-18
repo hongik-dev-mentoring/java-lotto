@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WinningNumberConvertor {
@@ -16,12 +16,12 @@ public class WinningNumberConvertor {
 		}
 	}
 
-	private static List<LottoNumber> getWinningNumber(String winningNumber) {
+	private static Set<LottoNumber> getWinningNumber(String winningNumber) {
 		return Arrays.stream(winningNumber.split(DELIMITER))
 			.map(String::trim)
 			.map(Integer::parseInt)
 			.map(LottoNumber::new)
-			.collect(Collectors.toList());
+			.collect(Collectors.toSet());
 	}
 
 	public static LottoNumber convertBonusNumber(String bonusNumber) {

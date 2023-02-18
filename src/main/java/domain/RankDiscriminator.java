@@ -3,6 +3,7 @@ package domain;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class RankDiscriminator {
 
@@ -27,7 +28,7 @@ public class RankDiscriminator {
 	}
 
 	private Rank calculateRank(LottoNumbers lottoNumbers) {
-		List<LottoNumber> prizeNumbers = winningNumbers.getNumbers();
+		Set<LottoNumber> prizeNumbers = winningNumbers.getNumbers();
 
 		long containsWinningNumberCount = prizeNumbers.stream()
 			.filter(lottoNumbers::contains)
