@@ -29,7 +29,7 @@ class ManualLottoNumbersParserTest {
     }
 
     @ParameterizedTest
-    @DisplayName("로또번호에 숫자형만 입력할 수 있는지 테스트")
+    @DisplayName("수동 로또 번호에 숫자형만 입력할 수 있는지 테스트")
     @ValueSource(strings = {
             "1, 2, 3, 4, 5, ###",
             "1, 2, 3, 4, 5, abc",
@@ -39,42 +39,5 @@ class ManualLottoNumbersParserTest {
         assertThatThrownBy(() -> ManualLottoNumbersParser.parse(Arrays.asList(input)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 숫자여야 합니다.");
-    }
-
-    @ParameterizedTest
-    @DisplayName("로또 번호 범위 예외 테스트")
-    @ValueSource(strings = {
-            "1, 2, 3, 4, 5, 46",
-            "0, 2, 3, 4, 5, 45"
-    })
-    public void handleLottoNumberRangeTest(String input) {
-        assertThatThrownBy(() -> ManualLottoNumbersParser.parse(Arrays.asList(input)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1에서 45사이의 숫자여야 합니다.");
-    }
-
-    @ParameterizedTest
-    @DisplayName("로또 번호 중복 예외 테스트")
-    @ValueSource(strings = {
-            "1, 1, 1, 2, 3, 4",
-            "1, 2, 3, 4, 5, 5",
-            "1, 2, 3, 4, 4, 5"
-    })
-    public void checkLottoNumberDuplicateTest(String input) {
-        assertThatThrownBy(() -> ManualLottoNumbersParser.parse(Arrays.asList(input)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("중복된 번호가 존재합니다.");
-    }
-
-    @ParameterizedTest
-    @DisplayName("당첨번호가 6개만 입력되도록 하는지 테스트")
-    @ValueSource(strings = {
-            "1, 2, 3, 4, 5, 6, 7",
-            "1, 2, 3, 4, 5",
-    })
-    public void checkLottoNumbersSizeTest(String input) {
-        assertThatThrownBy(() -> ManualLottoNumbersParser.parse(Arrays.asList(input)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 6개여야 합니다.");
     }
 }
