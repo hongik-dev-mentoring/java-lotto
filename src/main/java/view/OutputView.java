@@ -18,7 +18,6 @@ public class OutputView {
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto) {
 		lottoTicketDto.getLottoNumbersDto()
-			.stream()
 			.forEach(System.out::println);
 	}
 
