@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoNumbersGenerator {
-    public static final int CANDIDATE_MIN_NUMBER = 1;
-    public static final int CANDIDATE_MAX_NUMBER = 45;
-    public static final int NUMBER_OF_LOTTO_NUMBERS = 6;
+    private static final int CANDIDATE_MIN_NUMBER = 1;
+    private static final int CANDIDATE_MAX_NUMBER = 45;
+    private static final int NUMBER_OF_LOTTO_NUMBERS = 6;
 
     public static List<LottoNumbers> generateLottoNumbersGroup(int purchaseNumber) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
