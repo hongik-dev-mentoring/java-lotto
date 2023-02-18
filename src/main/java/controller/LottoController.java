@@ -3,6 +3,7 @@ package controller;
 import java.util.EnumMap;
 
 import domain.BonusBall;
+import domain.BonusBallConvertor;
 import domain.Lotto;
 import domain.LottoTicket;
 import domain.PurchaseAmountConvertor;
@@ -63,7 +64,7 @@ public class LottoController {
 
 	private void getBonusBall() {
 		try {
-			bonusBall = new BonusBall(WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+			bonusBall = new BonusBall(BonusBallConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();
