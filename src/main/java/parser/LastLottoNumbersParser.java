@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LastLottoNumbersParser {
-    public static final String COMMA_DELIMITER = ",";
+    private static final String COMMA_DELIMITER = ",";
 
     public static LottoNumbers parse(String input) {
         List<LottoNumber> lastLottoNumbers = checkInputFormat(input);
