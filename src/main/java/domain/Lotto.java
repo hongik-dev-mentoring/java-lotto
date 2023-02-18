@@ -7,63 +7,70 @@ import java.util.Optional;
 
 public class Lotto {
 
-	private final LottoTicket lottoTicket;
-	private final LottoNumberGenerator lottoNumberGenerator;
+    private final LottoTicket lottoTicket;
+    private final LottoNumberGenerator lottoNumberGenerator;
 
-	private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		this.lottoNumberGenerator = lottoNumberGenerator;
-		this.lottoTicket = generateLottoTicket(numberOfLotto);
-	}
+    private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
+        this.lottoNumberGenerator = lottoNumberGenerator;
+        this.lottoTicket = generateLottoTicket(numberOfLotto);
+    }
 
-	private LottoTicket generateLottoTicket(int numberOfLotto) {
-		List<LottoNumbers> lottoNumbers = new ArrayList<>();
-		for (int i = 0; i < numberOfLotto; i++) {
-			lottoNumbers.add(lottoNumberGenerator.pickNumber());
-		}
-		return new LottoTicket(lottoNumbers);
-	}
+    private LottoTicket generateLottoTicket(int numberOfLotto) {
+        List<LottoNumbers> lottoNumbers = new ArrayList<>();
+        for (int i = 0; i < numberOfLotto; i++) {
+            lottoNumbers.add(lottoNumberGenerator.pickNumber());
+        }
+        return new LottoTicket(lottoNumbers);
+    }
 
-	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		return new Lotto(lottoNumberGenerator, numberOfLotto);
-	}
+    public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator,
+        int numberOfLotto) {
+        return new Lotto(lottoNumberGenerator, numberOfLotto);
+    }
 
-	public LottoTicket getLottoNumbers() {
-		return lottoTicket;
-	}
+    public LottoTicket getLottoNumbers() {
+        return lottoTicket;
+    }
 
-	public EnumMap<Ranking, Integer> checkLottoResult(WinningNumbers winningNumbers, BonusBall bonusBall) {
-		EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
-		List<LottoNumbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
+    public EnumMap<Ranking, Integer> checkLottoResult(WinningNumbers winningNumbers,
+        BonusBall bonusBall) {
+        EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
+        List<LottoNumbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
 
-		for (LottoNumbers lottoNumbers : lottoTicketNumbers) {
-			Ranking ranking = checkRank(lottoNumbers, winningNumbers, bonusBall);
-			Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
-			result.put(ranking, numberOfRank.orElse(0) + 1);
-		}
-		return result;
-	}
+        for (LottoNumbers lottoNumbers : lottoTicketNumbers) {
+            Ranking ranking = checkRank(lottoNumbers, winningNumbers, bonusBall);
+            Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
+            result.put(ranking, numberOfRank.orElse(0) + 1);
+        }
+        return result;
+    }
 
-	private Ranking checkRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers, BonusBall bonusBall) {
-		List<Integer> pickNumber = winningNumbers.getNumbers();
+    private Ranking checkRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers,
+        BonusBall bonusBall) {
+        List<Integer> pickNumber = winningNumbers.getNumbers();
 
-		long containsNumberCount = pickNumber.stream()
-			.filter(lottoNumbers::contains)
-			.count();
+        long containsNumberCount = pickNumber.stream()
+            .filter(lottoNumbers::contains)
+            .count();
 
-		return getRanking(containsNumberCount, lottoNumbers, bonusBall);
-	}
+        return getRanking(containsNumberCount, lottoNumbers, bonusBall);
+    }
 
-	private Ranking getRanking(long containsNumberCount, LottoNumbers lottoNumbers, BonusBall bonusBall) {
-		Ranking ranking = Ranking.getRanking(Long.valueOf(containsNumberCount).intValue());
+    private Ranking getRanking(long containsNumberCount, LottoNumbers lottoNumbers, BonusBall bonusBall) {
+        Ranking ranking = Ranking.getRanking(Long.valueOf(containsNumberCount).intValue());
 
-		if (ranking == Ranking.THIRD && haveBonusNumber(lottoNumbers, bonusBall)) {
-			return Ranking.SECOND;
-		}
+        if (ranking == Ranking.SECOND || ranking == Ranking.THIRD) {
+            return checkRankingSecondOrThird(lottoNumbers, bonusBall);
+        }
 
-		return ranking;
-	}
+        return ranking;
+    }
 
-	private boolean haveBonusNumber(LottoNumbers lottoNumbers, BonusBall bonusBall) {
-		return lottoNumbers.contains(bonusBall.getBonusBallNumber());
-	}
+    private Ranking checkRankingSecondOrThird(LottoNumbers lottoNumbers, BonusBall bonusBall) {
+        if (lottoNumbers.contains(bonusBall.getBonusBallNumber())) {
+            return Ranking.SECOND;
+        }
+
+        return Ranking.THIRD;
+    }
 }
