@@ -13,7 +13,7 @@ class TotalPrizeCalculatorTest {
 
 	@Test
 	void 랭킹에_따른_당첨금을_계산할_수_있다() {
-		EnumMap<Rank, Integer> enumMap = new EnumMap<Rank, Integer>(Rank.class);
+		EnumMap<Rank, Integer> enumMap = new EnumMap<>(Rank.class);
 		enumMap.put(Rank.FIFTH, 5);
 
 		long totalPrize = TotalPrizeCalculator.calculateTotalPrize(enumMap);
