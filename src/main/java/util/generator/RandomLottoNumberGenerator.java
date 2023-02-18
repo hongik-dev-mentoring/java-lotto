@@ -4,7 +4,7 @@ import java.util.Random;
 
 import domain.LottoNumber;
 
-public class LottoNumberGenerator {
+public class RandomLottoNumberGenerator {
 
 	private static final Random random;
 	private static final int MAX_LOTTO_NUMBER = 45;

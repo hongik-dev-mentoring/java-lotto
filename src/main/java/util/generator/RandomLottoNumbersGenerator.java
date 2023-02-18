@@ -6,12 +6,12 @@ import java.util.TreeSet;
 import domain.LottoNumber;
 import domain.LottoNumbers;
 
-public class LottoNumbersGenerator {
+public class RandomLottoNumbersGenerator {
 
 	public LottoNumbers generateLottoNumbers(int size) {
 		Set<LottoNumber> lottoNumbers = new TreeSet<>();
 		while (lottoNumbers.size() != size) {
-			lottoNumbers.add(LottoNumberGenerator.generate());
+			lottoNumbers.add(RandomLottoNumberGenerator.generate());
 		}
 		return new LottoNumbers(lottoNumbers);
 	}

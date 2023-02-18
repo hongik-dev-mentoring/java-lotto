@@ -16,7 +16,7 @@ import dto.LottoTicketDto;
 import dto.RankDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
-import util.generator.LottoNumbersGenerator;
+import util.generator.RandomLottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
@@ -33,7 +33,7 @@ public class LottoController {
 		getPurchaseAmount();
 		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
 
-		lotto = Lotto.generateLottoWithLottoNumbers(new LottoNumbersGenerator(), calculateCount);
+		lotto = Lotto.generateLottoWithLottoNumbers(new RandomLottoNumbersGenerator(), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket), calculateCount);
 	}
