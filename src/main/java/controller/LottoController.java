@@ -9,8 +9,6 @@ import view.ResultView;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LottoController {
 
@@ -19,11 +17,7 @@ public class LottoController {
         int totalPurchaseNumber = PurchaseNumberCalculator.calculateTotalPurchaseNumber(inputPrice);
         int manualPurchaseNumber = getManualLottoPurchaseNumber(totalPurchaseNumber);
         int autoPurchaseNumber = PurchaseNumberCalculator.calculateAutoPurchaseNumber(totalPurchaseNumber, manualPurchaseNumber);
-        List<LottoNumbers> manualLottoNumberGroup = getManualLottoNumbersGroup(manualPurchaseNumber);
-        // 수동으로 생성한 로또와 동일한 로또를 자동생성해서는 안됨
-        List<LottoNumbers> autoLottoNumbersGroup = LottoNumbersAutoGenerator.generateLottoNumbersGroup(autoPurchaseNumber);
-        List<LottoNumbers> lottoNumbersGroup = Stream.concat(manualLottoNumberGroup.stream(), autoLottoNumbersGroup.stream())
-                .collect(Collectors.toList());
+        List<LottoNumbers> lottoNumbersGroup = createLottoTickets(manualPurchaseNumber, autoPurchaseNumber);
         ResultView.printPurchaseInfo(manualPurchaseNumber, autoPurchaseNumber);
         ResultView.printLottoNumbersGroup(new LottoNumbersGroupDto(lottoNumbersGroup));
         createLottoStatistics(inputPrice, lottoNumbersGroup);
@@ -47,6 +41,13 @@ public class LottoController {
             ResultView.printExceptionMessage(e);
             return getManualLottoPurchaseNumber(totalPurchaseNumber);
         }
+    }
+
+    private List<LottoNumbers> createLottoTickets(int manualPurchaseNumber, int autoPurchaseNumber) {
+        List<LottoNumbers> manualLottoNumberGroup = getManualLottoNumbersGroup(manualPurchaseNumber);
+        List<LottoNumbers> autoLottoNumbersGroup = LottoNumbersAutoGenerator.generateAutoLottoNumbersGroup(autoPurchaseNumber);
+        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoNumberGroup, autoLottoNumbersGroup);
+        return LottoNumbersGroupCombiner.combine(manualLottoNumberGroup, autoLottoNumbersGroup);
     }
 
     private List<LottoNumbers> getManualLottoNumbersGroup(int manualPurchaseNumber) {
