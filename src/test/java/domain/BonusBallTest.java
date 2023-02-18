@@ -21,6 +21,6 @@ class BonusBallTest {
 
 		assertThatThrownBy(() -> new BonusBall(new LottoNumber(number), winningNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("[ERROR]");
+			.hasMessage("[ERROR] 당첨 번호와 보너스 볼은 중복이 불가능합니다.");
 	}
 }

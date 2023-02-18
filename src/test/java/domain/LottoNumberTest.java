@@ -15,6 +15,6 @@ class LottoNumberTest {
 	void 로또_번호가_1에서_45까지의_숫자가_아니면_예외가_발생한다(int number) {
 		assertThatThrownBy(() -> new LottoNumber(number))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("[ERROR]");
+			.hasMessage("[ERROR] 로또 번호는 1부터 45까지의 숫자여야 합니다.");
 	}
 }

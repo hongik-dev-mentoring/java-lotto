@@ -13,13 +13,13 @@ class PurchaseAmountConvertorTest {
 	void 로또_구입_금액은_숫자여야_한다() {
 		assertThatThrownBy(() -> PurchaseAmountConvertor.convertPurchaseAmount("thousand"))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("[ERROR]");
+			.hasMessage("[ERROR] 로또 금액은 숫자여야 합니다. 다시 입력해주세요");
 	}
 
 	@Test
 	void 로또_구입_금액은_0원_이상이어야_한다() {
 		assertThatThrownBy(() -> PurchaseAmountConvertor.convertPurchaseAmount("-1000"))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageContaining("[ERROR]");
+			.hasMessage("[ERROR] 로또 금액은 0원 이상이어야 합니다. 다시 입력해주세요");
 	}
 }
