@@ -3,7 +3,7 @@ package domain;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DisplayNameGenerator.*;
 
-import java.util.Set;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,7 +15,7 @@ class BonusBallTest {
 	@ParameterizedTest(name = "보너스볼이 {0}일 때")
 	@ValueSource(ints = {1, 2, 3, 4, 5, 6})
 	void 보너스볼은_당첨_숫자와_중복이_불가능하다(int number) {
-		Set<LottoNumber> lottoNumbers = Set.of(new LottoNumber(1),new LottoNumber(2),
+		List<LottoNumber> lottoNumbers = List.of(new LottoNumber(1),new LottoNumber(2),
 			new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
 		WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers);
 
