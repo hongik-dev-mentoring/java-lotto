@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ManualLottoNumbersParser {
+    private static final String LOTTO_NUMBER_FORMAT_EXCEPTION_MESSAGE = "로또 번호는 숫자여야 합니다.";
     private static final String COMMA_DELIMITER = ",";
 
     public static List<LottoNumbers> parse(List<String> manualLottoNumbers) {
@@ -27,7 +28,7 @@ public class ManualLottoNumbersParser {
                     .map((number) -> new LottoNumber(Integer.parseInt(number.trim())))
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("로또 번호는 숫자여야 합니다.");
+            throw new IllegalArgumentException(LOTTO_NUMBER_FORMAT_EXCEPTION_MESSAGE);
         }
     }
 }

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class LottoNumbers {
+    private static final String DUPLICATE_LOTTO_NUMBER_EXCEPTION_MESSAGE = "중복된 번호가 존재합니다.";
+    private static final String LOTTO_NUMBERS_SIZE_EXCEPTION_MESSAGE = "로또 번호는 6개여야 합니다.";
+
     private List<LottoNumber> lottoNumbers;
 
     public LottoNumbers(List<LottoNumber> lottoNumbers) {
@@ -16,13 +19,13 @@ public class LottoNumbers {
     private void checkDuplicatedNumber(List<LottoNumber> lastLottoNumbers) {
         HashSet<LottoNumber> lottoNumberSet = new HashSet<>(lastLottoNumbers);
         if (lastLottoNumbers.size() != lottoNumberSet.size()) {
-            throw new IllegalArgumentException("중복된 번호가 존재합니다.");
+            throw new IllegalArgumentException(DUPLICATE_LOTTO_NUMBER_EXCEPTION_MESSAGE);
         }
     }
 
     private void checkLottoNumbersSize(List<LottoNumber> lastLottoNumbers) {
         if (lastLottoNumbers.size() != 6) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException(LOTTO_NUMBERS_SIZE_EXCEPTION_MESSAGE);
         }
     }
 
