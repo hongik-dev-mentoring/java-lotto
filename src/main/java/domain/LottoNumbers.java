@@ -21,7 +21,7 @@ public class LottoNumbers {
 
     private void checkLottoNumbersSize(List<LottoNumber> lastLottoNumbers) {
         if (lastLottoNumbers.size() != 6) {
-            throw new IllegalArgumentException("당첨번호 6개를 다시 입력해주세요.");
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
 
