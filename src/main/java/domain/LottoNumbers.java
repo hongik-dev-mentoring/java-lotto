@@ -2,9 +2,10 @@ package domain;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class LottoNumbers {
-    private final List<LottoNumber> lottoNumbers;
+    private List<LottoNumber> lottoNumbers;
 
     public LottoNumbers(List<LottoNumber> lottoNumbers) {
         checkDuplicatedNumber(lottoNumbers);
@@ -25,11 +26,28 @@ public class LottoNumbers {
         }
     }
 
+    public void changeNumbers() {
+        this.lottoNumbers = LottoNumbersAutoGenerator.generateAutoLottoNumbers();
+    }
+
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
     }
 
     public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumbers that = (LottoNumbers) o;
+        return lottoNumbers.equals(that.lottoNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lottoNumbers);
     }
 }

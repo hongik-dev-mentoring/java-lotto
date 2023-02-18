@@ -11,21 +11,19 @@ public class LottoNumbersAutoGenerator {
     private static final int CANDIDATE_MAX_NUMBER = 45;
     private static final int NUMBER_OF_LOTTO_NUMBERS = 6;
 
-    public static List<LottoNumbers> generateLottoNumbersGroup(int purchaseNumber) {
+    public static List<LottoNumbers> generateAutoLottoNumbersGroup(int purchaseNumber) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         for (int i = 0; i < purchaseNumber; i++) {
-            LottoNumbers lottoNumbers = generateLottoNumbers();
-            // 수동 로또와 중복체크
-            lottoNumbersGroup.add(lottoNumbers);
+            List<LottoNumber> lottoNumbers = generateAutoLottoNumbers();
+            lottoNumbersGroup.add(new LottoNumbers(lottoNumbers));
         }
         return lottoNumbersGroup;
     }
 
-    private static LottoNumbers generateLottoNumbers() {
+    public static List<LottoNumber> generateAutoLottoNumbers() {
         List<LottoNumber> lottoCandidateNumbers = generateCandidateNumbers();
         Collections.shuffle(lottoCandidateNumbers);
-        List<LottoNumber> lottoNumbers = selectLottoNumbers(lottoCandidateNumbers);
-        return new LottoNumbers(lottoNumbers);
+        return selectLottoNumbers(lottoCandidateNumbers);
     }
 
     private static List<LottoNumber> generateCandidateNumbers() {
