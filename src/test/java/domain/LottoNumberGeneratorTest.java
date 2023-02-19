@@ -14,10 +14,11 @@ class LottoNumberGeneratorTest {
 	private static final int START_NUMBER = 1;
 	private static final int END_NUMBER = 46;
 	private static final int PICK_NUMBERS = 6;
+	private static final LottoNumberRange lottoNumberRange = new LottoNumberRange(START_NUMBER, END_NUMBER);
 
 	@Test
 	void 범위내의_숫자를_뽑을수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
 		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> actualNumbers = lottoNumbers.getNumbers();
@@ -33,7 +34,7 @@ class LottoNumberGeneratorTest {
 
 	@Test
 	void 임의_갯수의_숫자를_뽑을_수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
 		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
@@ -43,13 +44,13 @@ class LottoNumberGeneratorTest {
 
 	@Test
 	void 뽑은_숫자들은_중복된_숫자가_없다() {
-		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(START_NUMBER, END_NUMBER, PICK_NUMBERS);
+		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
 		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
 		List<Integer> afterDistinctNumbers = pickedNumbers.stream()
-				.distinct()
-				.collect(Collectors.toList());
+			.distinct()
+			.collect(Collectors.toList());
 
 		assertThat(afterDistinctNumbers).isEqualTo(pickedNumbers);
 	}
