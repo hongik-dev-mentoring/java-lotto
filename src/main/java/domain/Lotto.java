@@ -12,22 +12,22 @@ public class Lotto {
     private final LottoTicket lottoTicket;
     private final LottoNumberGenerator lottoNumberGenerator;
 
-    private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
+    private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto, LottoTicket manualLottoTicket) {
         this.lottoNumberGenerator = lottoNumberGenerator;
-        this.lottoTicket = generateLottoTicket(numberOfLotto);
+        this.lottoTicket = generateLottoTicket(numberOfLotto, manualLottoTicket);
     }
 
-    private LottoTicket generateLottoTicket(int numberOfLotto) {
-        List<LottoNumbers> lottoNumbers = new ArrayList<>();
+    private LottoTicket generateLottoTicket(int numberOfLotto, LottoTicket manualLottoTicket) {
+        List<LottoNumbers> lottoNumbers = new ArrayList<>(manualLottoTicket.getLottoTicket());
         for (int i = 0; i < numberOfLotto; i++) {
             lottoNumbers.add(lottoNumberGenerator.pickNumber());
         }
         return new LottoTicket(lottoNumbers);
     }
 
-    public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator,
-        int numberOfLotto) {
-        return new Lotto(lottoNumberGenerator, numberOfLotto);
+    public static Lotto generateLottoWithManualLottoTicket(LottoNumberGenerator lottoNumberGenerator,
+        int numberOfLotto, LottoTicket manualLottoTicket) {
+        return new Lotto(lottoNumberGenerator, numberOfLotto, manualLottoTicket);
     }
 
     public LottoTicket getLottoNumbers() {
