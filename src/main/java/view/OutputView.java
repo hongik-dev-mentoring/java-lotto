@@ -1,5 +1,6 @@
 package view;
 
+import dto.LottoNumbersDto;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -18,7 +19,7 @@ public class OutputView {
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto) {
 		lottoTicketDto.getLottoNumbersDto()
-			.forEach(System.out::println);
+			.forEach(OutputView::printLottoNumbers);
 	}
 
 	public static void printLottoPurchaseCount(int purchaseCount) {
@@ -72,5 +73,9 @@ public class OutputView {
 
 	public static void printErrorMessage(String message) {
 		System.out.println(message);
+	}
+
+	private static void printLottoNumbers(LottoNumbersDto lottoNumbersDto) {
+		System.out.println(lottoNumbersDto.getLottoNumbers());
 	}
 }

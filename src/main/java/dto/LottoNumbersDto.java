@@ -5,14 +5,13 @@ import java.util.List;
 
 public class LottoNumbersDto {
 
-	private final List<Integer> Numbers;
+	private final List<Integer> lottoNumbers;
 
 	public LottoNumbersDto(Numbers lottoNumbers) {
-		Numbers = lottoNumbers.getNumbers();
+		this.lottoNumbers = lottoNumbers.getNumbers();
 	}
 
-	@Override
-	public String toString() {
-		return Numbers.toString();
+	public List<Integer> getLottoNumbers() {
+		return List.copyOf(lottoNumbers);
 	}
 }
