@@ -11,21 +11,26 @@ import dto.RankDto;
 
 public class OutputView {
 
-	private static final String PURCHASE_MESSAGE = "개를 구매했습니다.";
+	private static final String MANUAL_PURCHASE_MESSAGE = "수동으로 구매할 번호를 입력해 주세요.";
 	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
 	private static final String DIVIDING_LINE = "---------";
 	private static final double SECOND_DECIMAL_PLACE = 100.0;
 
-	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int purchaseCount) {
+	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int manualLottoCount, int autoLottoCount) {
 		StringBuilder stringBuilder = new StringBuilder();
-		appendLottoTicketHeader(stringBuilder, purchaseCount);
+		appendLottoTicketHeader(stringBuilder, manualLottoCount, autoLottoCount);
 		appendLottoTicketBody(stringBuilder, lottoTicketDto);
 		System.out.println(stringBuilder);
 	}
 
-	private static void appendLottoTicketHeader(StringBuilder stringBuilder, int purchaseCount) {
-		stringBuilder.append(purchaseCount)
-			.append(PURCHASE_MESSAGE)
+	private static void appendLottoTicketHeader(StringBuilder stringBuilder, int manualLottoCount, int autoLottoCount) {
+		stringBuilder.append("수동으로 ")
+			.append(manualLottoCount)
+			.append("장, ")
+			.append("자동으로 ")
+			.append(autoLottoCount)
+			.append("개를 ")
+			.append("구매했습니다.")
 			.append(System.lineSeparator());
 	}
 
@@ -87,5 +92,9 @@ public class OutputView {
 
 	public static void printErrorMessage(String message) {
 		System.out.println(message);
+	}
+
+	public static void printBlankLine() {
+		System.out.println();
 	}
 }
