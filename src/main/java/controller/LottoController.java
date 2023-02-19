@@ -14,7 +14,7 @@ import dto.LottoTicketDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
 import util.calculator.TotalPrizeCalculator;
-import util.convertor.WinningNumberConvertor;
+import util.convertor.LottoNumberConvertor;
 import util.convertor.PurchaseAmountConvertor;
 import view.InputView;
 import view.OutputView;
@@ -66,7 +66,7 @@ public class LottoController {
 
 	private void getWinningNumbers() {
 		try {
-			winningNumbers =  WinningNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+			winningNumbers =  LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getWinningNumbers();
@@ -76,7 +76,7 @@ public class LottoController {
 	private void getBonusBall() {
 		try {
 			bonusBall = BonusBall.createBonusBallInRange(
-				lottoNumberRange, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+				lottoNumberRange, LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();

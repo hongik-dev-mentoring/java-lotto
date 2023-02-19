@@ -11,13 +11,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import domain.numbers.WinningNumbers;
 
-public class WinningNumberConvertorTest {
+public class LottoNumberConvertorTest {
 
 	private static final String winningNumbers = "1, 2, 3, 4, 5, 6";
 
 	@Test
 	void 당첨_번호를_입력받아_정상_변환한다() {
-		WinningNumbers lottoNumbers = WinningNumberConvertor.convertWinningNumber(winningNumbers);
+		WinningNumbers lottoNumbers = LottoNumberConvertor.convertWinningNumber(winningNumbers);
 
 		List<Integer> winningNumbers = lottoNumbers.getNumbers();
 		List<Integer> expectedNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
@@ -27,22 +27,22 @@ public class WinningNumberConvertorTest {
 
 	@Test
 	void 당첨_번호는_숫자여야_한다() {
-		assertThatThrownBy(() -> WinningNumberConvertor.convertWinningNumber("a"))
+		assertThatThrownBy(() -> LottoNumberConvertor.convertWinningNumber("a"))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 당첨 번호는 숫자여야 합니다. 다시 입력해주세요");
+			.hasMessage("[ERROR] 로또 번호는 숫자로만 구성 되어야 합니다. 다시 입력해주세요");
 	}
 
 	@ParameterizedTest(name = "{index} : 당첨 번호 {0} 입력")
 	@ValueSource(strings = {"1, 2, 3, 4, 5", "1, 2, 3, 4, 5, 6, 7"})
 	void 당첨_번호는_여섯개여야_한다(String input) {
-		assertThatThrownBy(() -> WinningNumberConvertor.convertWinningNumber(input))
+		assertThatThrownBy(() -> LottoNumberConvertor.convertWinningNumber(input))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 당첨 번호는 여섯 개의 숫자여야 합니다.");
 	}
 
 	@Test
 	void 보너스_번호를_입력받아_정상_변환한다() {
-		Integer bonusNumber = WinningNumberConvertor.convertBonusNumber("7");
+		Integer bonusNumber = LottoNumberConvertor.convertBonusNumber("7");
 
 		Integer expectedNumber = 7;
 
@@ -52,7 +52,7 @@ public class WinningNumberConvertorTest {
 	@ParameterizedTest
 	@ValueSource(strings = {"a", "1, 2"})
 	void 보너스_번호는_하나의_숫자여야_한다(String input) {
-		assertThatThrownBy(() -> WinningNumberConvertor.convertBonusNumber(input))
+		assertThatThrownBy(() -> LottoNumberConvertor.convertBonusNumber(input))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 보너스 번호는 한 개의 숫자여야 합니다. 다시 입력해주세요");
 	}
