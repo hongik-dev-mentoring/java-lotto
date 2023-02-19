@@ -3,7 +3,6 @@ package domain;
 import static org.assertj.core.api.Assertions.*;
 
 import domain.numbers.LottoNumbers;
-import domain.numbers.Numbers;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ class LottoNumberGeneratorTest {
 	void 범위내의_숫자를_뽑을수_있다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
-		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
+		LottoNumbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> actualNumbers = lottoNumbers.getNumbers();
 
 		List<Integer> expectedNumbers = List.copyOf(actualNumbers);
@@ -36,7 +35,7 @@ class LottoNumberGeneratorTest {
 	void 임의_갯수의_숫자를_뽑을_수_있다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
-		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
+		LottoNumbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
 
 		assertThat(pickedNumbers.size()).isEqualTo(PICK_NUMBERS);
@@ -46,7 +45,7 @@ class LottoNumberGeneratorTest {
 	void 뽑은_숫자들은_중복된_숫자가_없다() {
 		LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator(lottoNumberRange, PICK_NUMBERS);
 
-		Numbers lottoNumbers = lottoNumberGenerator.pickNumber();
+		LottoNumbers lottoNumbers = lottoNumberGenerator.pickNumber();
 		List<Integer> pickedNumbers = lottoNumbers.getNumbers();
 		List<Integer> afterDistinctNumbers = pickedNumbers.stream()
 			.distinct()

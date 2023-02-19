@@ -1,7 +1,6 @@
 package domain;
 
 import domain.numbers.LottoNumbers;
-import domain.numbers.Numbers;
 import domain.numbers.WinningNumbers;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -19,7 +18,7 @@ public class Lotto {
     }
 
     private LottoTicket generateLottoTicket(int numberOfLotto) {
-        List<Numbers> lottoNumbers = new ArrayList<>();
+        List<LottoNumbers> lottoNumbers = new ArrayList<>();
         for (int i = 0; i < numberOfLotto; i++) {
             lottoNumbers.add(lottoNumberGenerator.pickNumber());
         }
@@ -35,13 +34,12 @@ public class Lotto {
         return lottoTicket;
     }
 
-    public EnumMap<Ranking, Integer> checkLottoResult(WinningNumbers winningNumbers,
-        BonusBall bonusBall) {
+    public EnumMap<Ranking, Integer> checkLottoResult(WinningNumbers winningNumbers, BonusBall bonusBall) {
         EnumMap<Ranking, Integer> result = new EnumMap<>(Ranking.class);
-        List<Numbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
+        List<LottoNumbers> lottoTicketNumbers = lottoTicket.getLottoTicket();
 
-        for (Numbers lottoNumbers : lottoTicketNumbers) {
-            Ranking ranking = checkRank((LottoNumbers) lottoNumbers, winningNumbers, bonusBall);
+        for (LottoNumbers lottoNumbers : lottoTicketNumbers) {
+            Ranking ranking = checkRank(lottoNumbers, winningNumbers, bonusBall);
             Optional<Integer> numberOfRank = Optional.ofNullable(result.get(ranking));
             result.put(ranking, numberOfRank.orElse(0) + 1);
         }
@@ -59,7 +57,7 @@ public class Lotto {
         return getRanking(containsNumberCount, lottoNumbers, bonusBall);
     }
 
-    private Ranking getRanking(long containsNumberCount, Numbers lottoNumbers, BonusBall bonusBall) {
+    private Ranking getRanking(long containsNumberCount, LottoNumbers lottoNumbers, BonusBall bonusBall) {
         Ranking ranking = Ranking.getRanking(Long.valueOf(containsNumberCount).intValue());
 
         if (ranking == Ranking.SECOND || ranking == Ranking.THIRD) {
@@ -69,7 +67,7 @@ public class Lotto {
         return ranking;
     }
 
-    private Ranking checkRankingSecondOrThird(Numbers lottoNumbers, BonusBall bonusBall) {
+    private Ranking checkRankingSecondOrThird(LottoNumbers lottoNumbers, BonusBall bonusBall) {
         if (lottoNumbers.contains(bonusBall.getBonusBallNumber())) {
             return Ranking.SECOND;
         }

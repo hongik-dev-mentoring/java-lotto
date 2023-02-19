@@ -1,7 +1,6 @@
 package domain;
 
 import domain.numbers.LottoNumbers;
-import domain.numbers.Numbers;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ public class LottoNumberGenerator {
 		this.lottoSize = lottoSize;
 	}
 
-	public Numbers pickNumber() {
+	public LottoNumbers pickNumber() {
 		List<Integer> rangedNumbers = getRangedNumbers();
 
 		Collections.shuffle(rangedNumbers);

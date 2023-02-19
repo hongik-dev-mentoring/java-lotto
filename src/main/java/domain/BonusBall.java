@@ -1,6 +1,6 @@
 package domain;
 
-import domain.numbers.Numbers;
+import domain.numbers.LottoNumbers;
 
 public class BonusBall {
 
@@ -10,7 +10,7 @@ public class BonusBall {
 		this.bonusBallNumber = bonusBallNumber;
 	}
 
-	public static BonusBall createBonusBallInRange(LottoNumberRange lottoNumberRange, int bonusBallNumber, Numbers winningNumbers) {
+	public static BonusBall createBonusBallInRange(LottoNumberRange lottoNumberRange, int bonusBallNumber, LottoNumbers winningNumbers) {
 		validateBonusBallNumber(lottoNumberRange, bonusBallNumber);
 		validateDuplicateWithWinningNumber(bonusBallNumber, winningNumbers);
 		return new BonusBall(bonusBallNumber);
@@ -22,13 +22,13 @@ public class BonusBall {
 		}
 	}
 
-	private static void validateDuplicateWithWinningNumber(int bonusBallNumber, Numbers winningNumbers) {
+	private static void validateDuplicateWithWinningNumber(int bonusBallNumber, LottoNumbers winningNumbers) {
 		if (isContains(bonusBallNumber, winningNumbers)) {
 			throw new IllegalArgumentException("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다.");
 		}
 	}
 
-	private static boolean isContains(int bonusBallNumber, Numbers winningNumbers) {
+	private static boolean isContains(int bonusBallNumber, LottoNumbers winningNumbers) {
 		return winningNumbers.contains(bonusBallNumber);
 	}
 
