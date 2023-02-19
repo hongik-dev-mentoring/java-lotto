@@ -24,4 +24,12 @@ class PurchaseCountConvertorTest {
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("[ERROR] 수동 로또 구매 갯수는 숫자여야 합니다. 다시 입력해주세요");
     }
+
+    @Test
+    void 구입_갯구는_0개_이상이어야_한다() {
+
+        assertThatThrownBy(() -> PurchaseCountConvertor.convertPurchaseCount("-5"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("[ERROR] 수동 로또 구매 갯수는 0개 이상이어야 합니다. 다시 입력해주세요");
+    }
 }
