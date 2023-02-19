@@ -8,7 +8,6 @@ import domain.BonusBallConvertor;
 import domain.Lotto;
 import domain.LottoNumbers;
 import domain.LottoTicket;
-import domain.ManualLottoCountConvertor;
 import domain.PurchaseAmountConvertor;
 import domain.Rank;
 import domain.RankDiscriminator;
@@ -60,7 +59,7 @@ public class LottoController {
 
 	private int getManualLottoCount() {
 		try {
-			return ManualLottoCountConvertor.convertManualLotto(InputView.getManualLottoCount());
+			return InputView.getManualLottoCount();
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 		}
