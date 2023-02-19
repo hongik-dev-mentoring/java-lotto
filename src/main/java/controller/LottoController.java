@@ -1,6 +1,9 @@
 package controller;
 
 import domain.LottoNumberRange;
+import domain.LottoPurchaseCount;
+import domain.numbers.LottoNumbers;
+import java.util.ArrayList;
 import java.util.EnumMap;
 
 import domain.BonusBall;
@@ -11,6 +14,7 @@ import domain.Ranking;
 import domain.numbers.WinningNumbers;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
+import java.util.List;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
 import util.calculator.TotalPrizeCalculator;
@@ -30,6 +34,7 @@ public class LottoController {
 	private final LottoNumberRange lottoNumberRange;
 	private Lotto lotto;
 	private WinningNumbers winningNumbers;
+	private LottoTicket manualLottoTicket;
 	private BonusBall bonusBall;
 	private LottoPurchaseCount lottoPurchaseCount;
 	private int purchaseAmount;
@@ -44,13 +49,11 @@ public class LottoController {
 		lottoPurchaseCount = new LottoPurchaseCount(PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE));
 		getPurchaseManualLottoCount();
 
-		OutputView.printLottoPurchaseCount(lottoPurchaseCount.getLottoPurchaseCount(), manualLottoPurchaseCount);
-
-		lotto = Lotto.generateLottoWithLottoNumbers(
-			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), lottoPurchaseCount.getLottoPurchaseCount());
-		LottoTicket lottoTicket = lotto.getLottoNumbers();
-		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
-		OutputView.printBlankLine();
+		List<LottoNumbers> manualLottoNumbers = new ArrayList<>();
+		for (int i = 0; i < manualLottoPurchaseCount; i++) {
+			manualLottoNumbers.add(getManualLottoNumber());
+		}
+		manualLottoTicket = new LottoTicket(manualLottoNumbers);
 	}
 
 	private void getPurchaseAmount() {
@@ -71,6 +74,25 @@ public class LottoController {
 			OutputView.printErrorMessage(e.getMessage());
 			return getPurchaseManualLottoCount();
 		}
+	}
+
+	private LottoNumbers getManualLottoNumber() {
+		try {
+			return LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			return getManualLottoNumber();
+		}
+	}
+
+	public void generateAutoLottoNumber() {
+		OutputView.printLottoPurchaseCount(lottoPurchaseCount.getLottoPurchaseCount(), manualLottoPurchaseCount);
+
+		lotto = Lotto.generateLottoWithManualLottoTicket(
+			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), lottoPurchaseCount.getLottoPurchaseCount(), manualLottoTicket);
+		LottoTicket lottoTicket = lotto.getLottoNumbers();
+		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
+		OutputView.printBlankLine();
 	}
 
 	public void drawLotto() {
