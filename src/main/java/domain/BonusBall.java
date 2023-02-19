@@ -6,18 +6,18 @@ public class BonusBall {
 
 	private final int bonusBallNumber;
 
-	private BonusBall(int bonusBallNumber) {
+	public BonusBall(int bonusBallNumber) {
 		this.bonusBallNumber = bonusBallNumber;
 	}
 
-	public static BonusBall createBonusBallInRange(int startNumber, int endNumber, int bonusBallNumber, Numbers winningNumbers) {
-		validateBonusBallNumber(startNumber, endNumber, bonusBallNumber);
+	public static BonusBall createBonusBallInRange(LottoNumberRange lottoNumberRange, int bonusBallNumber, Numbers winningNumbers) {
+		validateBonusBallNumber(lottoNumberRange, bonusBallNumber);
 		validateDuplicateWithWinningNumber(bonusBallNumber, winningNumbers);
 		return new BonusBall(bonusBallNumber);
 	}
 
-	private static void validateBonusBallNumber(int startNumber, int endNumber, int bonusBallNumber) {
-		if (bonusBallNumber >= endNumber || bonusBallNumber < startNumber) {
+	private static void validateBonusBallNumber(LottoNumberRange lottoNumberRange, int bonusBallNumber) {
+		if (!lottoNumberRange.checkInRanged(bonusBallNumber)) {
 			throw new IllegalArgumentException("[ERROR] 보너스 볼은 1부터 45까지의 숫자여야 합니다.");
 		}
 	}

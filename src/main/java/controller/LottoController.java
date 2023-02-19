@@ -1,5 +1,6 @@
 package controller;
 
+import domain.LottoNumberRange;
 import java.util.EnumMap;
 
 import domain.BonusBall;
@@ -25,10 +26,15 @@ public class LottoController {
 	private static final int TO = 46;
 	private static final int LOTTO_SIZE = 6;
 
+	private final LottoNumberRange lottoNumberRange;
 	private Integer purchaseAmount;
 	private Lotto lotto;
 	private WinningNumbers winningNumbers;
 	private BonusBall bonusBall;
+
+	public LottoController() {
+		lottoNumberRange = new LottoNumberRange(FROM, TO);
+	}
 
 	public void purchaseLotto() {
 		getPurchaseAmount();
@@ -37,7 +43,7 @@ public class LottoController {
 		OutputView.printLottoPurchaseCount(calculateCount);
 
 		lotto = Lotto.generateLottoWithLottoNumbers(
-			new LottoNumberGenerator(FROM, TO, LOTTO_SIZE), calculateCount);
+			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), calculateCount);
 		LottoTicket lottoTicket = lotto.getLottoNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
 		OutputView.printBlankLine();
@@ -70,7 +76,7 @@ public class LottoController {
 	private void getBonusBall() {
 		try {
 			bonusBall = BonusBall.createBonusBallInRange(
-				FROM, TO, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+				lottoNumberRange, WinningNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getBonusBall();
