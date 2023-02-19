@@ -16,6 +16,7 @@ import util.calculator.PurchaseCountCalculator;
 import util.calculator.TotalPrizeCalculator;
 import util.convertor.LottoNumberConvertor;
 import util.convertor.PurchaseAmountConvertor;
+import util.convertor.PurchaseCountConvertor;
 import view.InputView;
 import view.OutputView;
 
@@ -27,10 +28,12 @@ public class LottoController {
 	private static final int LOTTO_SIZE = 6;
 
 	private final LottoNumberRange lottoNumberRange;
-	private Integer purchaseAmount;
 	private Lotto lotto;
 	private WinningNumbers winningNumbers;
 	private BonusBall bonusBall;
+	private LottoPurchaseCount lottoPurchaseCount;
+	private int purchaseAmount;
+	private int manualLottoPurchaseCount;
 
 	public LottoController() {
 		lottoNumberRange = new LottoNumberRange(FROM, TO);
@@ -38,12 +41,13 @@ public class LottoController {
 
 	public void purchaseLotto() {
 		getPurchaseAmount();
-		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
+		lottoPurchaseCount = new LottoPurchaseCount(PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE));
+		getPurchaseManualLottoCount();
 
-		OutputView.printLottoPurchaseCount(calculateCount);
+		OutputView.printLottoPurchaseCount(lottoPurchaseCount.getLottoPurchaseCount(), manualLottoPurchaseCount);
 
 		lotto = Lotto.generateLottoWithLottoNumbers(
-			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), calculateCount);
+			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), lottoPurchaseCount.getLottoPurchaseCount());
 		LottoTicket lottoTicket = lotto.getLottoNumbers();
 		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
 		OutputView.printBlankLine();
@@ -55,6 +59,17 @@ public class LottoController {
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			getPurchaseAmount();
+		}
+	}
+
+	private int getPurchaseManualLottoCount() {
+		try {
+			manualLottoPurchaseCount = PurchaseCountConvertor.convertPurchaseCount(InputView.getManualLottoPurchaseCount());
+			lottoPurchaseCount = lottoPurchaseCount.decreaseCount(manualLottoPurchaseCount);
+			return manualLottoPurchaseCount;
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			return getPurchaseManualLottoCount();
 		}
 	}
 
