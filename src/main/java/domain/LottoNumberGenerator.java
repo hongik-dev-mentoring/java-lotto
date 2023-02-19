@@ -1,6 +1,7 @@
 package domain;
 
 import domain.numbers.LottoNumbers;
+import domain.numbers.Numbers;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class LottoNumberGenerator {
 		this.lottoSize = lottoSize;
 	}
 
-	public LottoNumbers pickNumber() {
+	public Numbers pickNumber() {
 		List<Integer> pickNumbers = IntStream.range(startNumber, endNumber)
 			.boxed()
 			.collect(Collectors.toList());
