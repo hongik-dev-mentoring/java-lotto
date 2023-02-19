@@ -1,11 +1,14 @@
 package controller;
 
 import java.util.EnumMap;
+import java.util.List;
 
 import domain.BonusBall;
 import domain.BonusBallConvertor;
 import domain.Lotto;
+import domain.LottoNumbers;
 import domain.LottoTicket;
+import domain.ManualLottoCountConvertor;
 import domain.PurchaseAmountConvertor;
 import domain.Rank;
 import domain.RankDiscriminator;
@@ -17,6 +20,7 @@ import dto.LottoTicketDto;
 import dto.RankDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
+import util.generator.ManualLottoNumbersGenerator;
 import util.generator.RandomLottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
@@ -25,18 +29,66 @@ public class LottoController {
 
 	private static final int LOTTO_TICKET_PER_PRICE = 1000;
 
-	private Integer purchaseAmount;
-	private Lotto lotto;
+	private int purchaseAmount;
+	private LottoTicket totalLottoTicket;
 	private WinningNumbers winningNumbers;
 	private BonusBall bonusBall;
+	private Lotto manualLotto;
+	private Lotto autoLotto;
 
 	public void purchaseLotto() {
 		getPurchaseAmount();
-		int calculateCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
+		int totalLottoCount = PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE);
+		int manualLottoCount = getManualLottoCount();
 
-		lotto = Lotto.generateLottoWithLottoNumbers(new RandomLottoNumbersGenerator(), calculateCount);
-		LottoTicket lottoTicket = lotto.getLottoTicketNumbers();
-		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket), calculateCount);
+		int autoLottoCount = totalLottoCount - manualLottoCount;
+
+		manualLotto = new Lotto(new ManualLottoNumbersGenerator());
+		manualLotto = getManualLottos(manualLottoCount);
+		autoLotto = new Lotto(new RandomLottoNumbersGenerator());
+		autoLotto = getAuttoLottos(autoLottoCount);
+
+		LottoTicket autoLottoTicket = autoLotto.getLottoTicketNumbers();
+		LottoTicket manualLottoTicket = manualLotto.getLottoTicketNumbers();
+
+		List<LottoNumbers> manualLottoTickets = manualLottoTicket.getLottoTicket();
+		manualLottoTickets.addAll(autoLottoTicket.getLottoTicket());
+		totalLottoTicket = new LottoTicket(manualLottoTickets);
+
+		OutputView.printLottoTicket(new LottoTicketDto(totalLottoTicket), manualLottoCount, autoLottoCount);
+	}
+
+	private int getManualLottoCount() {
+		try {
+			return ManualLottoCountConvertor.convertManualLotto(InputView.getManualLottoCount());
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+		}
+		return getManualLottoCount();
+	}
+
+	private Lotto getManualLottos(int manualLottoCount) {
+		InputView.requestManualLotto();
+		for (int i = 0; i < manualLottoCount; ++i) {
+			generateManualLotto();
+		}
+		return manualLotto;
+	}
+
+	private void generateManualLotto() {
+		try {
+			manualLotto.generateLottoTicket();
+		} catch (IllegalArgumentException e) {
+			OutputView.printErrorMessage(e.getMessage());
+			generateManualLotto();
+		}
+	}
+
+	private Lotto getAuttoLottos(int autoLottoCount) {
+		for (int i = 0; i < autoLottoCount; ++i) {
+			autoLotto.generateLottoTicket();
+		}
+		return autoLotto;
 	}
 
 	private void getPurchaseAmount() {
@@ -73,7 +125,7 @@ public class LottoController {
 
 	public void announceLottoResult() {
 		RankDiscriminator rankDiscriminator = new RankDiscriminator(winningNumbers, bonusBall);
-		EnumMap<Rank, Integer> lottoResult = rankDiscriminator.checkLottoResult(lotto.getLottoTicketNumbers());
+		EnumMap<Rank, Integer> lottoResult = rankDiscriminator.checkLottoResult(totalLottoTicket);
 
 		EnumMap<RankDto, Integer> lottoResultsDto = new EnumMap<>(RankDto.class);
 		lottoResult.forEach((key, value) -> lottoResultsDto.put(RankDto.valueOf(key.name()), value));
