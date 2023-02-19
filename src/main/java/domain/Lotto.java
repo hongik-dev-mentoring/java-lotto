@@ -16,9 +16,8 @@ public class Lotto {
 		this.lottoTicket = new LottoTicket(new ArrayList<>());
 	}
 
-	public LottoTicket generateLottoTicket() {
+	public void generateLottoTicket() {
 		lottoTicket.add(numbersGenerator.generateLottoNumbers(LOTTO_NUMBERS_SIZE));
-		return lottoTicket;
 	}
 
 	public LottoTicket getLottoTicketNumbers() {
