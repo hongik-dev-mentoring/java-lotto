@@ -11,6 +11,15 @@ public class LottoNumbersAutoGenerator {
     private static final int CANDIDATE_MAX_NUMBER = 45;
     private static final int NUMBER_OF_LOTTO_NUMBERS = 6;
 
+    private static final List<LottoNumber> lottoCandidateNumbers = generateCandidateNumbers();
+
+    private static List<LottoNumber> generateCandidateNumbers() {
+        return IntStream.rangeClosed(CANDIDATE_MIN_NUMBER, CANDIDATE_MAX_NUMBER)
+                .boxed()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
+    }
+
     public static List<LottoNumbers> generateAutoLottoNumbersGroup(int purchaseNumber) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         for (int i = 0; i < purchaseNumber; i++) {
@@ -21,19 +30,11 @@ public class LottoNumbersAutoGenerator {
     }
 
     public static List<LottoNumber> generateAutoLottoNumbers() {
-        List<LottoNumber> lottoCandidateNumbers = generateCandidateNumbers();
         Collections.shuffle(lottoCandidateNumbers);
-        return selectLottoNumbers(lottoCandidateNumbers);
+        return selectLottoNumbers();
     }
 
-    private static List<LottoNumber> generateCandidateNumbers() {
-        return IntStream.rangeClosed(CANDIDATE_MIN_NUMBER, CANDIDATE_MAX_NUMBER)
-                .boxed()
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
-    }
-
-    private static List<LottoNumber> selectLottoNumbers(List<LottoNumber> lottoCandidateNumbers) {
+    private static List<LottoNumber> selectLottoNumbers() {
         return lottoCandidateNumbers.stream()
                 .limit(NUMBER_OF_LOTTO_NUMBERS)
                 .collect(Collectors.toList());
