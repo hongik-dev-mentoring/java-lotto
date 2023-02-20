@@ -8,17 +8,17 @@ public class LottoStatisticsCalculator {
     private static final int INITIAL_COUNT = 0;
     private static final int COUNT_UP_UNIT = 1;
 
-    private final List<LottoNumbers> lottoNumbersGroup;
+    private final LottoTicket lottoTicket;
     private final LottoWinningNumbers lottoWinningNumbers;
 
-    public LottoStatisticsCalculator(List<LottoNumbers> lottoNumbersGroup, LottoWinningNumbers lottoWinningNumbers) {
-        this.lottoNumbersGroup = lottoNumbersGroup;
+    public LottoStatisticsCalculator(LottoTicket lottoTicket, LottoWinningNumbers lottoWinningNumbers) {
+        this.lottoTicket = lottoTicket;
         this.lottoWinningNumbers = lottoWinningNumbers;
     }
 
     public EnumMap<LottoPrize, Integer> calculate() {
         EnumMap<LottoPrize, Integer> resultMap = initiateResultMap();
-        for (LottoNumbers lottoNumbers : lottoNumbersGroup) {
+        for (LottoNumbers lottoNumbers : lottoTicket.getLottoNumbersGroup()) {
             checkLottoWin(resultMap, lottoNumbers);
         }
         return resultMap;

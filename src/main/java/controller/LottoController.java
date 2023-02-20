@@ -1,7 +1,7 @@
 package controller;
 
 import domain.*;
-import dto.LottoNumbersGroupDto;
+import dto.LottoTicketDto;
 import dto.LottoResultMapDto;
 import parser.*;
 import view.InputView;
@@ -17,10 +17,10 @@ public class LottoController {
         int totalPurchaseNumber = PurchaseNumberCalculator.calculateTotalPurchaseNumber(inputPrice);
         int manualPurchaseNumber = getManualLottoPurchaseNumber(totalPurchaseNumber);
         int autoPurchaseNumber = PurchaseNumberCalculator.calculateAutoPurchaseNumber(totalPurchaseNumber, manualPurchaseNumber);
-        List<LottoNumbers> lottoNumbersGroup = createLottoTickets(manualPurchaseNumber, autoPurchaseNumber);
+        LottoTicket lottoTicket = createLottoTicket(manualPurchaseNumber, autoPurchaseNumber);
         ResultView.printPurchaseInfo(manualPurchaseNumber, autoPurchaseNumber);
-        ResultView.printLottoNumbersGroup(new LottoNumbersGroupDto(lottoNumbersGroup));
-        createLottoStatistics(inputPrice, lottoNumbersGroup);
+        ResultView.printLottoNumbersGroup(new LottoTicketDto(lottoTicket));
+        createLottoStatistics(inputPrice, lottoTicket);
     }
 
     private int getInputPrice() {
@@ -43,28 +43,28 @@ public class LottoController {
         }
     }
 
-    private List<LottoNumbers> createLottoTickets(int manualPurchaseNumber, int autoPurchaseNumber) {
-        List<LottoNumbers> manualLottoNumberGroup = getManualLottoNumbersGroup(manualPurchaseNumber);
-        List<LottoNumbers> autoLottoNumbersGroup = LottoNumbersAutoGenerator.generateAutoLottoNumbersGroup(autoPurchaseNumber);
-        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoNumberGroup, autoLottoNumbersGroup);
-        return LottoNumbersGroupCombiner.combine(manualLottoNumberGroup, autoLottoNumbersGroup);
+    private LottoTicket createLottoTicket(int manualPurchaseNumber, int autoPurchaseNumber) {
+        LottoTicket manualLottoTicket = getManualLottoTicket(manualPurchaseNumber);
+        LottoTicket autoLottoTicket = LottoNumbersAutoGenerator.generateAutoLottoTicket(autoPurchaseNumber);
+        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoTicket, autoLottoTicket);
+        return autoLottoTicket.combine(manualLottoTicket);
     }
 
-    private List<LottoNumbers> getManualLottoNumbersGroup(int manualPurchaseNumber) {
+    private LottoTicket getManualLottoTicket(int manualPurchaseNumber) {
         try {
             List<String> manualLottoNumbers = InputView.readManualLottoNumbers(manualPurchaseNumber);
             return ManualLottoNumbersParser.parse(manualLottoNumbers);
         } catch (Exception e) {
             ResultView.printExceptionMessage(e);
-            return getManualLottoNumbersGroup(manualPurchaseNumber);
+            return getManualLottoTicket(manualPurchaseNumber);
         }
     }
 
-    private void createLottoStatistics(int inputPrice, List<LottoNumbers> lottoNumbersGroup) {
+    private void createLottoStatistics(int inputPrice, LottoTicket lottoTicket) {
         LottoNumbers lastLottoNumbers = getLastLottoNumbers();
         LottoNumber bonusNumber = getBonusNumber();
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoNumbersGroup, lottoWinningNumbers);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoTicket, lottoWinningNumbers);
         EnumMap<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
         ResultView.printLottoResult(new LottoResultMapDto(resultMap));
         double benefit = LottoBenefitCalculator.calculate(inputPrice, resultMap);

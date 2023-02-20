@@ -1,6 +1,6 @@
 package parser;
 
-import domain.LottoNumbers;
+import domain.LottoTicket;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,9 +23,9 @@ class ManualLottoNumbersParserTest {
                 "13,14,15,16,17,45"
         );
         // when
-        List<LottoNumbers> lottoNumbers = ManualLottoNumbersParser.parse(manualLottoNumbers);
+        LottoTicket lottoTicket = ManualLottoNumbersParser.parse(manualLottoNumbers);
         // then
-        assertThat(lottoNumbers.size()).isEqualTo(3);
+        assertThat(lottoTicket.getLottoNumbersGroup().size()).isEqualTo(3);
     }
 
     @ParameterizedTest

@@ -18,7 +18,7 @@ class LottoNumbersAutoGeneratorTest {
     @Test
     @DisplayName("로또 번호 그룹 생성 테스트")
     public void generateLottoNumbersGroupTest() {
-        List<LottoNumbers> autoLottoNumbersGroup = LottoNumbersAutoGenerator.generateAutoLottoNumbersGroup(10);
-        assertThat(autoLottoNumbersGroup.size()).isEqualTo(10);
+        LottoTicket lottoTicket = LottoNumbersAutoGenerator.generateAutoLottoTicket(10);
+        assertThat(lottoTicket.getLottoNumbersGroup().size()).isEqualTo(10);
     }
 }

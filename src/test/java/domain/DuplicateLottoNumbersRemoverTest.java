@@ -9,29 +9,25 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 class DuplicateLottoNumbersRemoverTest {
     @Test
     @DisplayName("LottoNumbers 중복 제거 테스트")
     void removeDuplicatesTest() {
         // given
-        List<LottoNumbers> manualLottoNumbersGroup = createManualLottoNumbersGroup();
-        List<LottoNumbers> autoLottoNumbersGroup = createAutoLottoNumbersGroup();
+        LottoTicket manualLottoTicket = createManualLottoTicket();
+        LottoTicket autoLottoTicket = createAutoLottoTicket();
         // when
-        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoNumbersGroup, autoLottoNumbersGroup);
+        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoTicket, autoLottoTicket);
         // then
         LottoNumbers lottoNumbers = new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         );
-        assertAll(
-                () -> assertThat(manualLottoNumbersGroup.get(0).equals(lottoNumbers)).isTrue(),
-                () -> assertThat(autoLottoNumbersGroup.get(0).equals(lottoNumbers)).isFalse()
-        );
+        assertThat(autoLottoTicket.contains(lottoNumbers)).isFalse();
     }
 
-    private List<LottoNumbers> createManualLottoNumbersGroup() {
+    private LottoTicket createManualLottoTicket() {
         List<LottoNumbers> manualLottoNumbersGroup = new ArrayList<>();
         manualLottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
@@ -41,10 +37,10 @@ class DuplicateLottoNumbersRemoverTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         ));
-        return manualLottoNumbersGroup;
+        return new LottoTicket(manualLottoNumbersGroup);
     }
 
-    private List<LottoNumbers> createAutoLottoNumbersGroup() {
+    private LottoTicket createAutoLottoTicket() {
         List<LottoNumbers> autoLottoNumbersGroup = new ArrayList<>();
         autoLottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
@@ -54,6 +50,6 @@ class DuplicateLottoNumbersRemoverTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         ));
-        return autoLottoNumbersGroup;
+        return new LottoTicket(autoLottoNumbersGroup);
     }
 }

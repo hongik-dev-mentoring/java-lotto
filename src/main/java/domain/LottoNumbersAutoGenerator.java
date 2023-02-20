@@ -20,13 +20,13 @@ public class LottoNumbersAutoGenerator {
                 .collect(Collectors.toList());
     }
 
-    public static List<LottoNumbers> generateAutoLottoNumbersGroup(int purchaseNumber) {
+    public static LottoTicket generateAutoLottoTicket(int purchaseNumber) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         for (int i = 0; i < purchaseNumber; i++) {
             List<LottoNumber> lottoNumbers = generateAutoLottoNumbers();
             lottoNumbersGroup.add(new LottoNumbers(lottoNumbers));
         }
-        return lottoNumbersGroup;
+        return new LottoTicket(lottoNumbersGroup);
     }
 
     public static List<LottoNumber> generateAutoLottoNumbers() {

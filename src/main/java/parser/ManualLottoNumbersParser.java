@@ -2,6 +2,7 @@ package parser;
 
 import domain.LottoNumber;
 import domain.LottoNumbers;
+import domain.LottoTicket;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +12,9 @@ public class ManualLottoNumbersParser {
     private static final String LOTTO_NUMBER_FORMAT_EXCEPTION_MESSAGE = "로또 번호는 숫자여야 합니다.";
     private static final String COMMA_DELIMITER = ",";
 
-    public static List<LottoNumbers> parse(List<String> manualLottoNumbers) {
-        return parseToLottoNumbersGroup(manualLottoNumbers);
+    public static LottoTicket parse(List<String> manualLottoNumbers) {
+        List<LottoNumbers> lottoNumbersGroup = parseToLottoNumbersGroup(manualLottoNumbers);
+        return new LottoTicket(lottoNumbersGroup);
     }
 
     private static List<LottoNumbers> parseToLottoNumbersGroup(List<String> manualLottoNumbers) {
