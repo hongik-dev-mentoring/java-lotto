@@ -1,20 +1,22 @@
 package dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import domain.LottoNumber;
 import domain.LottoNumbers;
 
 public class LottoNumbersDto {
 
-	private final List<LottoNumber> Numbers;
+	private final List<LottoNumberDto> numbers;
 
 	public LottoNumbersDto(LottoNumbers lottoNumbers) {
-		Numbers = lottoNumbers.getNumbers();
+		numbers = lottoNumbers.getNumbers()
+			.stream()
+			.map(LottoNumberDto::new)
+			.collect(Collectors.toList());
 	}
 
-	@Override
-	public String toString() {
-		return Numbers.toString();
+	public List<LottoNumberDto> getNumbers() {
+		return numbers;
 	}
 }

@@ -48,4 +48,8 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	public int hashCode() {
 		return Objects.hash(number);
 	}
+
+	public int getNumber() {
+		return number;
+	}
 }

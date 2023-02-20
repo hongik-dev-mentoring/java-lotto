@@ -3,7 +3,9 @@ package view;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import dto.LottoNumberDto;
 import dto.LottoNumbersDto;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
@@ -13,6 +15,7 @@ public class OutputView {
 
 	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
 	private static final String DIVIDING_LINE = "---------";
+	private static final String DELIMITER = ", ";
 	private static final double SECOND_DECIMAL_PLACE = 100.0;
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int manualLottoCount, int autoLottoCount) {
@@ -34,11 +37,20 @@ public class OutputView {
 	}
 
 	private static void appendLottoTicketBody(StringBuilder stringBuilder, LottoTicketDto lottoTicketDto) {
-		List<LottoNumbersDto> lottoNumbersDto = lottoTicketDto.getLottoNumbersDto();
-		for (LottoNumbersDto numbersDto : lottoNumbersDto) {
-			stringBuilder.append(numbersDto)
+		for (LottoNumbersDto numbersDto : lottoTicketDto.getLottoNumbersDto()) {
+			List<LottoNumberDto> lottoNumbers = numbersDto.getNumbers();
+			stringBuilder.append("[")
+				.append(String.join(DELIMITER, getLottoNumbers(lottoNumbers)))
+				.append("]")
 				.append(System.lineSeparator());
 		}
+	}
+
+	private static List<String> getLottoNumbers(List<LottoNumberDto> lottoNumbers) {
+		return lottoNumbers.stream()
+			.map(LottoNumberDto::getLottoNumber)
+			.map(String::valueOf)
+			.collect(Collectors.toList());
 	}
 
 	public static void printLottoResult(LottoResultDto lottoResultDto, double profit) {
