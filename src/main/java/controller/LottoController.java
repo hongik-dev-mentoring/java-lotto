@@ -30,7 +30,6 @@ public class LottoController {
 	private int purchaseAmount;
 
 	private static final LottoController instance = new LottoController();
-	private LottoTicket totalLottoTicket;
 
 	private LottoController() {
 	}
@@ -59,7 +58,7 @@ public class LottoController {
 
 		List<LottoNumbers> manualLottoTickets = manualLottoTicket.getLottoTicket();
 		manualLottoTickets.addAll(autoLottoTicket.getLottoTicket());
-		totalLottoTicket = new LottoTicket(manualLottoTickets);
+		LottoTicket totalLottoTicket = new LottoTicket(manualLottoTickets);
 
 		OutputView.printLottoTicket(new LottoTicketDto(totalLottoTicket), manualLottoCount, autoLottoCount);
 		drawLotto(totalLottoTicket);
