@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class DuplicateLottoNumbersRemoverTest {
     @Test
@@ -24,8 +25,10 @@ class DuplicateLottoNumbersRemoverTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         );
-        assertThat(manualLottoNumbersGroup.get(0).equals(lottoNumbers)).isTrue();
-        assertThat(autoLottoNumbersGroup.get(0).equals(lottoNumbers)).isFalse();
+        assertAll(
+                () -> assertThat(manualLottoNumbersGroup.get(0).equals(lottoNumbers)).isTrue(),
+                () -> assertThat(autoLottoNumbersGroup.get(0).equals(lottoNumbers)).isFalse()
+        );
     }
 
     private List<LottoNumbers> createManualLottoNumbersGroup() {
