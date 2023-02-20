@@ -50,7 +50,13 @@ public class InputView {
 	}
 
 	public static String getManualLottoNumbers() {
-		return console.nextLine();
+		try {
+			Integer.parseInt(console.nextLine());
+			return console.nextLine();
+		} catch (NumberFormatException e) {
+			OutputView.printErrorMessage(REQUEST_NUMBER_MESSAGE);
+		}
+		return getManualLottoNumbers();
 	}
 
 	public static void requestManualLotto() {

@@ -21,4 +21,24 @@ public class Lotto {
 	public LottoTicket getLottoTicketNumbers() {
 		return lottoTicket;
 	}
+
+	public void getManualLottos(int manualLottoCount) {
+		for (int i = 0; i < manualLottoCount; ++i) {
+			generateManualLotto();
+		}
+	}
+
+	private void generateManualLotto() {
+		generateLottoTicket();
+	}
+
+	public void getAutoLottos(int autoLottoCount) {
+		for (int i = 0; i < autoLottoCount; ++i) {
+			getAutoLotto();
+		}
+	}
+
+	private void getAutoLotto() {
+		generateLottoTicket();
+	}
 }
