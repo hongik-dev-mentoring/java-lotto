@@ -1,10 +1,7 @@
-package util.generator;
+package domain;
 
 import java.util.Set;
 import java.util.TreeSet;
-
-import domain.LottoNumber;
-import domain.LottoNumbers;
 
 public class RandomLottoNumbersGenerator implements NumbersGenerator {
 

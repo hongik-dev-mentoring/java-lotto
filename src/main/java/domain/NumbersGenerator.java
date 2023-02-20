@@ -1,6 +1,4 @@
-package util.generator;
-
-import domain.LottoNumbers;
+package domain;
 
 public interface NumbersGenerator {
 

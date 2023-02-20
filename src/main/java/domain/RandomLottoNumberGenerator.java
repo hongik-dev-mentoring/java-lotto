@@ -1,11 +1,9 @@
-package util.generator;
+package domain;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import domain.LottoNumber;
 
 public class RandomLottoNumberGenerator {
 

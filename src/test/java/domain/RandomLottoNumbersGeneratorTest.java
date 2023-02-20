@@ -1,12 +1,10 @@
-package util.generator;
+package domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.DisplayNameGenerator.*;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
-
-import domain.LottoNumbers;
 
 @DisplayNameGeneration(ReplaceUnderscores.class)
 class RandomLottoNumbersGeneratorTest {

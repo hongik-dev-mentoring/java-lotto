@@ -2,8 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 
-import util.generator.NumbersGenerator;
-
 public class Lotto {
 
 	private static final int LOTTO_NUMBERS_SIZE = 6;

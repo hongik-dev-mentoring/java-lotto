@@ -8,7 +8,9 @@ import domain.BonusBallConvertor;
 import domain.Lotto;
 import domain.LottoNumbers;
 import domain.LottoTicket;
+import domain.ManualLottoNumbersGenerator;
 import domain.PurchaseAmountConvertor;
+import domain.RandomLottoNumbersGenerator;
 import domain.Rank;
 import domain.RankDiscriminator;
 import domain.TotalPrizeCalculator;
@@ -19,8 +21,6 @@ import dto.LottoTicketDto;
 import dto.RankDto;
 import util.calculator.ProfitRateCalculator;
 import util.calculator.PurchaseCountCalculator;
-import util.generator.ManualLottoNumbersGenerator;
-import util.generator.RandomLottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
 

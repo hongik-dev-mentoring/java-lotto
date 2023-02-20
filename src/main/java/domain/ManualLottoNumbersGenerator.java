@@ -1,12 +1,10 @@
-package util.generator;
+package domain;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import domain.LottoNumber;
-import domain.LottoNumbers;
 import view.InputView;
 
 public class ManualLottoNumbersGenerator implements NumbersGenerator {
