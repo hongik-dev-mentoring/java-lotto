@@ -11,7 +11,6 @@ import dto.RankDto;
 
 public class OutputView {
 
-	private static final String MANUAL_PURCHASE_MESSAGE = "수동으로 구매할 번호를 입력해 주세요.";
 	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
 	private static final String DIVIDING_LINE = "---------";
 	private static final double SECOND_DECIMAL_PLACE = 100.0;
