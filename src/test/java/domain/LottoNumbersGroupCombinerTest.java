@@ -15,6 +15,15 @@ class LottoNumbersGroupCombinerTest {
     @DisplayName("combine 메소드 테스트")
     public void combineTest() {
         // given
+        List<LottoNumbers> manualLottoNumbersGroup = createManualLottoNumbersGroup();
+        List<LottoNumbers> autoLottoNumbersGroup = createAutoLottoNumbersGroup();
+        // when
+        List<LottoNumbers> lottoNumbersGroup = LottoNumbersGroupCombiner.combine(manualLottoNumbersGroup, autoLottoNumbersGroup);
+        // then
+        assertThat(lottoNumbersGroup.size()).isEqualTo(4);
+    }
+
+    private List<LottoNumbers> createManualLottoNumbersGroup() {
         List<LottoNumbers> manualLottoNumbersGroup = new ArrayList<>();
         manualLottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
@@ -24,7 +33,10 @@ class LottoNumbersGroupCombinerTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         ));
+        return manualLottoNumbersGroup;
+    }
 
+    private List<LottoNumbers> createAutoLottoNumbersGroup() {
         List<LottoNumbers> autoLottoNumbersGroup = new ArrayList<>();
         autoLottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 8)
                 .map(LottoNumber::new)
@@ -34,9 +46,6 @@ class LottoNumbersGroupCombinerTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         ));
-        // when
-        List<LottoNumbers> lottoNumbersGroup = LottoNumbersGroupCombiner.combine(manualLottoNumbersGroup, autoLottoNumbersGroup);
-        // then
-        assertThat(lottoNumbersGroup.size()).isEqualTo(4);
+        return autoLottoNumbersGroup;
     }
 }
