@@ -2,14 +2,14 @@ package view;
 
 import domain.LottoPrize;
 import dto.LottoNumbersDto;
-import dto.LottoNumbersGroupDto;
+import dto.LottoTicketDto;
 import dto.LottoResultMapDto;
 
 import java.util.EnumMap;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public static void printLottoNumbersGroup(LottoNumbersGroupDto dto) {
+    public static void printLottoNumbersGroup(LottoTicketDto dto) {
         dto.getLottoNumbersGroup()
                 .forEach(ResultView::createLottoViewText);
     }
@@ -61,8 +61,15 @@ public class ResultView {
         System.out.println(stringBuilder);
     }
 
-    public static void printPurchaseInfo(int purchaseNum) {
-        System.out.println(purchaseNum + "개를 구매했습니다.");
+    public static void printPurchaseInfo(int manualPurchaseNumber, int autoPurchaseNumber) {
+        StringBuilder stringBuilder = new StringBuilder()
+                .append("수동으로 ")
+                .append(manualPurchaseNumber)
+                .append("장, ")
+                .append("자동으로 ")
+                .append(autoPurchaseNumber)
+                .append("개를 구매했습니다.");
+        System.out.println(stringBuilder);
     }
 
     public static void printExceptionMessage(Exception e) {

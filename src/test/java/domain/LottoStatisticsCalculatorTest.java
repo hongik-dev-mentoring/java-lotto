@@ -17,6 +17,22 @@ class LottoStatisticsCalculatorTest {
     @DisplayName("통계 결과 확인 테스트")
     void calculateLottoStatistics() {
         // given
+        LottoTicket lottoTicket = createLottoTicket();
+        LottoNumbers lastLottoNumbers = createLastLottoNumbers();
+        LottoNumber bonusNumber = new LottoNumber(7);
+        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
+        // when
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoTicket, lottoWinningNumbers);
+        EnumMap<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
+        // then
+        assertThat(resultMap.get(PRIZE_1ST)).isEqualTo(1);
+        assertThat(resultMap.get(PRIZE_2ND)).isEqualTo(1);
+        assertThat(resultMap.get(PRIZE_3RD)).isEqualTo(1);
+        assertThat(resultMap.get(PRIZE_4TH)).isEqualTo(0);
+        assertThat(resultMap.get(PRIZE_5TH)).isEqualTo(1);
+    }
+
+    public LottoTicket createLottoTicket() {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         lottoNumbersGroup.add(new LottoNumbers(Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
@@ -34,21 +50,13 @@ class LottoStatisticsCalculatorTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toList())
         ));
+        return new LottoTicket(lottoNumbersGroup);
+    }
 
+    public LottoNumbers createLastLottoNumbers() {
         List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
-        LottoNumbers lastLottoNumbers = new LottoNumbers(lottoNumbers);
-        LottoNumber bonusNumber = new LottoNumber(7);
-        LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
-        // when
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoNumbersGroup, lottoWinningNumbers);
-        EnumMap<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
-        // then
-        assertThat(resultMap.get(PRIZE_1ST)).isEqualTo(1);
-        assertThat(resultMap.get(PRIZE_2ND)).isEqualTo(1);
-        assertThat(resultMap.get(PRIZE_3RD)).isEqualTo(1);
-        assertThat(resultMap.get(PRIZE_4TH)).isEqualTo(0);
-        assertThat(resultMap.get(PRIZE_5TH)).isEqualTo(1);
+        return new LottoNumbers(lottoNumbers);
     }
 }

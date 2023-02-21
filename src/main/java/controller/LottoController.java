@@ -1,11 +1,9 @@
 package controller;
 
 import domain.*;
-import dto.LottoNumbersGroupDto;
+import dto.LottoTicketDto;
 import dto.LottoResultMapDto;
-import parser.BonusNumberParser;
-import parser.InputPriceParser;
-import parser.LastLottoNumbersParser;
+import parser.*;
 import view.InputView;
 import view.ResultView;
 
@@ -16,11 +14,13 @@ public class LottoController {
 
     public void startLotto() {
         int inputPrice = getInputPrice();
-        int purchaseNumber = PurchaseNumberCalculator.calculate(inputPrice);
-        ResultView.printPurchaseInfo(purchaseNumber);
-        List<LottoNumbers> lottoNumbersGroup = LottoNumbersGenerator.generateLottoNumbersGroup(purchaseNumber);
-        ResultView.printLottoNumbersGroup(new LottoNumbersGroupDto(lottoNumbersGroup));
-        createLottoStatistics(inputPrice, lottoNumbersGroup);
+        int totalPurchaseNumber = PurchaseNumberCalculator.calculateTotalPurchaseNumber(inputPrice);
+        int manualPurchaseNumber = getManualLottoPurchaseNumber(totalPurchaseNumber);
+        int autoPurchaseNumber = PurchaseNumberCalculator.calculateAutoPurchaseNumber(totalPurchaseNumber, manualPurchaseNumber);
+        LottoTicket lottoTicket = createLottoTicket(manualPurchaseNumber, autoPurchaseNumber);
+        ResultView.printPurchaseInfo(manualPurchaseNumber, autoPurchaseNumber);
+        ResultView.printLottoNumbersGroup(new LottoTicketDto(lottoTicket));
+        createLottoStatistics(inputPrice, lottoTicket);
     }
 
     private int getInputPrice() {
@@ -33,13 +33,40 @@ public class LottoController {
         }
     }
 
-    private void createLottoStatistics(int inputPrice, List<LottoNumbers> lottoNumbersGroup) {
+    private int getManualLottoPurchaseNumber(int totalPurchaseNumber) {
+        try {
+            String input = InputView.readManualLottoPurchaseNumber();
+            return ManualLottoPurchaseNumberParser.parse(input, totalPurchaseNumber);
+        } catch (Exception e) {
+            ResultView.printExceptionMessage(e);
+            return getManualLottoPurchaseNumber(totalPurchaseNumber);
+        }
+    }
+
+    private LottoTicket createLottoTicket(int manualPurchaseNumber, int autoPurchaseNumber) {
+        LottoTicket manualLottoTicket = getManualLottoTicket(manualPurchaseNumber);
+        LottoTicket autoLottoTicket = LottoNumbersAutoGenerator.generateAutoLottoTicket(autoPurchaseNumber);
+        DuplicateLottoNumbersRemover.removeDuplicates(manualLottoTicket, autoLottoTicket);
+        return autoLottoTicket.combine(manualLottoTicket);
+    }
+
+    private LottoTicket getManualLottoTicket(int manualPurchaseNumber) {
+        try {
+            List<String> manualLottoNumbers = InputView.readManualLottoNumbers(manualPurchaseNumber);
+            return ManualLottoNumbersParser.parse(manualLottoNumbers);
+        } catch (Exception e) {
+            ResultView.printExceptionMessage(e);
+            return getManualLottoTicket(manualPurchaseNumber);
+        }
+    }
+
+    private void createLottoStatistics(int inputPrice, LottoTicket lottoTicket) {
         LottoNumbers lastLottoNumbers = getLastLottoNumbers();
         LottoNumber bonusNumber = getBonusNumber();
         LottoWinningNumbers lottoWinningNumbers = new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
-        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoNumbersGroup, lottoWinningNumbers);
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoTicket, lottoWinningNumbers);
         EnumMap<LottoPrize, Integer> resultMap = lottoStatisticsCalculator.calculate();
-        ResultView.printLottoResult(new LottoResultMapDto(resultMap)); //
+        ResultView.printLottoResult(new LottoResultMapDto(resultMap));
         double benefit = LottoBenefitCalculator.calculate(inputPrice, resultMap);
         ResultView.printBenefit(benefit);
     }
