@@ -1,4 +1,4 @@
-package view;
+package util;
 
 import java.util.List;
 
@@ -33,6 +33,12 @@ public class InputException {
             return Integer.parseInt(component);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자를 입력해주세요.");
+        }
+    }
+
+    public static void handlePositive(int ManualLottoNum) {
+        if (ManualLottoNum < 0) {
+            throw new IllegalArgumentException();
         }
     }
 }
