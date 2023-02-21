@@ -12,10 +12,10 @@ public class LottoController {
 
     public void startLotto() {
         int inputPrice = Input.readPrice();
-        int purchaseNum = inputPrice / LottoPrice.getLottoPrice();
-        ResultView.printPurchaseInfo(purchaseNum);
+        int purchaseNum = inputPrice / LottoNumbers.getLottoPrice();
+        int manualLottoNum = Input.readManualLottoNum();
 
-        List<LottoNumbers> lottoNumbersGroup = lottoNumbersGroupGenerator(purchaseNum);
+        List<LottoNumbers> lottoNumbersGroup = lottoNumbersGroupGenerator(manualLottoNum, purchaseNum);
 
         ResultView.printInputGuide();
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
@@ -26,19 +26,23 @@ public class LottoController {
         ResultView.printBenefit(lottoChecker.getBenefit(statisticsMap, inputPrice));
     }
 
-    private List<LottoNumbers> lottoNumbersGroupGenerator(int purchaseNum) {
+    private List<LottoNumbers> lottoNumbersGroupGenerator(int manualLottoNum, int purchaseNum) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
-        for (int i = 0; i < purchaseNum; i++) {
-            LottoNumbers lottoNumbers = LottoGenerator.generate();
-            lottoNumbersGroup.add(lottoNumbers);
-            ResultView.printLottoNumbers(lottoNumbers);
-        }
+        int autoLottoNum = purchaseNum - manualLottoNum;
+
+        ResultView.printManualLottoInputGuide();
+        LottoGenerator.manualLottoNumberGenerator(manualLottoNum, lottoNumbersGroup);
+
+        ResultView.printPurchaseLottoDetails(manualLottoNum, autoLottoNum);
+        LottoGenerator.autoLottoNumberGenerator(lottoNumbersGroup, autoLottoNum);
+
+        ResultView.printLottoNumbers(lottoNumbersGroup);
         return lottoNumbersGroup;
     }
 
     private LottoWinningNumbers readWinningNumbers() {
-        List<Integer> lastLottoNumbers = Input.readLastLottoNumbers();
+        List<Integer> winningLottoNumbers = Input.readLottoNumbers();
         int bonusNumber = Input.readBonusNumber();
-        return new LottoWinningNumbers(lastLottoNumbers, bonusNumber);
+        return new LottoWinningNumbers(winningLottoNumbers, bonusNumber);
     }
 }
