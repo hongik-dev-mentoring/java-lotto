@@ -1,17 +1,14 @@
 package controller;
 
-import domain.LottoNumberRange;
 import domain.LottoPurchaseCount;
-import domain.numbers.LottoNumbers;
+import domain.numbers.LottoNumber;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
-import domain.BonusBall;
 import domain.Lotto;
-import domain.LottoNumberGenerator;
 import domain.LottoTicket;
 import domain.Ranking;
-import domain.numbers.WinningNumbers;
+import domain.numbers.WinningNumber;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
 import java.util.List;
@@ -27,58 +24,49 @@ import view.OutputView;
 public class LottoController {
 
 	private static final int LOTTO_TICKET_PER_PRICE = 1000;
-	private static final int FROM = 1;
-	private static final int TO = 46;
-	private static final int LOTTO_SIZE = 6;
 
-	private final LottoNumberRange lottoNumberRange;
 	private Lotto lotto;
-	private WinningNumbers winningNumbers;
+	private WinningNumber winningNumber;
 	private LottoTicket manualLottoTicket;
-	private BonusBall bonusBall;
-	private LottoPurchaseCount lottoPurchaseCount;
 	private int purchaseAmount;
+	private LottoPurchaseCount lottoPurchaseCount;
 	private int manualLottoPurchaseCount;
 
-	public LottoController() {
-		lottoNumberRange = new LottoNumberRange(FROM, TO);
-	}
-
 	public void purchaseLotto() {
-		getPurchaseAmount();
+		purchaseAmount = getPurchaseAmount();
 		lottoPurchaseCount = new LottoPurchaseCount(PurchaseCountCalculator.calculateCount(purchaseAmount, LOTTO_TICKET_PER_PRICE));
-		getPurchaseManualLottoCount();
+		manualLottoPurchaseCount = getPurchaseManualLottoCount();
 
-		List<LottoNumbers> manualLottoNumbers = new ArrayList<>();
+		List<LottoNumber> manualLottoNumbers = new ArrayList<>();
 		for (int i = 0; i < manualLottoPurchaseCount; i++) {
 			manualLottoNumbers.add(getManualLottoNumber());
 		}
 		manualLottoTicket = new LottoTicket(manualLottoNumbers);
 	}
 
-	private void getPurchaseAmount() {
+	private int getPurchaseAmount() {
 		try {
-			purchaseAmount = PurchaseAmountConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
+			return PurchaseAmountConvertor.convertPurchaseAmount(InputView.getPurchaseAmount());
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
-			getPurchaseAmount();
+			return getPurchaseAmount();
 		}
 	}
 
 	private int getPurchaseManualLottoCount() {
 		try {
-			manualLottoPurchaseCount = PurchaseCountConvertor.convertPurchaseCount(InputView.getManualLottoPurchaseCount());
-			lottoPurchaseCount = lottoPurchaseCount.decreaseCount(manualLottoPurchaseCount);
-			return manualLottoPurchaseCount;
+			int purchaseCount = PurchaseCountConvertor.convertPurchaseCount(InputView.getManualLottoPurchaseCount());
+			lottoPurchaseCount = lottoPurchaseCount.decreaseCount(purchaseCount);
+			return purchaseCount;
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			return getPurchaseManualLottoCount();
 		}
 	}
 
-	private LottoNumbers getManualLottoNumber() {
+	private LottoNumber getManualLottoNumber() {
 		try {
-			return LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+			return LottoNumberConvertor.convertLottoNumbers(InputView.getWinningNumbers());
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
 			return getManualLottoNumber();
@@ -89,39 +77,39 @@ public class LottoController {
 		OutputView.printLottoPurchaseCount(lottoPurchaseCount.getLottoPurchaseCount(), manualLottoPurchaseCount);
 
 		lotto = Lotto.generateLottoWithManualLottoTicket(
-			new LottoNumberGenerator(lottoNumberRange, LOTTO_SIZE), lottoPurchaseCount.getLottoPurchaseCount(), manualLottoTicket);
-		LottoTicket lottoTicket = lotto.getLottoNumbers();
-		OutputView.printLottoTicket(new LottoTicketDto(lottoTicket));
+			LottoNumber.createLottoNumberGenerator(), lottoPurchaseCount.getLottoPurchaseCount(), manualLottoTicket);
+
+		OutputView.printLottoTicket(new LottoTicketDto(lotto.getLottoTicket()));
 		OutputView.printBlankLine();
 	}
 
 	public void drawLotto() {
-		getWinningNumbers();
-		getBonusBall();
+		LottoNumber lottoNumber = getLottoNumbers();
+		winningNumber = getWinningNumbers(lottoNumber);
 		OutputView.printBlankLine();
 	}
 
-	private void getWinningNumbers() {
+	private LottoNumber getLottoNumbers() {
 		try {
-			winningNumbers =  LottoNumberConvertor.convertWinningNumber(InputView.getWinningNumbers());
+			return LottoNumberConvertor.convertLottoNumbers(InputView.getWinningNumbers());
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
-			getWinningNumbers();
+			return getLottoNumbers();
 		}
 	}
 
-	private void getBonusBall() {
+	private WinningNumber getWinningNumbers(LottoNumber winningNumbers) {
 		try {
-			bonusBall = BonusBall.createBonusBallInRange(
-				lottoNumberRange, LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber()), winningNumbers);
+			int bonusBallNumber = LottoNumberConvertor.convertBonusNumber(InputView.getBonusBallNumber());
+			return new WinningNumber(winningNumbers, bonusBallNumber);
 		} catch (IllegalArgumentException e) {
 			OutputView.printErrorMessage(e.getMessage());
-			getBonusBall();
+			return getWinningNumbers(winningNumbers);
 		}
 	}
 
 	public void announceLottoResult() {
-		EnumMap<Ranking, Integer> lottoResult = lotto.checkLottoResult(winningNumbers, bonusBall);
+		EnumMap<Ranking, Integer> lottoResult = lotto.checkLottoResult(winningNumber);
 		LottoResultDto lottoResultDto = new LottoResultDto(lottoResult);
 		OutputView.printLottoResult(lottoResultDto);
 

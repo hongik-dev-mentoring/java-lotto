@@ -10,7 +10,7 @@ public class LottoTicketDto {
 	List<LottoNumbersDto> lottoNumbers;
 
 	public LottoTicketDto(LottoTicket lottoTicket) {
-		this.lottoNumbers = lottoTicket.getLottoTicket()
+		this.lottoNumbers = lottoTicket.getLottoNumbers()
 			.stream()
 			.map(LottoNumbersDto::new)
 			.collect(Collectors.toList());

@@ -1,14 +1,14 @@
 package dto;
 
-import domain.numbers.LottoNumbers;
+import domain.numbers.LottoNumber;
 import java.util.List;
 
 public class LottoNumbersDto {
 
 	private final List<Integer> lottoNumbers;
 
-	public LottoNumbersDto(LottoNumbers lottoNumbers) {
-		this.lottoNumbers = lottoNumbers.getNumbers();
+	public LottoNumbersDto(LottoNumber lottoNumber) {
+		this.lottoNumbers = lottoNumber.getNumbers();
 	}
 
 	public List<Integer> getLottoNumbers() {
