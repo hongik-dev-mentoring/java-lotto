@@ -1,47 +1,39 @@
 package domain;
 
 import java.util.List;
+import java.util.Set;
 
-public class LottoNumbers implements Numbers {
+public class LottoNumbers {
 
 	private static final String LOTTO_NUMBER_COUNT_MESSAGE = "[ERROR] 로또 번호는 여섯 개의 숫자여야 합니다.";
 	private static final String LOTTO_NUMBER_DUPLICATE_MESSAGE = "[ERROR] 로또 번호는 중복이 불가능합니다.";
-	private static final int LOTTO_NUMBER = 6;
+	private static final int LOTTO_NUMBERS_SIZE = 6;
 
-	private final List<Integer> numbers;
+	private final Set<LottoNumber> numbers;
 
-	public LottoNumbers(List<Integer> numbers) {
+	public LottoNumbers(Set<LottoNumber> numbers) {
 		this.numbers = numbers;
-		validateLottoNumbersLength(numbers);
-		validateDuplicatedNumber(numbers);
+		validateLength(numbers);
+		validateDuplicate(numbers);
 	}
 
-	private void validateLottoNumbersLength(List<Integer> numbers) {
-		if (numbers.size() != LOTTO_NUMBER) {
+	private void validateLength(Set<LottoNumber> numbers) {
+		if (numbers.size() != LOTTO_NUMBERS_SIZE) {
 			throw new IllegalArgumentException(LOTTO_NUMBER_COUNT_MESSAGE);
 		}
 	}
 
-	private void validateDuplicatedNumber(List<Integer> numbers) {
-		long count = getDistinctLottoNumber(numbers);
-		if (count != numbers.size()) {
+	private void validateDuplicate(Set<LottoNumber> numbers) {
+		if (numbers.size() != LOTTO_NUMBERS_SIZE) {
 			throw new IllegalArgumentException(LOTTO_NUMBER_DUPLICATE_MESSAGE);
 		}
 	}
 
-	private long getDistinctLottoNumber(List<Integer> numbers) {
-		return numbers.stream()
-			.distinct()
-			.count();
+	public boolean contains(LottoNumber number) {
+		return numbers.contains(number);
 	}
 
-	@Override
-	public List<Integer> getNumbers() {
+	public List<LottoNumber> getNumbers() {
 		return List.copyOf(numbers);
-	}
-
-	@Override
-	public boolean contains(int value) {
-		return numbers.contains(value);
 	}
 }

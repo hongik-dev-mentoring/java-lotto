@@ -1,31 +1,26 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.DisplayNameGenerator.*;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayNameGeneration(ReplaceUnderscores.class)
 class BonusBallTest {
 
-	@Test
-	void 보너스_번호는_로또_번호의_범위_내에_있어야_한다() {
-		WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+	@ParameterizedTest(name = "보너스볼이 {0}일 때")
+	@ValueSource(ints = {1, 2, 3, 4, 5, 6})
+	void 보너스볼은_당첨_숫자와_중복이_불가능하다(int number) {
+		List<LottoNumber> lottoNumbers = List.of(new LottoNumber(1),new LottoNumber(2),
+			new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+		WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers);
 
-		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(50, winningNumbers))
+		assertThatThrownBy(() -> new BonusBall(new LottoNumber(number), winningNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 보너스 볼은 1부터 45까지의 숫자여야 합니다.");
-	}
-
-	@ParameterizedTest
-	@ValueSource(ints = {1,2,3,4,5,6})
-	void 보너스_번호는_당첨_번호와_중복될_수_없다(int input) {
-		WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
-
-		assertThatThrownBy(() -> BonusBall.createBonusBallInRange(input, winningNumbers))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("[ERROR] 보너스 볼은 당첨 번호와 중복이 불가능합니다.");
+			.hasMessage("[ERROR] 당첨 번호와 보너스 볼은 중복이 불가능합니다.");
 	}
 }

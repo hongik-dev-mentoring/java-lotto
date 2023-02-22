@@ -1,31 +1,44 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Lotto {
 
+	private static final int LOTTO_NUMBERS_SIZE = 6;
+
 	private final LottoTicket lottoTicket;
-	private final LottoNumberGenerator lottoNumberGenerator;
+	private final NumbersGenerator numbersGenerator;
 
-	private Lotto(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		this.lottoNumberGenerator = lottoNumberGenerator;
-		this.lottoTicket = generateLottoTicket(numberOfLotto);
+	public Lotto(NumbersGenerator numbersGenerator) {
+		this.numbersGenerator = numbersGenerator;
+		this.lottoTicket = new LottoTicket(new ArrayList<>());
 	}
 
-	private LottoTicket generateLottoTicket(int numberOfLotto) {
-		List<LottoNumbers> lottoNumbers = new ArrayList<>();
-		for (int i = 0; i < numberOfLotto; i++) {
-			lottoNumbers.add(lottoNumberGenerator.generateLottoNumbers());
-		}
-		return new LottoTicket(lottoNumbers);
-	}
-
-	public static Lotto generateLottoWithLottoNumbers(LottoNumberGenerator lottoNumberGenerator, int numberOfLotto) {
-		return new Lotto(lottoNumberGenerator, numberOfLotto);
+	public void generateLottoTicket() {
+		lottoTicket.add(numbersGenerator.generateLottoNumbers(LOTTO_NUMBERS_SIZE));
 	}
 
 	public LottoTicket getLottoTicketNumbers() {
 		return lottoTicket;
+	}
+
+	public void getManualLottos(int manualLottoCount) {
+		for (int i = 0; i < manualLottoCount; ++i) {
+			generateManualLotto();
+		}
+	}
+
+	private void generateManualLotto() {
+		generateLottoTicket();
+	}
+
+	public void getAutoLottos(int autoLottoCount) {
+		for (int i = 0; i < autoLottoCount; ++i) {
+			getAutoLotto();
+		}
+	}
+
+	private void getAutoLotto() {
+		generateLottoTicket();
 	}
 }

@@ -2,6 +2,8 @@ package domain;
 
 public class PurchaseAmountConvertor {
 
+	private static final int LOTTO_PURCHASE_AMOUNT_LIMIT = 0;
+
 	public static Integer convertPurchaseAmount(String purchaseAmountMoney) {
 		try {
 			Integer purchaseAmount = Integer.parseInt(purchaseAmountMoney);
@@ -13,7 +15,7 @@ public class PurchaseAmountConvertor {
 	}
 
 	private static void validatePositive(Integer amount) {
-		if (amount < 0) {
+		if (amount < LOTTO_PURCHASE_AMOUNT_LIMIT) {
 			throw new IllegalArgumentException("[ERROR] 로또 금액은 0원 이상이어야 합니다. 다시 입력해주세요");
 		}
 	}

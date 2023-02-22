@@ -11,6 +11,10 @@ public class LottoTicket {
 	}
 
 	public List<LottoNumbers> getLottoTicket() {
-		return List.copyOf(lottoTicket);
+		return lottoTicket;
+	}
+
+	public void add(LottoNumbers lottoNumbers) {
+		lottoTicket.add(lottoNumbers);
 	}
 }

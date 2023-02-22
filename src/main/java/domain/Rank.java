@@ -1,8 +1,7 @@
 package domain;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 public enum Rank {
 
@@ -23,19 +22,20 @@ public enum Rank {
 		this.winningAmount = winningAmount;
 	}
 
-	public static List<Rank> getRanks() {
+	public static Rank findRank(int correctNumber, boolean bonus) {
 		return Arrays.stream(Rank.values())
-			.filter(rank -> rank != Rank.UNRANKED)
-			.collect(Collectors.toUnmodifiableList());
+			.filter(getRank(correctNumber, bonus))
+			.findAny()
+			.orElse(UNRANKED);
 	}
 
-	public static Rank findRank(int correctNumber, boolean bonus) {
-		for (Rank rank : Rank.values()) {
-			if (rank.correctNumber == correctNumber && rank.bonus == bonus) {
-				return rank;
-			}
-		}
-		return UNRANKED;
+	private static Predicate<Rank> getRank(int correctNumber, boolean bonus) {
+		return rank -> rank.getCorrectNumber() == correctNumber
+			&& rank.isBonus() == bonus;
+	}
+
+	public int getWinningAmount() {
+		return winningAmount;
 	}
 
 	public int getCorrectNumber() {
@@ -45,9 +45,4 @@ public enum Rank {
 	public boolean isBonus() {
 		return bonus;
 	}
-
-	public int getWinningAmount() {
-		return winningAmount;
-	}
-
 }

@@ -3,7 +3,9 @@ package view;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import dto.LottoNumberDto;
 import dto.LottoNumbersDto;
 import dto.LottoResultDto;
 import dto.LottoTicketDto;
@@ -11,30 +13,44 @@ import dto.RankDto;
 
 public class OutputView {
 
-	private static final String PURCHASE_MESSAGE = "개를 구매했습니다.";
 	private static final String LOTTO_RESULT_HEADER_MESSAGE = "당첨 통계";
 	private static final String DIVIDING_LINE = "---------";
+	private static final String DELIMITER = ", ";
 	private static final double SECOND_DECIMAL_PLACE = 100.0;
 
-	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int purchaseCount) {
+	public static void printLottoTicket(LottoTicketDto lottoTicketDto, int manualLottoCount, int autoLottoCount) {
 		StringBuilder stringBuilder = new StringBuilder();
-		appendLottoTicketHeader(stringBuilder, purchaseCount);
+		appendLottoTicketHeader(stringBuilder, manualLottoCount, autoLottoCount);
 		appendLottoTicketBody(stringBuilder, lottoTicketDto);
 		System.out.println(stringBuilder);
 	}
 
-	private static void appendLottoTicketHeader(StringBuilder stringBuilder, int purchaseCount) {
-		stringBuilder.append(purchaseCount)
-			.append(PURCHASE_MESSAGE)
+	private static void appendLottoTicketHeader(StringBuilder stringBuilder, int manualLottoCount, int autoLottoCount) {
+		stringBuilder.append("수동으로 ")
+			.append(manualLottoCount)
+			.append("장, ")
+			.append("자동으로 ")
+			.append(autoLottoCount)
+			.append("개를 ")
+			.append("구매했습니다.")
 			.append(System.lineSeparator());
 	}
 
 	private static void appendLottoTicketBody(StringBuilder stringBuilder, LottoTicketDto lottoTicketDto) {
-		List<LottoNumbersDto> lottoNumbersDto = lottoTicketDto.getLottoNumbersDto();
-		for (LottoNumbersDto numbersDto : lottoNumbersDto) {
-			stringBuilder.append(numbersDto)
+		for (LottoNumbersDto numbersDto : lottoTicketDto.getLottoNumbersDto()) {
+			List<LottoNumberDto> lottoNumbers = numbersDto.getNumbers();
+			stringBuilder.append("[")
+				.append(String.join(DELIMITER, getLottoNumbers(lottoNumbers)))
+				.append("]")
 				.append(System.lineSeparator());
 		}
+	}
+
+	private static List<String> getLottoNumbers(List<LottoNumberDto> lottoNumbers) {
+		return lottoNumbers.stream()
+			.map(LottoNumberDto::getLottoNumber)
+			.map(String::valueOf)
+			.collect(Collectors.toList());
 	}
 
 	public static void printLottoResult(LottoResultDto lottoResultDto, double profit) {
@@ -87,5 +103,9 @@ public class OutputView {
 
 	public static void printErrorMessage(String message) {
 		System.out.println(message);
+	}
+
+	public static void printBlankLine() {
+		System.out.println();
 	}
 }
