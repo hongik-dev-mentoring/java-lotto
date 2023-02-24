@@ -2,6 +2,7 @@ package controller;
 
 import domain.LottoPurchaseCount;
 import domain.numbers.LottoNumber;
+import domain.numbers.LottoNumberGenerator;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -77,7 +78,7 @@ public class LottoController {
 		OutputView.printLottoPurchaseCount(lottoPurchaseCount.getLottoPurchaseCount(), manualLottoPurchaseCount);
 
 		lotto = Lotto.generateLottoWithManualLottoTicket(
-			LottoNumber.createLottoNumberGenerator(), lottoPurchaseCount.getLottoPurchaseCount(), manualLottoTicket);
+			new LottoNumberGenerator(), lottoPurchaseCount.getLottoPurchaseCount(), manualLottoTicket);
 
 		OutputView.printLottoTicket(new LottoTicketDto(lotto.getLottoTicket()));
 		OutputView.printBlankLine();

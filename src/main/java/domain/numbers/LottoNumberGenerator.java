@@ -11,10 +11,10 @@ public class LottoNumberGenerator {
 	private final int lottoMaximumNumber;
 	private final int lottoSize;
 
-	public LottoNumberGenerator(int lottoMinimumNumber, int lottoMaximumNumber, int lottoSize) {
-		this.lottoMinimumNumber = lottoMinimumNumber;
-		this.lottoMaximumNumber = lottoMaximumNumber;
-		this.lottoSize = lottoSize;
+	public LottoNumberGenerator() {
+		this.lottoMinimumNumber = LottoNumber.getLottoMinimumNumber();
+		this.lottoMaximumNumber = LottoNumber.getLottoMaximumNumber();
+		this.lottoSize = LottoNumber.getLottoSize();
 	}
 
 	public LottoNumber pickNumber() {

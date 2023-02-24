@@ -16,13 +16,12 @@ class LottoTest {
 	private static final int LOTTO_COUNT = 1;
 	private static final LottoTicket emptyManualLottoTicket = new LottoTicket(new ArrayList<>());
 
-	LottoNumberGenerator lottoNumberGenerator = LottoNumber.createLottoNumberGenerator();
+	LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 	Lotto lotto = Lotto.generateLottoWithManualLottoTicket(lottoNumberGenerator, LOTTO_COUNT,
 		emptyManualLottoTicket);
 
 	@Test
 	void 임의_갯수의_로또_번호를_가진_로또_객체를_만들_수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = LottoNumber.createLottoNumberGenerator();
 		Lotto lotto = Lotto.generateLottoWithManualLottoTicket(lottoNumberGenerator, LOTTO_COUNT,
 			emptyManualLottoTicket);
 		assertThat(lotto.getLottoTicket().getLottoNumbers().size()).isEqualTo(LOTTO_COUNT);
@@ -30,7 +29,6 @@ class LottoTest {
 
 	@Test
 	void 임의로_번호를_입력하면_당첨_결과를_받을_수_있다() {
-		LottoNumberGenerator lottoNumberGenerator = LottoNumber.createLottoNumberGenerator();
 		Lotto lotto = Lotto.generateLottoWithManualLottoTicket(lottoNumberGenerator, LOTTO_COUNT,
 			emptyManualLottoTicket);
 		LottoNumber lottoNumber = lotto.getLottoTicket().getLottoNumbers().get(0);

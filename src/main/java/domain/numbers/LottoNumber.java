@@ -47,7 +47,15 @@ public class LottoNumber {
 		return LOTTO_MINIMUM_NUMBER <= number && number < LOTTO_MAXIMUM_NUMBER;
 	}
 
-	public static LottoNumberGenerator createLottoNumberGenerator() {
-		return new LottoNumberGenerator(LOTTO_MINIMUM_NUMBER, LOTTO_MAXIMUM_NUMBER, LOTTO_SIZE);
+	public static int getLottoMinimumNumber() {
+		return LOTTO_MINIMUM_NUMBER;
+	}
+
+	public static int getLottoMaximumNumber() {
+		return LOTTO_MAXIMUM_NUMBER;
+	}
+
+	public static int getLottoSize() {
+		return LOTTO_SIZE;
 	}
 }
