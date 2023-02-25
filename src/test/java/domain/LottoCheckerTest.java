@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LottoCheckerTest {
 
@@ -29,10 +30,12 @@ class LottoCheckerTest {
         Map<LottoPrize, Integer> resultMap = lottoChecker.calculateLottoStatistics();
 
         //then
-        assertThat(resultMap.get(LottoPrize.PRIZE_1ST)).isEqualTo(1);
-        assertThat(resultMap.get(LottoPrize.PRIZE_2ND)).isEqualTo(1);
-        assertThat(resultMap.get(LottoPrize.PRIZE_3RD)).isEqualTo(1);
-        assertThat(resultMap.get(LottoPrize.PRIZE_4TH)).isEqualTo(0);
-        assertThat(resultMap.get(LottoPrize.PRIZE_5TH)).isEqualTo(0);
+        assertAll(
+                () -> assertThat(resultMap.get(LottoPrize.PRIZE_1ST)).isEqualTo(1),
+                () -> assertThat(resultMap.get(LottoPrize.PRIZE_2ND)).isEqualTo(1),
+                () -> assertThat(resultMap.get(LottoPrize.PRIZE_3RD)).isEqualTo(1),
+                () -> assertThat(resultMap.get(LottoPrize.PRIZE_4TH)).isEqualTo(0),
+                () -> assertThat(resultMap.get(LottoPrize.PRIZE_5TH)).isEqualTo(0)
+        );
     }
 }
