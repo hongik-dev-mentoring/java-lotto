@@ -12,10 +12,10 @@ public class LottoController {
 
     public void startLotto() {
         int inputPrice = Input.readPrice();
-        int purchaseNum = inputPrice / LottoNumbers.getLottoPrice();
+        int purchaseNum = PurchaseNumCalculator.calculateLotto(inputPrice);
         int manualLottoNum = Input.readManualLottoNum();
 
-        List<LottoNumbers> lottoNumbersGroup = lottoNumbersGroupGenerator(manualLottoNum, purchaseNum);
+        List<LottoNumbers> lottoNumbersGroup = generateLottoNumbersGroup(manualLottoNum, purchaseNum);
 
         ResultView.printInputGuide();
         LottoWinningNumbers lottoWinningNumbers = readWinningNumbers();
@@ -26,15 +26,17 @@ public class LottoController {
         ResultView.printBenefit(lottoChecker.getBenefit(statisticsMap, inputPrice));
     }
 
-    private List<LottoNumbers> lottoNumbersGroupGenerator(int manualLottoNum, int purchaseNum) {
+    private List<LottoNumbers> generateLottoNumbersGroup(int manualLottoNum, int purchaseNum) {
         List<LottoNumbers> lottoNumbersGroup = new ArrayList<>();
         int autoLottoNum = purchaseNum - manualLottoNum;
 
         ResultView.printManualLottoInputGuide();
-        LottoGenerator.manualLottoNumberGenerator(manualLottoNum, lottoNumbersGroup);
+        for (int i = 0; i < manualLottoNum; i++) {
+            lottoNumbersGroup.add(new LottoNumbers(Input.readLottoNumbers()));
+        }
 
         ResultView.printPurchaseLottoDetails(manualLottoNum, autoLottoNum);
-        LottoGenerator.autoLottoNumberGenerator(lottoNumbersGroup, autoLottoNum);
+        LottoGenerator.generateAutoLottoNumber(lottoNumbersGroup, autoLottoNum);
 
         ResultView.printLottoNumbers(lottoNumbersGroup);
         return lottoNumbersGroup;
