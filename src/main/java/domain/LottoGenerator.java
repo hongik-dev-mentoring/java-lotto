@@ -20,13 +20,7 @@ public class LottoGenerator {
         return new LottoNumbers(lottoNumbers);
     }
 
-    public static void manualLottoNumberGenerator(int manualLottoNum, List<LottoNumbers> lottoNumbersGroup) {
-        for (int i = 0; i < manualLottoNum; i++) {
-            lottoNumbersGroup.add(new LottoNumbers(Input.readLottoNumbers()));
-        }
-    }
-
-    public static void autoLottoNumberGenerator(List<LottoNumbers> lottoNumbersGroup, int autoLottoNum) {
+    public static void generateAutoLottoNumber(List<LottoNumbers> lottoNumbersGroup, int autoLottoNum) {
         for (int i = 0; i < autoLottoNum; i++) {
             LottoNumbers lottoNumbers = LottoGenerator.generate();
             lottoNumbersGroup.add(lottoNumbers);
