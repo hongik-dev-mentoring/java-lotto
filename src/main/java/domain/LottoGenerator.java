@@ -1,6 +1,7 @@
 package domain;
 
-import java.util.ArrayList;
+import view.Input;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,13 @@ public class LottoGenerator {
         List<Integer> lottoNumbers = generateLottoNumbers(lottoCandidateNumbers);
 
         return new LottoNumbers(lottoNumbers);
+    }
+
+    public static void generateAutoLottoNumber(List<LottoNumbers> lottoNumbersGroup, int autoLottoNum) {
+        for (int i = 0; i < autoLottoNum; i++) {
+            LottoNumbers lottoNumbers = LottoGenerator.generate();
+            lottoNumbersGroup.add(lottoNumbers);
+        }
     }
 
     private static List<Integer> generateCandidateNumbers() {

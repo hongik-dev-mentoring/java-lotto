@@ -1,5 +1,7 @@
 package view;
 
+import util.InputException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +25,21 @@ public class Input {
         return price;
     }
 
-    public static List<Integer> readLastLottoNumbers() {
+    public static Integer readManualLottoNum() {
+        int ManualLottoNum;
+        try {
+            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+            String input = sc.nextLine();
+            ManualLottoNum = Integer.parseInt(input);
+            InputException.handlePositive(ManualLottoNum);
+        } catch (Exception e) {
+            System.out.println("0이상의 숫자를 입력해주세요.");
+            return readManualLottoNum();
+        }
+        return ManualLottoNum;
+    }
+
+    public static List<Integer> readLottoNumbers() {
         List<Integer> lastLottoNumbers;
         try {
             String input = sc.nextLine();
@@ -31,7 +47,7 @@ public class Input {
             validateLastLottoNumbers(lastLottoNumbers, input.split(COMMA_DELIMITER));
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return readLastLottoNumbers();
+            return readLottoNumbers();
         }
         return lastLottoNumbers;
     }
