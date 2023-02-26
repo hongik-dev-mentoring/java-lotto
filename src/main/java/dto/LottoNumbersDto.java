@@ -1,19 +1,17 @@
 package dto;
 
+import domain.numbers.LottoNumber;
 import java.util.List;
-
-import domain.numbers.LottoNumbers;
 
 public class LottoNumbersDto {
 
-	private final List<Integer> Numbers;
+	private final List<Integer> lottoNumbers;
 
-	public LottoNumbersDto(LottoNumbers lottoNumbers) {
-		Numbers = lottoNumbers.getNumbers();
+	public LottoNumbersDto(LottoNumber lottoNumber) {
+		this.lottoNumbers = lottoNumber.getNumbers();
 	}
 
-	@Override
-	public String toString() {
-		return Numbers.toString();
+	public List<Integer> getLottoNumbers() {
+		return List.copyOf(lottoNumbers);
 	}
 }

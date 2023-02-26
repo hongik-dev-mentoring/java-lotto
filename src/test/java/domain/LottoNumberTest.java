@@ -2,7 +2,7 @@ package domain;
 
 import static org.assertj.core.api.Assertions.*;
 
-import domain.numbers.LottoNumbers;
+import domain.numbers.LottoNumber;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class LottoNumbersTest {
+public class LottoNumberTest {
 
 	@Test
 	void 정수_리스트를_받아_LottoNumbers_객체를_만들_수_있다() {
 		List<Integer> inputNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
 
-		LottoNumbers lottoNumbers = new LottoNumbers(inputNumbers);
-		List<Integer> actualLottoNumbers = lottoNumbers.getNumbers();
+		LottoNumber lottoNumber = new LottoNumber(inputNumbers);
+		List<Integer> actualLottoNumbers = lottoNumber.getNumbers();
 
 		assertThat(actualLottoNumbers).isEqualTo(inputNumbers);
 	}
@@ -31,7 +31,7 @@ public class LottoNumbersTest {
 			.map(Integer::parseInt)
 			.collect(Collectors.toList());
 
-		assertThatThrownBy(() -> new LottoNumbers(wrongLottoNumbers))
+		assertThatThrownBy(() -> new LottoNumber(wrongLottoNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 로또 번호는 여섯 개의 숫자여야 합니다.");
 	}
@@ -40,7 +40,7 @@ public class LottoNumbersTest {
 	void 로또_번호는_중복일수_없다() {
 		List<Integer> duplicatedLottoNumbers = List.of(1,2,3,4,5,5);
 
-		assertThatThrownBy(() -> new LottoNumbers(duplicatedLottoNumbers))
+		assertThatThrownBy(() -> new LottoNumber(duplicatedLottoNumbers))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("[ERROR] 로또 번호는 중복이 불가능합니다.");
 	}

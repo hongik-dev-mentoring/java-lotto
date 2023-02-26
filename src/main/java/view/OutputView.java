@@ -1,5 +1,6 @@
 package view;
 
+import dto.LottoNumbersDto;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -13,16 +14,22 @@ import dto.LottoTicketDto;
 
 public class OutputView {
 
+	private static final String MANUAL_LOTTO_PURCHASE_MESSAGE = "수동으로 ";
+	private static final String MANUAL_LOTTO_PURCHASE_COUNT_MESSAGE = "장, ";
+	private static final String AUTO_LOTTO_PURCHASE_MESSAGE = "자동으로 ";
 	private static final String PURCHASE_MESSAGE = "개를 구매했습니다.";
 	private static final String LOTTO_RESULT_MESSAGE = "당첨 통계\n---------";
 
 	public static void printLottoTicket(LottoTicketDto lottoTicketDto) {
 		lottoTicketDto.getLottoNumbersDto()
-			.forEach(System.out::println);
+			.forEach(OutputView::printLottoNumbers);
 	}
 
-	public static void printLottoPurchaseCount(int purchaseCount) {
-		StringBuilder purchaseCountString = new StringBuilder()
+	public static void printLottoPurchaseCount(int purchaseCount, int manualLottoPurchaseCount) {
+		StringBuilder purchaseCountString = new StringBuilder(MANUAL_LOTTO_PURCHASE_MESSAGE)
+			.append(manualLottoPurchaseCount)
+			.append(MANUAL_LOTTO_PURCHASE_COUNT_MESSAGE)
+			.append(AUTO_LOTTO_PURCHASE_MESSAGE)
 			.append(purchaseCount)
 			.append(PURCHASE_MESSAGE);
 		System.out.println(purchaseCountString);
@@ -72,5 +79,9 @@ public class OutputView {
 
 	public static void printErrorMessage(String message) {
 		System.out.println(message);
+	}
+
+	private static void printLottoNumbers(LottoNumbersDto lottoNumbersDto) {
+		System.out.println(lottoNumbersDto.getLottoNumbers());
 	}
 }
